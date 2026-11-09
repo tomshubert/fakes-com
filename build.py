@@ -10,7 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://fakes.com"
 PREVIEW = True  # True = search engines told not to index + preview banner. Set False at launch.
 
-NAV = [("/alerts", "Scam Alerts"), ("/guides/", "Guides"), ("/spot-the-fake", "Spot the Fake"), ("/about", "About")]
+NAV = [("/check", "Check It"), ("/alerts", "Scam Alerts"), ("/guides/", "Guides"), ("/spot-the-fake", "Spot the Fake"), ("/about", "About")]
 FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900"
          "&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap")
 
@@ -81,7 +81,7 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <footer class="site"><div class="wrap">
   <div><h4>Fakes.com</h4><p>Plain-English warnings about scams, deepfakes and counterfeits, from IT consultant Tom Shubert. Every fact links to its source.</p></div>
   <div><h4>Site</h4><ul>
-    <li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
+    <li><a href="/check">Check It</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
     <li><a href="/spot-the-fake">Spot the Fake</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
   <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
     <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
@@ -168,7 +168,7 @@ def main():
     <h1>Check if it's <em>fake</em> before you click, pay or believe it.</h1>
     <p class="lede">Plain-English warnings about the scams going around right now, how to spot AI-made voices and videos, and how to tell real products from knockoffs. Every fact links to its source.</p>
     <div class="byline">By <b>Tom Shubert</b> · IT consultant to small businesses and individuals</div>
-    <div class="cta"><a class="btn" href="/alerts">See this week's scams</a><a class="btn ghost" href="/spot-the-fake">Play Spot the Fake</a></div>
+    <div class="cta"><a class="btn" href="/check">Check a message now</a><a class="btn ghost" href="/alerts">See this week's scams</a></div>
   </div>
   <div class="stamp-card" aria-label="Example of a fake text message">
     <div class="head"><span class="label">Example text message</span><span class="stamp">FAKE</span></div>
@@ -236,6 +236,30 @@ def main():
 {GAME_BLOCK}"""
     out["spot-the-fake.html"] = layout("Spot the Fake", "A daily game: decide whether each message is real or a scam, and learn the clue that gives it away.", "/spot-the-fake", body, "/spot-the-fake", extra_head=game_scripts(pool))
 
+
+    # Checker
+    body = """<section class="page-head"><div class="wrap narrow"><div class="label">Free tool</div><h1>Is it fake? Check it here.</h1>
+  <p class="lede">Paste a suspicious text, email, web address or ad, or add a screenshot. You'll get the red flags and exactly how to check for sure.</p></div></section>
+<section class="block"><div class="wrap narrow">
+  <form id="checker" class="checker" novalidate>
+    <label for="msg" class="label">Paste the message, email, link or phone number</label>
+    <textarea id="msg" rows="8" maxlength="6000" placeholder="Example: USPS: Your package is on hold. Update your address within 12 hours: ..."></textarea>
+    <div class="row">
+      <label class="btn ghost file" for="shot">Add a screenshot</label>
+      <input id="shot" type="file" accept="image/*">
+      <span id="shot-name" class="label"></span>
+    </div>
+    <p class="privacy-note">Don't include passwords, full card or account numbers, or Social Security numbers. We don't store what you submit. It's sent to Anthropic's Claude AI to analyze. <a href="/privacy">Privacy policy</a></p>
+    <button class="btn" id="go" type="submit">Check it</button>
+    <p id="err" class="err" aria-live="polite"></p>
+  </form>
+  <div id="result" class="check-result" hidden aria-live="polite"></div>
+  <div class="callout"><h3>Already sent money or shared a password?</h3>
+    <p>Call your bank or card company now using the number on your card or statement, change the password, and report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>.</p></div>
+</div></section>"""
+    out["check.html"] = layout("Is It Fake? Free Scam Checker", "Paste a suspicious text, email, link or screenshot and get the red flags and how to verify it.", "/check", body, "/check",
+        extra_head='<script src="/assets/check.js" defer></script>')
+
     # Simple pages
     for name, active in [("about", "/about"), ("contact", None), ("standards", None), ("privacy", None), ("disclosure", None)]:
         meta, content = load_partial(ROOT / f"content/pages/{name}.html")
@@ -254,7 +278,7 @@ def main():
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(text)
 
-    urls = ["/", "/alerts", "/guides/", "/spot-the-fake", "/about", "/contact", "/standards", "/privacy", "/disclosure"] + [f"/guides/{s}" for s, _, _ in guides]
+    urls = ["/", "/check", "/alerts", "/guides/", "/spot-the-fake", "/about", "/contact", "/standards", "/privacy", "/disclosure"] + [f"/guides/{s}" for s, _, _ in guides]
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{newest}</lastmod></url>\n" for u in urls) + "</urlset>\n")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
