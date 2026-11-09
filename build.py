@@ -8,7 +8,7 @@ import html, json, re, datetime, pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://fakes.com"
-PREVIEW = True  # True = search engines told not to index + preview banner. Set False at launch.
+PREVIEW = False  # True = search engines told not to index + preview banner. Set False at launch.
 
 NAV = [("/check", "Check It"), ("/alerts", "Scam Alerts"), ("/guides/", "Guides"), ("/spot-the-fake", "Spot the Fake"), ("/about", "About")]
 FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900"
