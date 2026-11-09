@@ -2,7 +2,23 @@
   var form = document.getElementById("checker");
   if (!form) return;
   var $ = function (id) { return document.getElementById(id); };
-  var image = null;
+  var image = null, token = "", widget = null;
+
+  // Load the "verify you're human" check if it's configured.
+  fetch("/api/config").then(function (r) { return r.json(); }).then(function (c) {
+    if (!c.turnstileSiteKey) return;
+    window.onTurnstileReady = function () {
+      widget = window.turnstile.render("#human", {
+        sitekey: c.turnstileSiteKey,
+        callback: function (t) { token = t; },
+        "expired-callback": function () { token = ""; },
+        "error-callback": function () { token = ""; }
+      });
+    };
+    var s = document.createElement("script");
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileReady&render=explicit";
+    s.async = true; document.head.appendChild(s);
+  }).catch(function () {});
 
   function shrink(file) {
     return new Promise(function (resolve, reject) {
@@ -57,10 +73,10 @@
     $("err").textContent = "";
     if (!text && !image) { $("err").textContent = "Paste the message or add a screenshot first."; return; }
     var btn = $("go"); btn.disabled = true; btn.textContent = "Checking…";
-    fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text: text, image: image }) })
+    fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text: text, image: image, turnstile: token }) })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (x) { if (!x.ok || x.d.error) throw new Error(x.d.error || "Something went wrong."); render(x.d); })
       .catch(function (e) { $("err").textContent = e.message || "The checker couldn't be reached. Please try again."; })
-      .finally(function () { btn.disabled = false; btn.textContent = "Check it"; });
+      .finally(function () { btn.disabled = false; btn.textContent = "Check it"; if (widget !== null && window.turnstile) { window.turnstile.reset(widget); token = ""; } });
   });
 })();

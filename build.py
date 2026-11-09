@@ -250,6 +250,7 @@ def main():
       <span id="shot-name" class="label"></span>
     </div>
     <p class="privacy-note">Don't include passwords, full card or account numbers, or Social Security numbers. We don't store what you submit. It's sent to Anthropic's Claude AI to analyze. <a href="/privacy">Privacy policy</a></p>
+    <div id="human"></div>
     <button class="btn" id="go" type="submit">Check it</button>
     <p id="err" class="err" aria-live="polite"></p>
   </form>

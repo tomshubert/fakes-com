@@ -6,6 +6,35 @@ const MODEL = "claude-sonnet-5-5";
 const MAX_TEXT = 6000;            // characters
 const MAX_IMAGE_B64 = 2_000_000;  // ~1.5 MB image
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const PER_VISITOR_PER_DAY = 10;
+const SITE_PER_DAY = 500;
+
+async function verifyHuman(env, token, ip) {
+  if (!env.TURNSTILE_SECRET_KEY) return true; // not configured yet
+  if (!token) return false;
+  const form = new FormData();
+  form.append("secret", env.TURNSTILE_SECRET_KEY);
+  form.append("response", token);
+  if (ip) form.append("remoteip", ip);
+  try {
+    const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: form });
+    const d = await r.json();
+    return d.success === true;
+  } catch { return false; }
+}
+
+// Returns an error message if over a limit, otherwise counts this check and returns null.
+async function checkLimits(env, ip) {
+  if (!env.LIMITS) return null; // not configured yet
+  const day = new Date().toISOString().slice(0, 10);
+  const siteKey = `site:${day}`, ipKey = `ip:${day}:${ip || "unknown"}`;
+  const [site, mine] = await Promise.all([env.LIMITS.get(siteKey), env.LIMITS.get(ipKey)]);
+  if (Number(site || 0) >= SITE_PER_DAY) return "The checker has reached its limit for today. Please try again tomorrow.";
+  if (Number(mine || 0) >= PER_VISITOR_PER_DAY) return `You've used today's ${PER_VISITOR_PER_DAY} free checks. Please come back tomorrow.`;
+  const ttl = { expirationTtl: 60 * 60 * 48 };
+  await Promise.all([env.LIMITS.put(siteKey, String(Number(site || 0) + 1), ttl), env.LIMITS.put(ipKey, String(Number(mine || 0) + 1), ttl)]);
+  return null;
+}
 
 const SYSTEM = `You are the "Is it fake?" checker on Fakes.com, a consumer-protection site run by IT consultant Tom Shubert. Ordinary people, often older and non-technical, paste a message, email, web address, phone number, ad or screenshot and ask whether it is a scam.
 
@@ -46,6 +75,12 @@ export async function onRequestPost({ request, env }) {
   if (text.length > MAX_TEXT) return json({ error: `That's too long. Please paste ${MAX_TEXT.toLocaleString()} characters or fewer.` }, 400);
   if (image && (!IMAGE_TYPES.includes(image.media_type) || image.data.length > MAX_IMAGE_B64))
     return json({ error: "That image is too large or not a supported type. Try a smaller JPG or PNG screenshot." }, 400);
+
+  const ip = request.headers.get("CF-Connecting-IP") || "";
+  if (!(await verifyHuman(env, body.turnstile, ip)))
+    return json({ error: "Please complete the \"verify you're human\" check above the button, then try again." }, 403);
+  const limited = await checkLimits(env, ip);
+  if (limited) return json({ error: limited }, 429);
 
   const content = [];
   if (image) content.push({ type: "image", source: { type: "base64", media_type: image.media_type, data: image.data } });
