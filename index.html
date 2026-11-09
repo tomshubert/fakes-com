@@ -3,323 +3,128 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fakes.com: Check if it&#x27;s fake before you click, pay or believe it</title>
 <meta name="description" content="Plain-English scam alerts, deepfake guides and real-vs-fake product advice from IT consultant Tom Shubert. Every fact linked to its source.">
 <meta name="robots" content="noindex">
-<title>Fakes.com Preview</title>
+<link rel="canonical" href="https://fakes.com/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fakes.com">
+<meta property="og:title" content="Fakes.com: Check if it&#x27;s fake before you click, pay or believe it">
+<meta property="og:description" content="Plain-English scam alerts, deepfake guides and real-vs-fake product advice from IT consultant Tom Shubert. Every fact linked to its source.">
+<meta property="og:url" content="https://fakes.com/">
+<meta property="og:image" content="https://fakes.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#12365e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
-<style>
-/* Layout: an evidence desk. Newsroom columns, inspection-stamp verdicts (REAL / FAKE), case-tag labels on alerts. */
-:root{
-  --paper:#f3f5f4; --paper-2:#e6ebe9; --ink:#14201e; --ink-2:#4a5a57; --rule:#c9d2cf;
-  --fake:#b8381c; --real:#1d6a57; --fake-soft:#f6e3dc; --real-soft:#dcebe5; --card:#ffffff;
-  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
-  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#0f1615; --paper-2:#17211f; --ink:#e6ecea; --ink-2:#a3b1ad; --rule:#2c3a37;
-  --fake:#ee7a5b; --real:#5fbf9f; --fake-soft:#3a1f17; --real-soft:#15302a; --card:#141e1c; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --paper:#0f1615; --paper-2:#17211f; --ink:#e6ecea; --ink-2:#a3b1ad; --rule:#2c3a37;
-  --fake:#ee7a5b; --real:#5fbf9f; --fake-soft:#3a1f17; --real-soft:#15302a; --card:#141e1c; color-scheme:dark}
-
-*{box-sizing:border-box}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;margin:0}
-a{color:inherit;text-decoration-color:var(--fake);text-underline-offset:3px}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--fake);outline-offset:2px}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
-.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
-
-.draft{background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12.5px;letter-spacing:.04em}
-.draft .wrap{padding-block:8px}
-
-header.top{border-bottom:3px solid var(--ink)}
-header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:16px}
-.logo{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:30px;letter-spacing:-.02em;text-decoration:none}
-.logo span{color:var(--fake)}
-nav.main{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--display);font-weight:600;font-size:15px}
-nav.main a{text-decoration:none}
-nav.main a:hover{text-decoration:underline}
-
-.hero .wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;padding-block:56px 48px;align-items:center}
-.hero h1{font-size:clamp(40px,6.4vw,76px);font-weight:800;font-stretch:72%;letter-spacing:-.01em;text-transform:uppercase}
-.hero h1 em{font-style:normal;color:var(--fake)}
-.hero p.lede{font-size:20px;max-width:34em;margin:20px 0 0;color:var(--ink-2)}
-.byline{margin-top:22px;font-family:var(--mono);font-size:13px;color:var(--ink-2)}
-.byline b{color:var(--ink);font-weight:600}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
-.btn{font-family:var(--display);font-weight:700;font-size:16px;padding:12px 20px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;cursor:pointer}
-.btn.ghost{background:transparent;color:var(--ink)}
-
-.stamp-card{background:var(--card);border:1px solid var(--rule);padding:28px;position:relative;min-width:0}
-.stamp-card .sample{font-family:var(--mono);font-size:14px;line-height:1.5;background:var(--paper-2);padding:16px;border-left:3px solid var(--rule)}
-.stamp{position:absolute;right:18px;top:16px;transform:rotate(-8deg);font-family:var(--display);font-weight:900;font-stretch:110%;font-size:30px;letter-spacing:.06em;color:var(--fake);border:4px solid var(--fake);padding:2px 12px;opacity:.9}
-.stamp-card .why{margin:16px 0 0;font-size:15px;color:var(--ink-2)}
-.stamp-card ul{margin:8px 0 0;padding-left:20px;font-size:15px}
-
-.figures{border-block:1px solid var(--rule);background:var(--paper-2)}
-.figures .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding-block:0}
-.fig{padding:24px 20px;border-right:1px solid var(--rule);min-width:0}
-.fig:last-child{border-right:0}
-.fig .n{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:40px;font-variant-numeric:tabular-nums;line-height:1}
-.fig p{margin:8px 0 6px;font-size:15px;line-height:1.4}
-.fig .src{font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
-
-section.block .wrap{padding-block:56px}
-.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:24px}
-.sec-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;font-stretch:75%;text-transform:uppercase}
-.sec-head a{font-family:var(--display);font-weight:600;font-size:15px}
-
-.alerts{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-.alert{background:var(--card);border:1px solid var(--rule);padding:22px;display:grid;gap:10px;align-content:start;min-width:0}
-.alert .tag{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;background:var(--fake-soft);color:var(--fake);font-weight:600}
-.chip.neutral{background:var(--paper-2);color:var(--ink-2)}
-.alert h3{font-size:23px;font-weight:700;font-stretch:90%}
-.alert p{margin:0;font-size:16px}
-.alert .do{font-size:15px;background:var(--real-soft);padding:10px 12px;border-left:3px solid var(--real)}
-.alert .do b{font-family:var(--display);color:var(--real)}
-.alert .src{font-family:var(--mono);font-size:12px;color:var(--ink-2)}
-
-.three{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.topic{min-width:0;display:grid;gap:10px;align-content:start}
-.topic h3{font-size:24px;font-weight:700;font-stretch:85%}
-.topic p{margin:0}
-.topic ol{margin:0;padding-left:20px;font-size:16px}
-.topic .label{color:var(--fake)}
-
-.game{background:var(--ink);color:var(--paper)}
-.game .wrap{padding-block:56px;display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:start}
-.game h2{font-size:clamp(32px,4.4vw,52px);font-weight:900;font-stretch:72%;text-transform:uppercase}
-.game .intro p{color:color-mix(in srgb,var(--paper) 78%,transparent)}
-.game .label{color:color-mix(in srgb,var(--paper) 70%,transparent)}
-.q{background:var(--card);color:var(--ink);padding:24px;min-width:0}
-.q .msg{font-family:var(--mono);font-size:14.5px;background:var(--paper-2);padding:16px;margin:10px 0 16px;white-space:pre-wrap;overflow-wrap:anywhere}
-.q .choices{display:flex;gap:10px;flex-wrap:wrap}
-.q .choices button{flex:1 1 120px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.06em;padding:12px;background:transparent;border:3px solid currentColor;cursor:pointer}
-.q .choices .r{color:var(--real)} .q .choices .f{color:var(--fake)}
-.q .result{margin-top:14px;font-size:15.5px}
-.q .result b{font-family:var(--display)}
-.q .foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:12px;flex-wrap:wrap}
-.score{font-family:var(--mono);font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
-
-.field .wrap{padding-block:56px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-.field blockquote{margin:0;font-size:21px;line-height:1.5;border-left:4px solid var(--fake);padding-left:20px}
-.field .who{margin-top:16px;font-family:var(--mono);font-size:13px;color:var(--ink-2)}
-.about h3{font-size:26px;font-weight:700;font-stretch:85%;margin-bottom:10px}
-.about p{margin:0 0 12px}
-
-.signup{border-top:3px solid var(--ink)}
-.signup .wrap{padding-block:48px;display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
-.signup h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;font-stretch:78%;text-transform:uppercase}
-.signup p{margin:10px 0 0;color:var(--ink-2)}
-.signup form{display:flex;gap:10px;flex-wrap:wrap}
-.signup input{flex:1 1 220px;min-width:0;font:inherit;font-size:16px;padding:12px;border:2px solid var(--ink);background:var(--card);color:var(--ink)}
-.signup .note{flex-basis:100%;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);min-height:1.2em}
-
-footer{background:var(--paper-2);border-top:1px solid var(--rule);font-size:15px}
-footer .wrap{padding-block:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-footer h4{font-family:var(--display);font-size:15px;text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px}
-footer p{margin:0 0 8px;color:var(--ink-2)}
-footer .fine{grid-column:1/-1;font-family:var(--mono);font-size:12px;color:var(--ink-2);border-top:1px solid var(--rule);padding-top:16px}
-
-@media (max-width:860px){
-  .hero .wrap,.game .wrap,.field .wrap,.signup .wrap{grid-template-columns:1fr;gap:32px}
-  .figures .wrap{grid-template-columns:repeat(2,1fr)}
-  .fig:nth-child(2){border-right:0}
-  .fig:nth-child(-n+2){border-bottom:1px solid var(--rule)}
-  .alerts,.three,footer .wrap{grid-template-columns:1fr}
-}
-@media (max-width:420px){.figures .wrap{grid-template-columns:1fr}.fig{border-right:0;border-bottom:1px solid var(--rule)}}
-@media (prefers-reduced-motion:no-preference){.q .result{transition:opacity .2s}}
-</style>
+<link rel="stylesheet" href="/assets/site.css">
+<script>window.FAKES_GAME=[{"m": "From: Chase Fraud Alert <alerts@chase-secure-verify.example>\nWe detected a $2,340 purchase. If this wasn't you, reply with your card number and PIN to cancel it.", "a": "fake", "why": "Banks never ask for your PIN, and the sender's address isn't the bank's real domain. Call the number on the back of your card instead."}, {"m": "Your dentist appointment is confirmed for Tue 11/17 at 2:30 PM. Reply C to confirm or call our office to reschedule.", "a": "real", "why": "No link, no payment, no pressure, and it sends you to an office you already know. If you're unsure, call the office directly."}, {"m": "Mom it's me, I broke my phone and this is a friend's number. I'm stuck and need $800 for a repair, can you Zelle it now? Please don't call, I can't talk.", "a": "fake", "why": "A new number, urgency, a payment app, and a request not to call are the classic family-emergency setup. Call your child on their usual number first."}, {"m": "USPS: Your package is on hold due to an incomplete address. Update within 12 hours or it will be returned: usps-redelivery.example/track", "a": "fake", "why": "The Postal Service doesn't text you a link unless you signed up for tracking with that number, and the web address isn't usps.com."}, {"m": "Your Amazon order #113-4471205 has shipped. Track it any time in Your Orders in the Amazon app.", "a": "real", "why": "It doesn't ask you to click anything or pay anything, and it points you to the app you already use. Checking there is always safe."}, {"m": "This is the IRS. A lawsuit has been filed against you for unpaid taxes. Call 1-888-555-0143 immediately or a warrant will be issued for your arrest.", "a": "fake", "why": "The IRS normally contacts you by mail first and doesn't threaten arrest by phone or text."}, {"m": "Hi, this is Dana from Dr. Patel's office. Your lab results are in your patient portal. Log in the usual way to view them.", "a": "real", "why": "It tells you to log in the way you normally do instead of giving you a link. That's what a careful office does."}, {"m": "Congratulations! You've been selected for a $1,000 Costco reward. Just pay $4.95 shipping to claim: costco-rewards.example", "a": "fake", "why": "A prize that costs money to claim is a scam, and the address isn't Costco's real site."}, {"m": "Microsoft Security: Your computer is infected with 3 viruses. Do not shut down. Call Microsoft Support at 1-844-555-0199 now.", "a": "fake", "why": "Microsoft doesn't put phone numbers in pop-up warnings. Close the browser; if it won't close, restart the computer."}];</script><script src="/assets/game.js" defer></script>
 </head>
 <body>
-
-<div class="draft"><div class="wrap">PREVIEW DRAFT · not live yet · example content for review</div></div>
-
+<a class="skip" href="#main">Skip to content</a>
+<div class="notice"><div class="wrap">PREVIEW · Fakes.com is being built. Content is real and sourced, but the site is not finished.</div></div>
 <header class="top"><div class="wrap">
-  <a class="logo" href="#top">FAKES<span>.</span>COM</a>
-  <nav class="main" aria-label="Sections">
-    <a href="#alerts">Scam Alerts</a>
-    <a href="#guides">Deepfakes &amp; AI</a>
-    <a href="#guides">Real vs. Fake Products</a>
-    <a href="#game">Spot the Fake</a>
-    <a href="#about">About</a>
-  </nav>
+  <a class="logo" href="/">FAKES<span>.</span>COM</a>
+  <nav class="main" aria-label="Main"><a href="/alerts">Scam Alerts</a><a href="/guides/">Guides</a><a href="/spot-the-fake">Spot the Fake</a><a href="/about">About</a></nav>
 </div></header>
-
-<main id="top">
+<main id="main">
 <section class="hero"><div class="wrap">
   <div>
     <div class="label">Scams · Deepfakes · Counterfeits</div>
-    <h1 style="margin-top:12px">Check if it's <em>fake</em> before you click, pay or believe it.</h1>
-    <p class="lede">Plain-English warnings about the scams going around right now, how to spot AI-made voices and videos, and how to tell real products from knockoffs. Every number links to its original source.</p>
-    <div class="byline">By <b>Tom Shubert</b> · IT consultant protecting small businesses since 1984</div>
-    <div class="cta">
-      <a class="btn" href="#alerts">See this week's scams</a>
-      <a class="btn ghost" href="#game">Play Spot the Fake</a>
-    </div>
+    <h1>Check if it's <em>fake</em> before you click, pay or believe it.</h1>
+    <p class="lede">Plain-English warnings about the scams going around right now, how to spot AI-made voices and videos, and how to tell real products from knockoffs. Every fact links to its source.</p>
+    <div class="byline">By <b>Tom Shubert</b> · IT consultant protecting small businesses for more than 30 years</div>
+    <div class="cta"><a class="btn" href="/alerts">See this week's scams</a><a class="btn ghost" href="/spot-the-fake">Play Spot the Fake</a></div>
   </div>
-  <div class="stamp-card" aria-label="Example of a fake message">
-    <div class="stamp">FAKE</div>
-    <div class="label">Example text message</div>
-    <div class="sample" style="margin-top:10px">E-ZPass: You have an unpaid toll balance of $6.99. Pay within 24 hrs to avoid a $50 late fee: ezpass-tollpay.info</div>
-    <p class="why"><b>How you can tell:</b></p>
-    <ul>
-      <li>A countdown meant to rush you</li>
-      <li>A web address that isn't the toll agency's real site</li>
-      <li>Toll agencies say they don't ask for payment this way</li>
-    </ul>
+  <div class="stamp-card" aria-label="Example of a fake text message">
+    <div class="head"><span class="label">Example text message</span><span class="stamp">FAKE</span></div>
+    <div class="sample">E-ZPass: You have an unpaid toll balance of $6.99. Pay within 24 hrs to avoid a $50 late fee: ezpass-tolls.example/pay</div>
+    <p class="why">How you can tell:</p>
+    <ul><li>A short deadline meant to rush you</li><li>A link that isn't your toll agency's real website</li><li>Toll agencies like Maine's say they don't collect tolls by text</li></ul>
+    <p class="fine">Sample written by Fakes.com. The web address is deliberately fake.</p>
   </div>
 </div></section>
-
-<section class="figures" aria-label="Fraud by the numbers"><div class="wrap">
-  <div class="fig"><div class="n">$15.9B</div><p>reported lost to fraud in 2025, a record, up from $12.5B in 2024</p><div class="src"><a href="https://www.aarp.org/money/scams-fraud/fbi-ftc-report-2025-losses">FTC data via AARP</a></div></div>
-  <div class="fig"><div class="n">$20.9B</div><p>in internet crime losses reported to the FBI in 2025, from over 1 million complaints</p><div class="src"><a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 report</a></div></div>
-  <div class="fig"><div class="n">$893M</div><p>lost to AI-related scams such as voice clones and deepfakes, the first year the FBI tracked it</p><div class="src"><a href="https://www.aarp.org/money/scams-fraud/fbi-ftc-report-2025-losses">FBI data via AARP</a></div></div>
-  <div class="fig"><div class="n">5×</div><p>increase in fraud losses reported by people 60+, from $600M in 2020 to about $3B in 2025</p><div class="src"><a href="https://www.ftc.gov/node/338049">FTC, Protecting Older Consumers</a></div></div>
+<section class="figures" aria-label="Fraud by the numbers"><div class="wrap"><div class="fig"><div class="n">$15.9B</div><p>reported lost to fraud in 2025, a record, up from about $12.5B in 2024</p><div class="src"><a href="https://www.ftc.gov/news-events/news/press-releases/2026/03/ftc-testifies-joint-economic-committee-agencys-efforts-combat-fraud">FTC, Mar 2026</a></div></div><div class="fig"><div class="n">$20.9B</div><p>in internet crime losses reported to the FBI in 2025, from just over 1 million complaints</p><div class="src"><a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 report</a></div></div><div class="fig"><div class="n">$893M</div><p>lost to AI-related scams such as voice clones and deepfakes, the first year the FBI tracked it</p><div class="src"><a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 report, p. 39</a></div></div><div class="fig"><div class="n">5×</div><p>increase in fraud losses reported by people 60+, from about $600M in 2020 to about $3B in 2025</p><div class="src"><a href="https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-issues-annual-report-congress-agencys-actions-protect-older-adults">FTC, Oct 2026</a></div></div></div></section>
+<section class="block"><div class="wrap">
+  <div class="sec-head"><h2>Scam Alerts</h2><a href="/alerts">All alerts →</a></div>
+  <div class="alerts"><article class="alert" id="2026-11-09-toll-payment-messages">
+  <div class="tags"><span class="chip">Email</span><span class="chip">Text</span><span class="chip neutral">Nov 9</span></div>
+  <h3>&quot;Unpaid toll&quot; messages are back</h3>
+  <p>The Maine Turnpike Authority warned E-ZPass customers about emails demanding immediate payment for unpaid tolls. The authority has said it does not use text messages to collect tolls, and that violation notices are sent by U.S. Mail.</p>
+  <div class="do"><b>What to do:</b> Don&#x27;t click the link. Check your balance by typing your toll agency&#x27;s web address yourself or calling the number on your account statement.</div>
+  <div class="src-line">Source: <a href="https://thepulseofnh.com/maine-turnpike-authority-warns-about-scam/">The Pulse of NH (Nov 9, 2026)</a> · <a href="https://maineturnpike.com/news/recent-news/maine-turnpike-authority-warns-of-smishing-scam-targeting-e-zpass-users">Maine Turnpike Authority</a></div>
+</article><article class="alert" id="2026-11-09-military-veteran-scams">
+  <div class="tags"><span class="chip">Veterans</span><span class="chip">Phone</span><span class="chip neutral">Nov 9</span></div>
+  <h3>Scams aimed at service members and veterans</h3>
+  <p>New York&#x27;s attorney general published a guide to scams that target the military community, including fake &quot;claims help&quot; that charges for VA benefits, pension buyouts, overpriced financing sold per pay period, and fake charities.</p>
+  <div class="do"><b>What to do:</b> Get help with VA claims only from VA-accredited representatives, and check any benefits message by logging in to your official account directly.</div>
+  <div class="src-line">Source: <a href="https://ag.ny.gov/publications/military-scams">New York Attorney General: Scams targeting the military</a></div>
+</article><article class="alert" id="2026-11-07-bitcoin-atm-hotel-calls">
+  <div class="tags"><span class="chip">Phone</span><span class="chip">Business</span><span class="chip neutral">Nov 7</span></div>
+  <h3>Callers pressuring employees to use Bitcoin ATMs</h3>
+  <p>Police in Ocean City, Md., say scammers are calling hotels, complimenting staff and offering a &quot;bonus&quot; for settling a supposed balance with cash from the register or safe through a Bitcoin ATM.</p>
+  <div class="do"><b>What to do:</b> Tell staff that no real owner, manager or supplier will ever ask for this. Hang up and call the manager on a known number.</div>
+  <div class="src-line">Source: <a href="https://www.coasttv.com/news/ocean-city-police-department-warns-of-new-cash-scam-targeting-hotel-employees/article_3205977c-65fb-4465-94f7-8323c434c19b.html">CoastTV, reporting the Ocean City Police Department warning</a></div>
+</article><article class="alert" id="2026-10-15-midterm-election-scams">
+  <div class="tags"><span class="chip">Donations</span><span class="chip">Text</span><span class="chip neutral">Oct 15</span></div>
+  <h3>Fake campaign &quot;investments&quot; and scam PACs</h3>
+  <p>The FBI warned that scammers are using the midterm elections to run fake campaign investment pools, pose as political action committees, sell merchandise that never ships, and send fake voter registration messages. Some use AI-generated voices of candidates.</p>
+  <div class="do"><b>What to do:</b> Donations are never investments. Check a committee on the FEC website before giving, and verify your registration at vote.gov.</div>
+  <div class="src-line">Source: <a href="https://www.ic3.gov/PSA/2026/PSA261015-3">FBI IC3 Public Service Announcement I-101526-3-PSA</a></div>
+</article></div>
 </div></section>
-
-<section class="block" id="alerts"><div class="wrap">
-  <div class="sec-head"><h2>Scam Alerts</h2><span class="label">Updated daily · Week of Nov 9, 2026</span></div>
-  <div class="alerts">
-    <article class="alert">
-      <div class="tag"><span class="chip">Email · Text</span><span class="chip neutral">Nov 9</span></div>
-      <h3>"Unpaid toll" messages are back</h3>
-      <p>The Maine Turnpike Authority warned that E-ZPass customers are getting emails demanding immediate payment for unpaid tolls. The agency says it never sends messages like this.</p>
-      <div class="do"><b>What to do:</b> Don't click. Log in to your toll account by typing its address yourself.</div>
-      <div class="src">Source: <a href="https://thepulseofnh.com/maine-turnpike-authority-warns-about-scam/">The Pulse of NH</a></div>
-    </article>
-    <article class="alert">
-      <div class="tag"><span class="chip">Phone · Business</span><span class="chip neutral">Nov 7</span></div>
-      <h3>Callers pressuring employees to use Bitcoin ATMs</h3>
-      <p>Police in Ocean City, Md., say scammers are calling hotels, praising staff and offering a "bonus" for settling a supposed balance with cash from the register through a Bitcoin ATM.</p>
-      <div class="do"><b>What to do:</b> Tell staff no real owner or supplier asks for this. Hang up and call the manager directly.</div>
-      <div class="src">Source: <a href="https://www.coasttv.com/news/ocean-city-police-department-warns-of-new-cash-scam-targeting-hotel-employees/article_3205977c-65fb-4465-94f7-8323c434c19b.html">CoastTV</a></div>
-    </article>
-    <article class="alert">
-      <div class="tag"><span class="chip">Veterans</span><span class="chip neutral">Nov 9</span></div>
-      <h3>Scams aimed at service members and veterans</h3>
-      <p>New York's attorney general published a guide to pension scams, fake help with VA benefits, phishing, and overpriced "special deals" sold to active-duty troops.</p>
-      <div class="do"><b>What to do:</b> Get VA benefits help only from VA-accredited representatives. Help is free.</div>
-      <div class="src">Source: <a href="https://www.yahoo.com/news/us/articles/nys-ag-warns-scams-targeting-155031685.html">Yahoo News</a></div>
-    </article>
-    <article class="alert">
-      <div class="tag"><span class="chip">Donations</span><span class="chip neutral">Oct 16</span></div>
-      <h3>Fake political donation and "PAC" appeals</h3>
-      <p>The FBI warned that scammers use candidates' names and slogans for fake campaign investment pools and fake political action committees that pocket the money.</p>
-      <div class="do"><b>What to do:</b> Give through a campaign's official website, never through a link in a text.</div>
-      <div class="src">Source: <a href="https://www.theregister.com/cyber-crime/2026/10/16/uncle-scam-wants-you-to-cough-up-your-cash-and-personal-data-fbi-warns-ahead-of-midterms/5303512">The Register</a></div>
-    </article>
-  </div>
+<section class="block tint"><div class="wrap">
+  <div class="sec-head"><h2>Learn to Spot Fakes</h2><a href="/guides/">All guides →</a></div>
+  <div class="cards3"><a class="gcard" href="/guides/voice-clone-scams"><div class="label">Deepfakes &amp; AI</div><h3>Is That Really Your Grandson Calling? How to Beat Voice-Clone Scams</h3><p>Scammers can copy a loved one&#x27;s voice with AI. Here&#x27;s how the family-emergency scam works and the three steps that stop it.</p><span class="more">Read the guide →</span></a><a class="gcard" href="/guides/fake-online-stores"><div class="label">Fake Websites</div><h3>How to Check an Online Store Before You Pay</h3><p>Fake shops look polished and often advertise on social media. A one-minute check tells you whether to trust them.</p><span class="more">Read the guide →</span></a><a class="gcard" href="/guides/counterfeit-products"><div class="label">Real vs. Fake Products</div><h3>Real or Knockoff? How to Avoid Counterfeit Products Online</h3><p>Counterfeits aren&#x27;t just a ripoff. Fake electronics, cosmetics and safety gear can be dangerous. Here&#x27;s how to buy the real thing.</p><span class="more">Read the guide →</span></a></div>
 </div></section>
-
-<section class="block" id="guides" style="background:var(--paper-2)"><div class="wrap">
-  <div class="sec-head"><h2>Learn to Spot Fakes</h2><span class="label">Guides</span></div>
-  <div class="three">
-    <div class="topic">
-      <div class="label">Deepfakes &amp; AI</div>
-      <h3>Is that really your grandson calling?</h3>
-      <p>AI can copy a voice from a few seconds of video. A short checklist before you send money:</p>
-      <ol><li>Hang up and call the person back on a number you already have.</li><li>Ask a question only they would know.</li><li>Agree on a family code word now, before you need it.</li></ol>
-    </div>
-    <div class="topic">
-      <div class="label">Real vs. Fake Products</div>
-      <h3>Buying name brands online without getting a knockoff</h3>
-      <p>Counterfeits show up on big marketplaces too. Signs to check:</p>
-      <ol><li>A price far below every authorized seller.</li><li>A seller name that doesn't match the brand.</li><li>Photos copied from the brand's own site.</li></ol>
-    </div>
-    <div class="topic">
-      <div class="label">Fake Websites</div>
-      <h3>How to check a store before you pay</h3>
-      <p>Fake shops can look polished. A quick check takes a minute:</p>
-      <ol><li>Search the store's name plus "scam" or "reviews".</li><li>Look for a real address and phone number.</li><li>Pay by credit card, never wire, gift card or crypto.</li></ol>
-    </div>
-  </div>
-</div></section>
-
 <section class="game" id="game"><div class="wrap">
-  <div class="intro">
+  <div>
     <div class="label">Daily game</div>
     <h2 style="margin-top:10px">Spot the Fake</h2>
     <p>Three messages a day. Real or fake? Each answer explains the clue, so you get faster at catching the next one.</p>
-    <p class="label" style="margin-top:18px">Practice examples written for this preview</p>
+    <p class="label" style="margin-top:18px">Practice messages written by Fakes.com</p>
   </div>
   <div class="q" aria-live="polite">
     <div class="label" id="qnum">Message 1 of 3</div>
-    <div class="msg" id="qmsg"></div>
+    <div class="msg" id="qmsg">Loading…</div>
     <div class="choices">
       <button type="button" class="r" id="btn-real">REAL</button>
       <button type="button" class="f" id="btn-fake">FAKE</button>
     </div>
     <div class="result" id="qres" hidden></div>
-    <div class="foot">
-      <span class="score" id="score">Score: 0 / 0</span>
-      <button type="button" class="btn ghost" id="next" hidden>Next message</button>
-    </div>
+    <div class="qfoot"><span class="score" id="score">Score: 0 / 0</span>
+      <button type="button" class="btn ghost" id="next" hidden>Next message</button></div>
   </div>
 </div></section>
-
-<section class="field" id="about"><div class="wrap">
-  <div>
-    <div class="label">From the field</div>
-    <blockquote style="margin-top:14px">An employee at a law firm I support had no idea someone in Germany had just signed into their email. Our 24/7 monitoring flagged the login right away, and I locked the account before any firm or client data was compromised.</blockquote>
-    <div class="who">Tom Shubert · real case, details changed to protect the client</div>
-  </div>
-  <div class="about">
-    <h3>Why I built Fakes.com</h3>
-    <p>I've worked with computers since I was 13 and have protected small businesses from hackers and scammers for more than 30 years. Every week I see clients nearly lose money to an email, a call or a website that looked real.</p>
-    <p>This site is the advice I give them, written for everyone. I link to the original source for every fact, and I never sell or promote counterfeit goods.</p>
-  </div>
+<section class="block"><div class="wrap split">
+  <div><div class="label">From the field</div>
+    <blockquote class="story">An employee at a law firm I support had no idea someone in Germany had just signed into their email. Our 24/7 monitoring flagged the login right away, and I locked the account before any firm or client data was compromised.</blockquote>
+    <div class="who">Tom Shubert · real case, client name withheld</div></div>
+  <div><h3 style="font-size:26px;margin-bottom:10px">Why I built Fakes.com</h3>
+    <p>I've worked with computers since I was 13 and have protected small businesses from hackers and scammers for more than 30 years. Every week I see careful people nearly lose money to an email, a call or a website that looked real.</p>
+    <p>This site is the advice I give my clients, written for everyone. <a href="/about">More about me →</a></p></div>
 </div></section>
-
 <section class="signup"><div class="wrap">
-  <div>
-    <h2>Get the weekly scam alert</h2>
-    <p>The scams going around this week and how to avoid them. One short email every Monday. Free.</p>
-  </div>
-  <form id="signup">
+  <div><h2>Get the weekly scam alert</h2><p>The scams going around this week and how to avoid them. One short email every Monday. Free.</p></div>
+  <form id="signup" novalidate>
     <label for="email" class="label" style="flex-basis:100%">Email address</label>
-    <input id="email" type="email" placeholder="you@example.com" required>
+    <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
     <button class="btn" type="submit">Sign up</button>
-    <div class="note" id="signup-note"></div>
+    <div class="note" id="signup-note" aria-live="polite"></div>
   </form>
 </div></section>
+<script>document.getElementById('signup').addEventListener('submit',function(ev){ev.preventDefault();document.getElementById('signup-note').textContent='The weekly email launches soon. Thanks for your interest!';});</script>
 </main>
-
-<footer><div class="wrap">
-  <div><h4>Our standards</h4><p>Every fact links to its original source. Corrections are posted openly. Fakes.com never sells or links to counterfeit goods.</p></div>
-  <div><h4>Been scammed?</h4><p>Report it to the FTC at ReportFraud.ftc.gov and to the FBI at IC3.gov. Call your bank right away if you sent money.</p></div>
-  <div><h4>Fakes.com</h4><p>Scam Alerts · Guides · Spot the Fake · About · Contact</p></div>
-  <div class="fine">© 2026 Fakes.com · Preview draft</div>
+<footer class="site"><div class="wrap">
+  <div><h4>Fakes.com</h4><p>Plain-English warnings about scams, deepfakes and counterfeits, from IT consultant Tom Shubert. Every fact links to its source.</p></div>
+  <div><h4>Site</h4><ul>
+    <li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
+    <li><a href="/spot-the-fake">Spot the Fake</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
+  <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
+    <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
+  <div class="fine">© 2026 Fakes.com · Fakes.com never sells or links to counterfeit goods.</div>
 </div></footer>
-
-<script>
-const Qs=[
- {m:"From: Chase Fraud Alert <alerts@chase-secure-verify.com>\nWe detected a $2,340 purchase. If this wasn't you, reply with your card number and PIN to cancel it.",a:"fake",why:"Banks never ask for your PIN, and the sender's address isn't the bank's real domain. Call the number on the back of your card instead."},
- {m:"Your dentist appointment is confirmed for Tue 11/17 at 2:30 PM. Reply C to confirm or call our office to reschedule.",a:"real",why:"No link, no money, no urgency, and it points you to the office you already know. That's what a normal reminder looks like. If in doubt, call the office directly."},
- {m:"Mom it's me, I broke my phone and this is a friend's number. I'm stuck and need $800 for a repair, can you Zelle it now? Please don't call, I can't talk.",a:"fake",why:"The classic 'family emergency' setup: a new number, urgency, a payment app, and a request not to call. Call your child on their usual number before doing anything."}
-];
-let i=0,right=0,seen=0;
-const $=id=>document.getElementById(id);
-function show(){ $("qnum").textContent=`Message ${i+1} of ${Qs.length}`; $("qmsg").textContent=Qs[i].m; $("qres").hidden=true; $("next").hidden=true; $("btn-real").disabled=$("btn-fake").disabled=false; }
-function pick(ans){
-  const q=Qs[i], ok=ans===q.a; seen++; if(ok)right++;
-  $("qres").innerHTML=`<b style="color:var(--${q.a==='fake'?'fake':'real'})">${ok?'Correct.':'Not quite.'} It's ${q.a.toUpperCase()}.</b> ${q.why}`;
-  $("qres").hidden=false; $("score").textContent=`Score: ${right} / ${seen}`;
-  $("btn-real").disabled=$("btn-fake").disabled=true;
-  $("next").textContent = i<Qs.length-1 ? "Next message" : "Play again";
-  $("next").hidden=false;
-}
-$("btn-real").onclick=()=>pick("real"); $("btn-fake").onclick=()=>pick("fake");
-$("next").onclick=()=>{ if(i<Qs.length-1){i++;} else {i=0;right=0;seen=0;$("score").textContent="Score: 0 / 0";} show(); };
-$("signup").addEventListener("submit",e=>{e.preventDefault(); $("signup-note").textContent="Preview only. Sign-ups will open when the site launches.";});
-show();
-</script>
-
 </body>
 </html>

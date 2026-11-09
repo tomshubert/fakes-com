@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spot the Fake | Fakes.com</title>
+<meta name="description" content="A daily game: decide whether each message is real or a scam, and learn the clue that gives it away.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://fakes.com/spot-the-fake">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fakes.com">
+<meta property="og:title" content="Spot the Fake">
+<meta property="og:description" content="A daily game: decide whether each message is real or a scam, and learn the clue that gives it away.">
+<meta property="og:url" content="https://fakes.com/spot-the-fake">
+<meta property="og:image" content="https://fakes.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#12365e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>window.FAKES_GAME=[{"m": "From: Chase Fraud Alert <alerts@chase-secure-verify.example>\nWe detected a $2,340 purchase. If this wasn't you, reply with your card number and PIN to cancel it.", "a": "fake", "why": "Banks never ask for your PIN, and the sender's address isn't the bank's real domain. Call the number on the back of your card instead."}, {"m": "Your dentist appointment is confirmed for Tue 11/17 at 2:30 PM. Reply C to confirm or call our office to reschedule.", "a": "real", "why": "No link, no payment, no pressure, and it sends you to an office you already know. If you're unsure, call the office directly."}, {"m": "Mom it's me, I broke my phone and this is a friend's number. I'm stuck and need $800 for a repair, can you Zelle it now? Please don't call, I can't talk.", "a": "fake", "why": "A new number, urgency, a payment app, and a request not to call are the classic family-emergency setup. Call your child on their usual number first."}, {"m": "USPS: Your package is on hold due to an incomplete address. Update within 12 hours or it will be returned: usps-redelivery.example/track", "a": "fake", "why": "The Postal Service doesn't text you a link unless you signed up for tracking with that number, and the web address isn't usps.com."}, {"m": "Your Amazon order #113-4471205 has shipped. Track it any time in Your Orders in the Amazon app.", "a": "real", "why": "It doesn't ask you to click anything or pay anything, and it points you to the app you already use. Checking there is always safe."}, {"m": "This is the IRS. A lawsuit has been filed against you for unpaid taxes. Call 1-888-555-0143 immediately or a warrant will be issued for your arrest.", "a": "fake", "why": "The IRS normally contacts you by mail first and doesn't threaten arrest by phone or text."}, {"m": "Hi, this is Dana from Dr. Patel's office. Your lab results are in your patient portal. Log in the usual way to view them.", "a": "real", "why": "It tells you to log in the way you normally do instead of giving you a link. That's what a careful office does."}, {"m": "Congratulations! You've been selected for a $1,000 Costco reward. Just pay $4.95 shipping to claim: costco-rewards.example", "a": "fake", "why": "A prize that costs money to claim is a scam, and the address isn't Costco's real site."}, {"m": "Microsoft Security: Your computer is infected with 3 viruses. Do not shut down. Call Microsoft Support at 1-844-555-0199 now.", "a": "fake", "why": "Microsoft doesn't put phone numbers in pop-up warnings. Close the browser; if it won't close, restart the computer."}];</script><script src="/assets/game.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="notice"><div class="wrap">PREVIEW · Fakes.com is being built. Content is real and sourced, but the site is not finished.</div></div>
+<header class="top"><div class="wrap">
+  <a class="logo" href="/">FAKES<span>.</span>COM</a>
+  <nav class="main" aria-label="Main"><a href="/alerts">Scam Alerts</a><a href="/guides/">Guides</a><a href="/spot-the-fake" aria-current="page">Spot the Fake</a><a href="/about">About</a></nav>
+</div></header>
+<main id="main">
+<section class="page-head"><div class="wrap"><div class="label">Daily game</div><h1>Spot the Fake</h1>
+  <p class="lede">Three new practice messages every day. Decide if each one is real or fake, then see the clue that gives it away.</p></div></section>
+<section class="game" id="game"><div class="wrap">
+  <div>
+    <div class="label">Daily game</div>
+    <h2 style="margin-top:10px">Spot the Fake</h2>
+    <p>Three messages a day. Real or fake? Each answer explains the clue, so you get faster at catching the next one.</p>
+    <p class="label" style="margin-top:18px">Practice messages written by Fakes.com</p>
+  </div>
+  <div class="q" aria-live="polite">
+    <div class="label" id="qnum">Message 1 of 3</div>
+    <div class="msg" id="qmsg">Loading…</div>
+    <div class="choices">
+      <button type="button" class="r" id="btn-real">REAL</button>
+      <button type="button" class="f" id="btn-fake">FAKE</button>
+    </div>
+    <div class="result" id="qres" hidden></div>
+    <div class="qfoot"><span class="score" id="score">Score: 0 / 0</span>
+      <button type="button" class="btn ghost" id="next" hidden>Next message</button></div>
+  </div>
+</div></section>
+</main>
+<footer class="site"><div class="wrap">
+  <div><h4>Fakes.com</h4><p>Plain-English warnings about scams, deepfakes and counterfeits, from IT consultant Tom Shubert. Every fact links to its source.</p></div>
+  <div><h4>Site</h4><ul>
+    <li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
+    <li><a href="/spot-the-fake">Spot the Fake</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
+  <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
+    <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
+  <div class="fine">© 2026 Fakes.com · Fakes.com never sells or links to counterfeit goods.</div>
+</div></footer>
+</body>
+</html>

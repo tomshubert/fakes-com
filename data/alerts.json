@@ -1,0 +1,47 @@
+[
+  {
+    "id": "2026-11-09-toll-payment-messages",
+    "date": "2026-11-09",
+    "channels": ["Email", "Text"],
+    "title": "\"Unpaid toll\" messages are back",
+    "summary": "The Maine Turnpike Authority warned E-ZPass customers about emails demanding immediate payment for unpaid tolls. The authority has said it does not use text messages to collect tolls, and that violation notices are sent by U.S. Mail.",
+    "what_to_do": "Don't click the link. Check your balance by typing your toll agency's web address yourself or calling the number on your account statement.",
+    "sources": [
+      {"name": "The Pulse of NH (Nov 9, 2026)", "url": "https://thepulseofnh.com/maine-turnpike-authority-warns-about-scam/"},
+      {"name": "Maine Turnpike Authority", "url": "https://maineturnpike.com/news/recent-news/maine-turnpike-authority-warns-of-smishing-scam-targeting-e-zpass-users"}
+    ]
+  },
+  {
+    "id": "2026-11-09-military-veteran-scams",
+    "date": "2026-11-09",
+    "channels": ["Veterans", "Phone", "Online"],
+    "title": "Scams aimed at service members and veterans",
+    "summary": "New York's attorney general published a guide to scams that target the military community, including fake \"claims help\" that charges for VA benefits, pension buyouts, overpriced financing sold per pay period, and fake charities.",
+    "what_to_do": "Get help with VA claims only from VA-accredited representatives, and check any benefits message by logging in to your official account directly.",
+    "sources": [
+      {"name": "New York Attorney General: Scams targeting the military", "url": "https://ag.ny.gov/publications/military-scams"}
+    ]
+  },
+  {
+    "id": "2026-11-07-bitcoin-atm-hotel-calls",
+    "date": "2026-11-07",
+    "channels": ["Phone", "Business"],
+    "title": "Callers pressuring employees to use Bitcoin ATMs",
+    "summary": "Police in Ocean City, Md., say scammers are calling hotels, complimenting staff and offering a \"bonus\" for settling a supposed balance with cash from the register or safe through a Bitcoin ATM.",
+    "what_to_do": "Tell staff that no real owner, manager or supplier will ever ask for this. Hang up and call the manager on a known number.",
+    "sources": [
+      {"name": "CoastTV, reporting the Ocean City Police Department warning", "url": "https://www.coasttv.com/news/ocean-city-police-department-warns-of-new-cash-scam-targeting-hotel-employees/article_3205977c-65fb-4465-94f7-8323c434c19b.html"}
+    ]
+  },
+  {
+    "id": "2026-10-15-midterm-election-scams",
+    "date": "2026-10-15",
+    "channels": ["Donations", "Text", "Email"],
+    "title": "Fake campaign \"investments\" and scam PACs",
+    "summary": "The FBI warned that scammers are using the midterm elections to run fake campaign investment pools, pose as political action committees, sell merchandise that never ships, and send fake voter registration messages. Some use AI-generated voices of candidates.",
+    "what_to_do": "Donations are never investments. Check a committee on the FEC website before giving, and verify your registration at vote.gov.",
+    "sources": [
+      {"name": "FBI IC3 Public Service Announcement I-101526-3-PSA", "url": "https://www.ic3.gov/PSA/2026/PSA261015-3"}
+    ]
+  }
+]
