@@ -127,11 +127,11 @@ def game_scripts(pool):
     return f'<script>window.FAKES_GAME={data};</script><script src="/assets/game.js" defer></script>'
 
 FIGURES = [
-    ("$15.9B", "reported lost to fraud in 2025, a record, up from about $12.5B in 2024",
+    ("$15.9B", "reported lost to fraud in 2025, up from over $12B in 2024",
      "FTC, Mar 2026", "https://www.ftc.gov/news-events/news/press-releases/2026/03/ftc-testifies-joint-economic-committee-agencys-efforts-combat-fraud"),
     ("$20.9B", "in internet crime losses reported to the FBI in 2025, from just over 1 million complaints",
      "FBI IC3 2025 report", "https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf"),
-    ("$893M", "lost to AI-related scams such as voice clones and deepfakes, the first year the FBI tracked it",
+    ("$893M", "in losses from complaints involving AI, such as voice cloning and deepfakes",
      "FBI IC3 2025 report, p. 39", "https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf"),
     ("5×", "increase in fraud losses reported by people 60+, from about $600M in 2020 to about $3B in 2025",
      "FTC, Oct 2026", "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-issues-annual-report-congress-agencys-actions-protect-older-adults"),
@@ -167,14 +167,14 @@ def main():
     <div class="label">Scams · Deepfakes · Counterfeits</div>
     <h1>Check if it's <em>fake</em> before you click, pay or believe it.</h1>
     <p class="lede">Plain-English warnings about the scams going around right now, how to spot AI-made voices and videos, and how to tell real products from knockoffs. Every fact links to its source.</p>
-    <div class="byline">By <b>Tom Shubert</b> · IT consultant protecting small businesses for more than 30 years</div>
+    <div class="byline">By <b>Tom Shubert</b> · IT consultant to small businesses and individuals</div>
     <div class="cta"><a class="btn" href="/alerts">See this week's scams</a><a class="btn ghost" href="/spot-the-fake">Play Spot the Fake</a></div>
   </div>
   <div class="stamp-card" aria-label="Example of a fake text message">
     <div class="head"><span class="label">Example text message</span><span class="stamp">FAKE</span></div>
     <div class="sample">E-ZPass: You have an unpaid toll balance of $6.99. Pay within 24 hrs to avoid a $50 late fee: ezpass-tolls.example/pay</div>
     <p class="why">How you can tell:</p>
-    <ul><li>A short deadline meant to rush you</li><li>A link that isn't your toll agency's real website</li><li>Toll agencies like Maine's say they don't collect tolls by text</li></ul>
+    <ul><li>A short deadline meant to rush you</li><li>A link that isn't your toll agency's real website</li><li>Maine's toll agency, for one, says it doesn't collect tolls by text</li></ul>
     <p class="fine">Sample written by Fakes.com. The web address is deliberately fake.</p>
   </div>
 </div></section>
@@ -190,10 +190,10 @@ def main():
 {GAME_BLOCK}
 <section class="block"><div class="wrap split">
   <div><div class="label">From the field</div>
-    <blockquote class="story">An employee at a law firm I support had no idea someone in Germany had just signed into their email. Our 24/7 monitoring flagged the login right away, and I locked the account before any firm or client data was compromised.</blockquote>
+    <blockquote class="story">Someone in Germany signed into the email account of an employee at a law firm I support. The 24/7 security monitoring service I use flagged the login right away, and I locked the account down before any sensitive firm or client data was compromised.</blockquote>
     <div class="who">Tom Shubert · real case, client name withheld</div></div>
   <div><h3 style="font-size:26px;margin-bottom:10px">Why I built Fakes.com</h3>
-    <p>I've worked with computers since I was 13 and have protected small businesses from hackers and scammers for more than 30 years. Every week I see careful people nearly lose money to an email, a call or a website that looked real.</p>
+    <p>I've worked with computers since I was 13 and have done IT consulting for small businesses since the early 1990s. Part of that job is helping careful people avoid losing money to an email, a call or a website that looked real.</p>
     <p>This site is the advice I give my clients, written for everyone. <a href="/about">More about me →</a></p></div>
 </div></section>
 <section class="signup"><div class="wrap">
