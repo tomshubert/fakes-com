@@ -89,7 +89,7 @@ def layout(title, description, path, body, active=None, extra_head=""):
     <li><a href="/check">Check It</a></li><li><a href="/verify/">Real or Fake? brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
     <li><a href="/spot-the-fake">Spot the Fake</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
   <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
-    <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
+    <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/terms">Terms of Use</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
   <div class="fine">© {year} Fakes.com · Fakes.com never sells or links to counterfeit goods.</div>
 </div></footer>
 </body>
@@ -310,7 +310,7 @@ def main():
       </ul>
       <p>Then drag the file onto this form.</p>
     </details>
-    <p class="privacy-note">Don't include passwords, full card or account numbers, or Social Security numbers. We don't store what you submit. It's sent to Anthropic's Claude AI to analyze. <a href="/privacy">Privacy policy</a></p>
+    <p class="privacy-note">Don't include passwords, full card or account numbers, or Social Security numbers. We don't store what you submit. It's sent to Anthropic's Claude AI to analyze. Results are automated and can be wrong. By using the checker you agree to our <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a>.</p>
     <div id="human"></div>
     <button class="btn" id="go" type="submit">Check it</button>
     <p id="err" class="err" aria-live="polite"></p>
@@ -327,7 +327,7 @@ def main():
         extra_head=f'<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script><script src="{asset("/assets/check.js")}" defer></script>')
 
     # Simple pages
-    for name, active in [("about", "/about"), ("contact", None), ("standards", None), ("privacy", None), ("disclosure", None)]:
+    for name, active in [("about", "/about"), ("contact", None), ("standards", None), ("privacy", None), ("disclosure", None), ("terms", None)]:
         meta, content = load_partial(ROOT / f"content/pages/{name}.html")
         body = f"""<section class="page-head"><div class="wrap narrow"><div class="label">{e(meta['label'])}</div><h1>{e(meta['title'])}</h1>
   <p class="lede">{e(meta['description'])}</p></div></section>
@@ -344,7 +344,7 @@ def main():
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(text)
 
-    urls = ["/", "/check", "/alerts", "/guides/", "/spot-the-fake", "/about", "/contact", "/standards", "/privacy", "/disclosure"] + [f"/guides/{s}" for s, _, _ in guides] + ["/verify/"] + [f"/verify/{s}" for s, _, _ in brands]
+    urls = ["/", "/check", "/alerts", "/guides/", "/spot-the-fake", "/about", "/contact", "/standards", "/privacy", "/disclosure", "/terms"] + [f"/guides/{s}" for s, _, _ in guides] + ["/verify/"] + [f"/verify/{s}" for s, _, _ in brands]
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{newest}</lastmod></url>\n" for u in urls) + "</urlset>\n")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
