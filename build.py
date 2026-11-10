@@ -4,7 +4,7 @@
 Run:  python3 build.py
 Daily updates only need to edit data/alerts.json and re-run this script.
 """
-import html, json, re, datetime, pathlib
+import html, json, re, datetime, pathlib, hashlib
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://fakes.com"
@@ -15,6 +15,11 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400
          "&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap")
 
 e = html.escape
+
+def asset(path):
+    """URL for a file in assets/ with a version tag, so browsers fetch the new copy after every change."""
+    digest = hashlib.sha256((ROOT / path.lstrip("/")).read_bytes()).hexdigest()[:10]
+    return f"{path}?v={digest}"
 
 def fmt_date(iso):
     d = datetime.date.fromisoformat(iso)
@@ -65,7 +70,7 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="{asset("/assets/site.css")}">
 {extra_head}
 </head>
 <body>
@@ -124,7 +129,7 @@ GAME_BLOCK = """<section class="game" id="game"><div class="wrap">
 
 def game_scripts(pool):
     data = json.dumps(pool).replace("</", "<\\/")
-    return f'<script>window.FAKES_GAME={data};</script><script src="/assets/game.js" defer></script>'
+    return f'<script>window.FAKES_GAME={data};</script><script src="{asset("/assets/game.js")}" defer></script>'
 
 FIGURES = [
     ("$15.9B", "reported lost to fraud in 2025, up from over $12B in 2024",
@@ -304,7 +309,7 @@ def main():
     <p>Call your bank or card company now using the number on your card or statement, change the password, and report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>.</p></div>
 </div></section>"""
     out["check.html"] = layout("Is It Fake? Free Scam Checker", "Check a suspicious message, a product listing before you buy, or an item you received for signs it's fake.", "/check", body, "/check",
-        extra_head='<script src="/assets/check.js" defer></script>')
+        extra_head=f'<script src="{asset("/assets/check.js")}" defer></script>')
 
     # Simple pages
     for name, active in [("about", "/about"), ("contact", None), ("standards", None), ("privacy", None), ("disclosure", None)]:
