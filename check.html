@@ -19,8 +19,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=d938dd2364">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script><script src="/assets/check.js?v=1808fc6e71" defer></script>
+<link rel="stylesheet" href="/assets/site.css?v=670e20ef97">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script><script src="/assets/check.js?v=628118423c" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -66,6 +66,14 @@
     <p class="privacy-note">Don't include passwords, full card or account numbers, or Social Security numbers. We don't store what you submit. It's sent to Anthropic's Claude AI to analyze. Results are automated and can be wrong. By using the checker you agree to our <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a>.</p>
     <div id="human"></div>
     <button class="btn" id="go" type="submit">Check it</button>
+    <div id="upload" class="upload" hidden>
+      <p>Sending your file… <span id="upload-pct">0%</span></p>
+      <div class="upload-track"><div id="upload-bar" class="upload-bar"></div></div>
+    </div>
+    <div id="working" class="working" hidden role="status" aria-live="polite">
+      <div class="working-mark" aria-hidden="true"><span class="ring"></span><span class="glass">FAKES<b>.</b>COM</span></div>
+      <div class="working-text"><p id="working-step">Reading what you sent…</p><p class="working-time"><span id="working-secs">0</span> seconds · this usually takes <span id="working-est">10–20</span> seconds</p></div>
+    </div>
     <p id="err" class="err" aria-live="polite"></p>
   </form>
   <div id="danger" class="check-result danger" hidden aria-live="polite"></div>

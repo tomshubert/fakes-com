@@ -304,14 +304,49 @@
     if (mode === "item" && !images.length) { $("err").textContent = MODES.item.empty; return; }
     if (!text && !images.length && !pdf && !email && !attachment) { $("err").textContent = MODES[mode].empty; return; }
     lastHadImagesOnly = images.length > 0 && !email && !pdf && !attachment;
-    var btn = $("go"); btn.disabled = true; btn.textContent = mode === "claim" ? "Fact-checking… (up to a minute)" : (/https?:\/\/|www\.|\.[a-z]{2,}\//i.test(text) || email) ? "Checking the link… (about 20 seconds)" : "Checking…";
-    fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ mode: mode, text: text, images: images, pdf: pdf, email: email, attachment: attachment, turnstile: token }) })
-      .then(function (r) { return r.text().then(function (t) { var d = null; try { d = JSON.parse(t); } catch (e) {} return { ok: r.ok, status: r.status, d: d }; }); })
+    var btn = $("go"); btn.disabled = true; btn.textContent = "Checking…";
+    var hasLink = /https?:\/\/|www\.|\.[a-z]{2,}\//i.test(text) || !!email || !!attachment;
+    var steps = ["Reading what you sent…"];
+    if (images.length) steps.push(mode === "item" ? "Looking closely at your photos…" : "Reading your screenshot…");
+    if (pdf) steps.push("Reading the PDF…");
+    if (email) steps.push("Checking who really sent the email…", "Finding where its links really go…");
+    else if (attachment) steps.push("Looking inside the attachment…");
+    if (hasLink && mode !== "item") steps.push("Checking the website against Google's list of dangerous sites…", "Looking up when the website was created…");
+    if (mode === "claim") steps.push("Searching the web for reliable sources…", "Comparing what the sources say…");
+    else if (mode === "listing") steps.push("Comparing the listing with common counterfeit signs…");
+    else steps.push("Looking for common scam warning signs…");
+    steps.push("Writing up what we found…", "Still working. Detailed checks can take a little longer…");
+    $("working-est").textContent = mode === "claim" ? "30–60" : hasLink ? "15–30" : "10–20";
+    $("working-step").textContent = steps[0]; $("working-secs").textContent = "0"; $("working").hidden = false;
+    var started = Date.now(), stepAt = 0;
+    var ticker = setInterval(function () {
+      var secs = Math.floor((Date.now() - started) / 1000);
+      $("working-secs").textContent = String(secs);
+      var next = Math.min(steps.length - 1, Math.floor(secs / (mode === "claim" ? 7 : 4)));
+      if (next !== stepAt) { stepAt = next; $("working-step").textContent = steps[next]; }
+    }, 500);
+    var payload = JSON.stringify({ mode: mode, text: text, images: images, pdf: pdf, email: email, attachment: attachment, turnstile: token });
+    // Use XMLHttpRequest so we can show upload progress for larger files (fetch can't report it).
+    new Promise(function (resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/api/check"); xhr.setRequestHeader("content-type", "application/json");
+      if (payload.length > 250000 && xhr.upload) {
+        $("upload").hidden = false; $("upload-bar").style.width = "0%"; $("upload-pct").textContent = "0%";
+        xhr.upload.onprogress = function (e) {
+          if (!e.lengthComputable) return;
+          var pct = Math.min(100, Math.round(e.loaded / e.total * 100));
+          $("upload-bar").style.width = pct + "%"; $("upload-pct").textContent = pct + "%";
+        };
+        xhr.upload.onload = function () { $("upload").hidden = true; started = Date.now(); };
+      }
+      xhr.onload = function () { var d = null; try { d = JSON.parse(xhr.responseText); } catch (e) {} resolve({ ok: xhr.status >= 200 && xhr.status < 300, status: xhr.status, d: d }); };
+      xhr.onerror = function () { reject(new Error("The checker couldn't be reached. Please check your internet connection and try again.")); };
+      xhr.send(payload);
+    })
       .then(function (x) {
         if (!x.d) throw new Error("The checker had a problem (error " + x.status + "). Please try again in a minute.");
         if (!x.ok || x.d.error) throw new Error((x.d.error || "Something went wrong.") + (x.d.code ? " (code " + x.d.code + ")" : "")); render(x.d); })
       .catch(function (e) { $("err").textContent = (e && e.message && !/JSON|token/i.test(e.message)) ? e.message : "The checker couldn't be reached. Please try again in a minute."; })
-      .finally(function () { btn.disabled = false; btn.textContent = "Check it"; if (widget !== null && window.turnstile) { window.turnstile.reset(widget); token = ""; } });
+      .finally(function () { clearInterval(ticker); $("working").hidden = true; $("upload").hidden = true; btn.disabled = false; btn.textContent = "Check it"; if (widget !== null && window.turnstile) { window.turnstile.reset(widget); token = ""; } });
   });
 })();

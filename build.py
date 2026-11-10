@@ -330,6 +330,14 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
     <p class="privacy-note">Don't include passwords, full card or account numbers, or Social Security numbers. We don't store what you submit. It's sent to Anthropic's Claude AI to analyze. Results are automated and can be wrong. By using the checker you agree to our <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a>.</p>
     <div id="human"></div>
     <button class="btn" id="go" type="submit">Check it</button>
+    <div id="upload" class="upload" hidden>
+      <p>Sending your file… <span id="upload-pct">0%</span></p>
+      <div class="upload-track"><div id="upload-bar" class="upload-bar"></div></div>
+    </div>
+    <div id="working" class="working" hidden role="status" aria-live="polite">
+      <div class="working-mark" aria-hidden="true"><span class="ring"></span><span class="glass">FAKES<b>.</b>COM</span></div>
+      <div class="working-text"><p id="working-step">Reading what you sent…</p><p class="working-time"><span id="working-secs">0</span> seconds · this usually takes <span id="working-est">10–20</span> seconds</p></div>
+    </div>
     <p id="err" class="err" aria-live="polite"></p>
   </form>
   <div id="danger" class="check-result danger" hidden aria-live="polite"></div>
