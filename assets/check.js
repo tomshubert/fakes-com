@@ -2,26 +2,26 @@
   var form = document.getElementById("checker");
   if (!form) return;
   var $ = function (id) { return document.getElementById(id); };
-  var images = [], token = "", widget = null, mode = "message";
+  var images = [], pdf = null, email = null, token = "", widget = null, mode = "message";
   var MAX_IMAGES = 3;
 
   var MODES = {
     message: {
       label: "Paste the message, email, link or phone number",
       placeholder: "Example: USPS: Your package is on hold. Update your address within 12 hours: ...",
-      photos: "Add a screenshot", multi: false,
-      empty: "Paste the message or add a screenshot first."
+      photos: "Add a screenshot, PDF or saved email", multi: false, docs: true, emails: true,
+      empty: "Paste the message, or add a screenshot, PDF or saved email first."
     },
     listing: {
       label: "Paste the product listing: the item, price, seller name and web address",
       placeholder: "Example: Apple AirPods Pro 2, $49.99, sold by TechDealsDirect, ships from overseas in 2-3 weeks, link: ...",
-      photos: "Add screenshots (up to 3)", multi: true,
+      photos: "Add screenshots (up to 3) or a PDF", multi: true, docs: true,
       empty: "Paste the listing details or add a screenshot first."
     },
     claim: {
       label: "Paste the post, caption, headline or claim (or add a screenshot)",
       placeholder: "Example: Eating two tablespoons of apple cider vinegar a day reverses type 2 diabetes, doctors are hiding this!",
-      photos: "Add a screenshot", multi: false,
+      photos: "Add a screenshot or PDF", multi: false, docs: true,
       empty: "Paste the post or claim, or add a screenshot first.",
       note: "One free fact-check per day. Facebook, Instagram and TikTok links can't be opened, so paste the words or add a screenshot."
     },
@@ -64,6 +64,44 @@
     });
   }
 
+  function readAs(file, how) {
+    return new Promise(function (resolve, reject) {
+      var r = new FileReader();
+      r.onload = function () { resolve(r.result); };
+      r.onerror = reject;
+      if (how === "text") r.readAsText(file); else r.readAsDataURL(file);
+    });
+  }
+  function isPdf(f) { return f.type === "application/pdf" || /\.pdf$/i.test(f.name); }
+  function isEmail(f) { return f.type === "message/rfc822" || /\.eml$/i.test(f.name); }
+  function isImage(f) { return /^image\//.test(f.type) || /\.(jpe?g|png|gif|webp|heic)$/i.test(f.name); }
+
+  function takeFiles(list) {
+    var files = Array.prototype.slice.call(list || []);
+    var cfg = MODES[mode];
+    images = []; pdf = null; email = null; $("shot-name").textContent = "";
+    if (!files.length) return;
+    var doc = files.find(function (f) { return isPdf(f) || isEmail(f); });
+    if (doc) {
+      if (isEmail(doc) && !cfg.emails) { $("shot-name").textContent = "Saved emails can be checked in the \"message, email or website\" option."; return; }
+      if (isPdf(doc) && !cfg.docs) { $("shot-name").textContent = "Please add photos for this kind of check."; return; }
+      var limitMB = isPdf(doc) ? 3 : 1;
+      if (doc.size > limitMB * 1024 * 1024) { $("shot-name").textContent = "That file is too large (limit " + limitMB + " MB)."; return; }
+      return readAs(doc, isEmail(doc) ? "text" : "dataurl").then(function (res) {
+        if (isEmail(doc)) email = res; else pdf = { data: String(res).split(",")[1] };
+        $("shot-name").textContent = "Added: " + doc.name;
+      }).catch(function () { $("shot-name").textContent = "That file couldn't be read."; });
+    }
+    var pics = files.filter(isImage);
+    if (!pics.length) { $("shot-name").textContent = "That type of file can't be checked here. Use a photo, screenshot, PDF or saved email (.eml)."; return; }
+    var limit = cfg.multi ? MAX_IMAGES : 1;
+    if (pics.length > limit) { $("shot-name").textContent = "Only the first " + limit + " will be used."; pics = pics.slice(0, limit); }
+    Promise.all(pics.map(shrink)).then(function (list) {
+      images = list;
+      $("shot-name").textContent = "Added: " + pics.map(function (f) { return f.name; }).join(", ");
+    }).catch(function () { $("shot-name").textContent = "A file couldn't be read. Try JPG or PNG photos."; });
+  }
+
   function setMode(m) {
     mode = MODES[m] ? m : "message";
     var cfg = MODES[mode];
@@ -71,9 +109,11 @@
     $("msg").placeholder = cfg.placeholder;
     $("shot-label").textContent = cfg.photos;
     $("shot").multiple = cfg.multi;
+    $("shot").accept = "image/*" + (cfg.docs ? ",.pdf,application/pdf" : "") + (cfg.emails ? ",.eml,message/rfc822" : "");
+    $("email-help").hidden = !cfg.emails;
     $("mode-note").textContent = cfg.note || "";
     $("mode-note").hidden = !cfg.note;
-    images = []; $("shot").value = ""; $("shot-name").textContent = "";
+    images = []; pdf = null; email = null; $("shot").value = ""; $("shot-name").textContent = "";
     $("err").textContent = ""; $("result").hidden = true;
     document.querySelectorAll(".mode-tabs input").forEach(function (r) { r.checked = r.value === mode; });
   }
@@ -83,17 +123,16 @@
   var fromHash = (location.hash || "").replace("#", "");
   setMode(MODES[fromHash] ? fromHash : "message");
 
-  $("shot").addEventListener("change", function () {
-    var files = Array.prototype.slice.call(this.files || []);
-    images = []; $("shot-name").textContent = "";
-    if (!files.length) return;
-    var limit = MODES[mode].multi ? MAX_IMAGES : 1;
-    if (files.length > limit) { $("shot-name").textContent = "Only the first " + limit + " will be used."; files = files.slice(0, limit); }
-    Promise.all(files.map(shrink)).then(function (list) {
-      images = list;
-      $("shot-name").textContent = "Added: " + files.map(function (f) { return f.name; }).join(", ");
-    }).catch(function () { $("shot-name").textContent = "A file couldn't be read. Try JPG or PNG photos."; });
+  $("shot").addEventListener("change", function () { takeFiles(this.files); });
+
+  // Drag and drop anywhere on the form.
+  ["dragenter", "dragover"].forEach(function (ev) {
+    form.addEventListener(ev, function (e) { e.preventDefault(); form.classList.add("dragging"); });
   });
+  ["dragleave", "drop"].forEach(function (ev) {
+    form.addEventListener(ev, function (e) { e.preventDefault(); if (ev === "drop" || e.target === form) form.classList.remove("dragging"); });
+  });
+  form.addEventListener("drop", function (e) { takeFiles(e.dataTransfer && e.dataTransfer.files); });
 
   var LABELS = {
     message: { likely_scam: ["LIKELY SCAM", "fake"], suspicious: ["SUSPICIOUS", "fake"], no_red_flags_found: ["NO RED FLAGS FOUND", "real"], cant_tell: ["CAN'T TELL", "neutral"] },
@@ -179,10 +218,10 @@
     var text = $("msg").value.trim();
     $("err").textContent = "";
     if (mode === "item" && !images.length) { $("err").textContent = MODES.item.empty; return; }
-    if (!text && !images.length) { $("err").textContent = MODES[mode].empty; return; }
-    var btn = $("go"); btn.disabled = true; btn.textContent = mode === "claim" ? "Fact-checking… (up to a minute)" : "Checking…";
+    if (!text && !images.length && !pdf && !email) { $("err").textContent = MODES[mode].empty; return; }
+    var btn = $("go"); btn.disabled = true; btn.textContent = mode === "claim" ? "Fact-checking… (up to a minute)" : (/https?:\/\/|www\.|\.[a-z]{2,}\//i.test(text) || email) ? "Checking the link… (about 20 seconds)" : "Checking…";
     fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ mode: mode, text: text, images: images, turnstile: token }) })
+      body: JSON.stringify({ mode: mode, text: text, images: images, pdf: pdf, email: email, turnstile: token }) })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (x) { if (!x.ok || x.d.error) throw new Error(x.d.error || "Something went wrong."); render(x.d); })
       .catch(function (e) { $("err").textContent = e.message || "The checker couldn't be reached. Please try again."; })
