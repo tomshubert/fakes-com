@@ -1,5 +1,38 @@
 [
   {
+    "id": "2026-11-10-jail-monitor-fee-calls",
+    "date": "2026-11-10",
+    "channels": [
+      "Phone"
+    ],
+    "title": "Fake jail calls asking for a fee to free a relative",
+    "summary": "Court officials and the sheriff's office in Boone County, Missouri, say scammers are using public jail rosters to find people in custody, then calling their family and friends while pretending to be jail, police or court staff. The callers say the person can go home on electronic monitoring once an upfront fee for an ankle device is paid, sometimes naming real judges and booking details, and press for quick payment by payment app, cryptocurrency or gift card.",
+    "what_to_do": "Hang up and check on the person by calling the jail or court at a number you look up yourself. Court officials don't call asking for money and don't accept gift cards, payment apps or wire transfers.",
+    "sources": [
+      {
+        "name": "KBIA, reporting warnings from Boone County, Mo., court officials and the Boone County Sheriff's Office (Nov 10, 2026)",
+        "url": "https://www.kbia.org/missouri-news/2026-11-10/new-scam-targets-relatives-of-boone-county-detainees-court-officials-say"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-09-bank-cash-courier-calls",
+    "date": "2026-11-09",
+    "channels": [
+      "Phone",
+      "Banking"
+    ],
+    "title": "Fake bank calls telling you to hand cash to a courier",
+    "summary": "Police in Morristown, New Jersey, warn of callers who pose as your bank, claim there is suspicious activity on your account, and tell you to withdraw a large amount of cash and give it to a courier or other person. The calls can be disguised to look like they come from the real bank, and some callers say you are helping with a secret \"sting.\"",
+    "what_to_do": "No real bank or police department will ask you to withdraw cash and hand it to someone, so hang up and call your bank using the number on the back of your card. Never give a caller your passwords, PINs or one-time codes.",
+    "sources": [
+      {
+        "name": "WRNJ Radio, reporting the Morristown Police Department warning (Nov 9, 2026)",
+        "url": "https://wrnjradio.com/morris-county-police-warn-residents-about-bank-impersonation-phone-scam/"
+      }
+    ]
+  },
+  {
     "id": "2026-11-09-military-veteran-scams",
     "date": "2026-11-09",
     "channels": [
