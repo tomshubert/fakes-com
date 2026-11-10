@@ -2,7 +2,7 @@
   var form = document.getElementById("checker");
   if (!form) return;
   var $ = function (id) { return document.getElementById(id); };
-  var images = [], pdf = null, email = null, attachment = null, token = "", widget = null, mode = "message";
+  var lastHadImagesOnly = false, images = [], pdf = null, email = null, attachment = null, token = "", widget = null, mode = "message";
   var MAX_IMAGES = 3;
 
   var MODES = {
@@ -145,7 +145,7 @@
   function takeFiles(list) {
     var files = Array.prototype.slice.call(list || []);
     var cfg = MODES[mode];
-    images = []; pdf = null; email = null; attachment = null; $("shot-name").textContent = ""; $("danger").hidden = true;
+    images = []; pdf = null; email = null; attachment = null; $("shot-name").textContent = ""; $("danger").hidden = true; $("shot-note").hidden = true;
     if (!files.length) return;
     var risky = files.find(function (f) { return dangerKind(f.name); });
     if (risky) { $("shot").value = ""; showDanger(risky.name, dangerKind(risky.name)); return; }
@@ -177,6 +177,7 @@
     Promise.all(pics.map(shrink)).then(function (list) {
       images = list;
       $("shot-name").textContent = "Added: " + pics.map(function (f) { return f.name; }).join(", ");
+      if (mode === "message") { $("shot-note").hidden = false; $("email-help").open = true; }
     }).catch(function () { $("shot-name").textContent = "A file couldn't be read. Try JPG or PNG photos."; });
   }
 
@@ -191,7 +192,7 @@
     $("email-help").hidden = !cfg.emails;
     $("mode-note").textContent = cfg.note || "";
     $("mode-note").hidden = !cfg.note;
-    images = []; pdf = null; email = null; attachment = null; $("shot").value = ""; $("shot-name").textContent = ""; $("danger").hidden = true;
+    images = []; pdf = null; email = null; attachment = null; $("shot").value = ""; $("shot-name").textContent = ""; $("danger").hidden = true; $("shot-note").hidden = true;
     $("err").textContent = ""; $("result").hidden = true;
     document.querySelectorAll(".mode-tabs input").forEach(function (r) { r.checked = r.value === mode; });
   }
@@ -276,6 +277,11 @@
     if (r.reassuring_signs.length) out.appendChild(section("Signs in its favor", li(r.reassuring_signs)));
     if (r.what_to_do.length) out.appendChild(section("What to do", li(r.what_to_do)));
     if (r.how_to_verify) { var p = document.createElement("p"); p.textContent = r.how_to_verify; out.appendChild(section("How to check for sure", p)); }
+    if (mode === "message" && lastHadImagesOnly) {
+      var n = document.createElement("p");
+      n.textContent = "This answer is based on a picture, which can't show where the links in an email or text really go. A message can look completely genuine while its buttons lead to a scam site. For a full check, save the email as a file and add it here, and don't click its links in the meantime.";
+      out.appendChild(section("What a screenshot can't show", n));
+    }
     if (mode !== "message") {
       var more = document.createElement("p");
       more.appendChild(document.createTextNode("See our "));
@@ -297,6 +303,7 @@
     $("err").textContent = "";
     if (mode === "item" && !images.length) { $("err").textContent = MODES.item.empty; return; }
     if (!text && !images.length && !pdf && !email && !attachment) { $("err").textContent = MODES[mode].empty; return; }
+    lastHadImagesOnly = images.length > 0 && !email && !pdf && !attachment;
     var btn = $("go"); btn.disabled = true; btn.textContent = mode === "claim" ? "Fact-checking… (up to a minute)" : (/https?:\/\/|www\.|\.[a-z]{2,}\//i.test(text) || email) ? "Checking the link… (about 20 seconds)" : "Checking…";
     fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ mode: mode, text: text, images: images, pdf: pdf, email: email, attachment: attachment, turnstile: token }) })

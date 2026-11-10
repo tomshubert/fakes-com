@@ -314,6 +314,9 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
       <span class="drop-hint">or drag a file here</span>
       <span id="shot-name" class="label"></span>
     </div>
+    <div id="shot-note" class="callout warn shot-note" hidden>
+      <p><b>A picture of an email can't show where its links really go.</b> The words and the sender's name can look exactly right while the buttons lead to a scam website. For a full check, save the email as a file and add it instead (see below). Until then, don't click any links in it.</p>
+    </div>
     <details id="email-help" class="help">
       <summary>How to save a suspicious email as a file</summary>
       <p>A saved email (.eml file) includes hidden details that show whether it really came from the company it claims. Don't click anything inside the email.</p>
