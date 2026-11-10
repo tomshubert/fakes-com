@@ -2,15 +2,15 @@
   var form = document.getElementById("checker");
   if (!form) return;
   var $ = function (id) { return document.getElementById(id); };
-  var images = [], pdf = null, email = null, token = "", widget = null, mode = "message";
+  var images = [], pdf = null, email = null, attachment = null, token = "", widget = null, mode = "message";
   var MAX_IMAGES = 3;
 
   var MODES = {
     message: {
       label: "Paste the message, email, link or phone number",
       placeholder: "Example: USPS: Your package is on hold. Update your address within 12 hours: ...",
-      photos: "Add a screenshot, PDF or saved email", multi: false, docs: true, emails: true,
-      empty: "Paste the message, or add a screenshot, PDF or saved email first."
+      photos: "Add a screenshot, PDF, saved email or attachment", multi: false, docs: true, emails: true, attachments: true,
+      empty: "Paste the message, or add a screenshot, PDF, saved email or attachment first."
     },
     listing: {
       label: "Paste the product listing: the item, price, seller name and web address",
@@ -69,18 +69,96 @@
       var r = new FileReader();
       r.onload = function () { resolve(r.result); };
       r.onerror = reject;
-      if (how === "text") r.readAsText(file); else r.readAsDataURL(file);
+      if (how === "text") r.readAsText(file); else if (how === "buffer") r.readAsArrayBuffer(file); else r.readAsDataURL(file);
     });
   }
+  // File types that can run programs or hide malware. We never upload these; we warn right away.
+  var DANGER = {
+    program: ["exe","msi","bat","cmd","com","scr","pif","jar","app","apk","dmg","pkg","dll","xll","hta","reg","lnk"],
+    script: ["js","jse","vbs","vbe","wsf","wsh","ps1","svg"],
+    archive: ["zip","rar","7z","gz","tar","cab"],
+    disk: ["iso","img","vhd","vhdx"],
+    macro: ["docm","xlsm","pptm","dotm","xltm","one"],
+    legacy: ["doc","xls","ppt"]
+  };
+  var DANGER_TEXT = {
+    program: "This is a program. Opening it would run it on your computer, and real companies almost never email programs.",
+    script: "This file can contain code that runs when it's opened. Scammers use this type to install malware or show fake login pages.",
+    archive: "This is a compressed file. Scammers use them to hide programs from email filters.",
+    disk: "This is a disk image. Opening it can reveal a hidden program. It's a common way to sneak malware past email filters.",
+    macro: "This document type can contain macros, small programs that run when you click \"Enable content\". It's a classic way to install malware.",
+    legacy: "This older Office format can contain hidden macros. Don't open it unless you were expecting it, and never click \"Enable content\" or \"Enable editing\"."
+  };
+  function dangerKind(name) {
+    var n = name.toLowerCase(), ext = n.split(".").pop();
+    if (/\.(pdf|docx?|xlsx?|jpe?g|png|txt)\.[a-z0-9]{2,4}$/.test(n) && ext !== "pdf") return "disguised";
+    for (var k in DANGER) if (DANGER[k].indexOf(ext) !== -1) return k;
+    return "";
+  }
+  function showDanger(name, kind) {
+    var box = $("danger"); box.textContent = ""; box.hidden = false;
+    var head = document.createElement("div"); head.className = "verdict-head";
+    var st = document.createElement("span"); st.className = "stamp"; st.textContent = kind === "legacy" ? "CAUTION" : "DON'T OPEN";
+    var hl = document.createElement("p"); hl.className = "verdict-line";
+    hl.textContent = kind === "legacy" ? "Be careful with this file: " + name : "Don't open this file: " + name;
+    head.appendChild(st); head.appendChild(hl); box.appendChild(head);
+    var why = document.createElement("p");
+    why.textContent = kind === "disguised"
+      ? "Its name pretends to be a document or picture, but the real ending is different. That's a trick to get you to run a program."
+      : DANGER_TEXT[kind];
+    box.appendChild(why);
+    box.appendChild(section("What to do", li([
+      "Don't open it or click anything in the email.",
+      "Delete the email. If it claims to be from someone you know, call them on a number you already have to ask if they sent it.",
+      "If you already opened it, disconnect from the internet, run a full scan with your antivirus, and change important passwords from a different device."
+    ])));
+    var vt = document.createElement("p"); vt.className = "fine";
+    vt.textContent = "Your file was not uploaded. We judged it by its name only. For a full virus scan, you can upload it to VirusTotal.com, but files uploaded there can be seen by security researchers, so don't upload anything private.";
+    box.appendChild(vt);
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function isPdf(f) { return f.type === "application/pdf" || /\.pdf$/i.test(f.name); }
   function isEmail(f) { return f.type === "message/rfc822" || /\.eml$/i.test(f.name); }
   function isImage(f) { return /^image\//.test(f.type) || /\.(jpe?g|png|gif|webp|heic)$/i.test(f.name); }
 
+  function isHtml(f) { return f.type === "text/html" || /\.(html?|xhtml|shtml)$/i.test(f.name); }
+  function isOffice(f) { return /\.(docx|xlsx)$/i.test(f.name); }
+
+  function readOffice(file) {
+    return readAs(file, "buffer").then(function (buf) {
+      if (!window.JSZip) throw new Error("no zip");
+      return window.JSZip.loadAsync(buf);
+    }).then(function (zip) {
+      var names = Object.keys(zip.files);
+      var macros = names.some(function (n) { return /vbaProject\.bin$/i.test(n); });
+      var parts = /\.docx$/i.test(file.name)
+        ? names.filter(function (n) { return /^word\/(document|header\d*|footer\d*)\.xml$/.test(n); })
+        : names.filter(function (n) { return /^xl\/(sharedStrings|worksheets\/sheet\d+)\.xml$/.test(n); }).slice(0, 6);
+      return Promise.all(parts.map(function (n) { return zip.file(n).async("string"); })).then(function (xmls) {
+        var text = xmls.join(" ").replace(/<w:tab\/>/g, " ").replace(/<\/w:p>/g, "\n").replace(/<[^>]+>/g, " ").replace(/[ \t]+/g, " ");
+        return { kind: /\.docx$/i.test(file.name) ? "docx" : "xlsx", name: file.name, text: text.slice(0, 200000), macros: macros };
+      });
+    });
+  }
+
   function takeFiles(list) {
     var files = Array.prototype.slice.call(list || []);
     var cfg = MODES[mode];
-    images = []; pdf = null; email = null; $("shot-name").textContent = "";
+    images = []; pdf = null; email = null; attachment = null; $("shot-name").textContent = ""; $("danger").hidden = true;
     if (!files.length) return;
+    var risky = files.find(function (f) { return dangerKind(f.name); });
+    if (risky) { $("shot").value = ""; showDanger(risky.name, dangerKind(risky.name)); return; }
+    var att = files.find(function (f) { return isHtml(f) || isOffice(f); });
+    if (att) {
+      if (!cfg.attachments) { $("shot-name").textContent = "Email attachments can be checked in the \"message, email or website\" option."; return; }
+      if (att.size > 5 * 1024 * 1024) { $("shot-name").textContent = "That file is too large (limit 5 MB)."; return; }
+      var job = isHtml(att)
+        ? readAs(att, "text").then(function (txt) { return { kind: "html", name: att.name, text: String(txt).slice(0, 1000000) }; })
+        : readOffice(att);
+      return job.then(function (a) { attachment = a; $("shot-name").textContent = "Added: " + att.name; })
+        .catch(function () { $("shot-name").textContent = "That file couldn't be read."; });
+    }
     var doc = files.find(function (f) { return isPdf(f) || isEmail(f); });
     if (doc) {
       if (isEmail(doc) && !cfg.emails) { $("shot-name").textContent = "Saved emails can be checked in the \"message, email or website\" option."; return; }
@@ -93,7 +171,7 @@
       }).catch(function () { $("shot-name").textContent = "That file couldn't be read."; });
     }
     var pics = files.filter(isImage);
-    if (!pics.length) { $("shot-name").textContent = "That type of file can't be checked here. Use a photo, screenshot, PDF or saved email (.eml)."; return; }
+    if (!pics.length) { $("shot-name").textContent = "That type of file can't be checked here. Use a photo, screenshot, PDF, saved email (.eml), or a Word, Excel or HTML attachment."; return; }
     var limit = cfg.multi ? MAX_IMAGES : 1;
     if (pics.length > limit) { $("shot-name").textContent = "Only the first " + limit + " will be used."; pics = pics.slice(0, limit); }
     Promise.all(pics.map(shrink)).then(function (list) {
@@ -109,11 +187,11 @@
     $("msg").placeholder = cfg.placeholder;
     $("shot-label").textContent = cfg.photos;
     $("shot").multiple = cfg.multi;
-    $("shot").accept = "image/*" + (cfg.docs ? ",.pdf,application/pdf" : "") + (cfg.emails ? ",.eml,message/rfc822" : "");
+    $("shot").accept = cfg.attachments ? "" : "image/*" + (cfg.docs ? ",.pdf,application/pdf" : "") + (cfg.emails ? ",.eml,message/rfc822" : "");
     $("email-help").hidden = !cfg.emails;
     $("mode-note").textContent = cfg.note || "";
     $("mode-note").hidden = !cfg.note;
-    images = []; pdf = null; email = null; $("shot").value = ""; $("shot-name").textContent = "";
+    images = []; pdf = null; email = null; attachment = null; $("shot").value = ""; $("shot-name").textContent = ""; $("danger").hidden = true;
     $("err").textContent = ""; $("result").hidden = true;
     document.querySelectorAll(".mode-tabs input").forEach(function (r) { r.checked = r.value === mode; });
   }
@@ -218,10 +296,10 @@
     var text = $("msg").value.trim();
     $("err").textContent = "";
     if (mode === "item" && !images.length) { $("err").textContent = MODES.item.empty; return; }
-    if (!text && !images.length && !pdf && !email) { $("err").textContent = MODES[mode].empty; return; }
+    if (!text && !images.length && !pdf && !email && !attachment) { $("err").textContent = MODES[mode].empty; return; }
     var btn = $("go"); btn.disabled = true; btn.textContent = mode === "claim" ? "Fact-checking… (up to a minute)" : (/https?:\/\/|www\.|\.[a-z]{2,}\//i.test(text) || email) ? "Checking the link… (about 20 seconds)" : "Checking…";
     fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ mode: mode, text: text, images: images, pdf: pdf, email: email, turnstile: token }) })
+      body: JSON.stringify({ mode: mode, text: text, images: images, pdf: pdf, email: email, attachment: attachment, turnstile: token }) })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (x) { if (!x.ok || x.d.error) throw new Error(x.d.error || "Something went wrong."); render(x.d); })
       .catch(function (e) { $("err").textContent = e.message || "The checker couldn't be reached. Please try again."; })

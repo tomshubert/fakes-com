@@ -315,14 +315,16 @@ def main():
     <button class="btn" id="go" type="submit">Check it</button>
     <p id="err" class="err" aria-live="polite"></p>
   </form>
+  <div id="danger" class="check-result danger" hidden aria-live="polite"></div>
   <div id="result" class="check-result" hidden aria-live="polite"></div>
-  <div class="callout"><h3>Worried a file has a virus?</h3>
-    <p>Don't open it. Fakes.com checks messages, websites and documents for scams but doesn't scan files for viruses. For that, the free service <a href="https://www.virustotal.com/">VirusTotal</a> checks a file with dozens of antivirus programs. Files you upload there can be seen by security researchers, so don't upload private documents.</p></div>
+  <div class="callout"><h3>Got an email attachment you're not sure about?</h3>
+    <p>Add it above without opening it. We read PDFs, Word and Excel files, and HTML attachments (a common trick that opens a fake login page). Programs, compressed files and other risky types are never uploaded; we warn you right away based on the file's name.</p>
+    <p>Fakes.com doesn't scan files for viruses. For that, the free service <a href="https://www.virustotal.com/">VirusTotal</a> checks a file with dozens of antivirus programs. Files uploaded there can be seen by security researchers, so don't upload private documents.</p></div>
   <div class="callout"><h3>Already sent money or shared a password?</h3>
     <p>Call your bank or card company now using the number on your card or statement, change the password, and report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>.</p></div>
 </div></section>"""
     out["check.html"] = layout("Is It Fake? Free Scam Checker", "Check a suspicious message, a product listing before you buy, or an item you received for signs it's fake.", "/check", body, "/check",
-        extra_head=f'<script src="{asset("/assets/check.js")}" defer></script>')
+        extra_head=f'<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script><script src="{asset("/assets/check.js")}" defer></script>')
 
     # Simple pages
     for name, active in [("about", "/about"), ("contact", None), ("standards", None), ("privacy", None), ("disclosure", None)]:
