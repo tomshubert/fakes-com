@@ -200,23 +200,29 @@ async function handleCheck({ request, env }) {
       headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
       body: JSON.stringify(request_body),
     });
-  } catch {
-    return json({ error: "The checker couldn't be reached. Please try again in a minute." }, 502);
+  } catch (e) {
+    console.error("anthropic fetch failed:", e && e.message);
+    return json({ error: "The checker couldn't be reached. Please try again in a minute. (code N)" }, 200);
   }
 
   if (!res.ok) {
+    let detail = ""; try { detail = (await res.text()).slice(0, 500); } catch {}
+    console.error("anthropic error", res.status, detail);
     const busy = res.status === 429 || res.status === 529;
     const out = res.status === 400 || res.status === 402 || res.status === 403;
     return json({ error: busy ? "The checker is busy right now. Please try again in a minute."
       : out ? "The checker is taking a break today. Please try again tomorrow."
-      : "The checker had a problem. Please try again in a minute." }, 502);
+      : "The checker had a problem. Please try again in a minute." , code: "A" + res.status }, 200);
   }
 
   const data = await res.json();
   const raw = (data.content || []).filter(b => b.type === "text").map(b => b.text).join("").trim();
   const m = raw.match(/\{[\s\S]*\}/);
   let result;
-  try { result = JSON.parse(m ? m[0] : raw); } catch { return json({ error: "The checker gave an unclear answer. Please try again." }, 502); }
+  try { result = JSON.parse(m ? m[0] : raw); } catch {
+    console.error("unparseable answer, stop_reason:", data.stop_reason, raw.slice(0, 500));
+    return json({ error: "The checker gave an unclear answer. Please try again. (code U)" }, 200);
+  }
 
   const list = v => Array.isArray(v) ? v.filter(x => typeof x === "string").slice(0, 5) : [];
 

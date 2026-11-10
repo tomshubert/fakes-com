@@ -303,7 +303,7 @@
       .then(function (r) { return r.text().then(function (t) { var d = null; try { d = JSON.parse(t); } catch (e) {} return { ok: r.ok, status: r.status, d: d }; }); })
       .then(function (x) {
         if (!x.d) throw new Error("The checker had a problem (error " + x.status + "). Please try again in a minute.");
-        if (!x.ok || x.d.error) throw new Error(x.d.error || "Something went wrong."); render(x.d); })
+        if (!x.ok || x.d.error) throw new Error((x.d.error || "Something went wrong.") + (x.d.code ? " (code " + x.d.code + ")" : "")); render(x.d); })
       .catch(function (e) { $("err").textContent = (e && e.message && !/JSON|token/i.test(e.message)) ? e.message : "The checker couldn't be reached. Please try again in a minute."; })
       .finally(function () { btn.disabled = false; btn.textContent = "Check it"; if (widget !== null && window.turnstile) { window.turnstile.reset(widget); token = ""; } });
   });
