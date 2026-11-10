@@ -39,6 +39,43 @@
     ]
   },
   {
+    "id": "2026-11-02-fake-federal-agent-calls",
+    "date": "2026-11-02",
+    "channels": [
+      "Phone",
+      "Video call"
+    ],
+    "title": "Fake FBI agents calling from real FBI numbers",
+    "summary": "FBI Honolulu warned that scammers are posing as FBI, DEA and Secret Service agents and faking the phone numbers of real FBI offices, so calling back the number can still reach the scammer. Victims are threatened with arrest and told to pay. In one case, the scammer used a video call with a background made to look like a federal office.",
+    "what_to_do": "Hang up, look up the agency's number yourself, and never pay anyone who says they're a government officer, since real agencies don't demand payment by phone, prepaid card, cryptocurrency or courier.",
+    "sources": [
+      {
+        "name": "Maui Now, reporting the FBI Honolulu warning (Nov 2, 2026)",
+        "url": "https://mauinow.com/2026/11/02/fbi-honolulu-issues-warning-about-law-enforcement-impersonation-scam-targeting-hawai%CA%BBi-residents/"
+      },
+      {
+        "name": "FBI IC3 Public Service Announcement I-091726-PSA",
+        "url": "https://www.ic3.gov/PSA/2026/PSA260917"
+      }
+    ]
+  },
+  {
+    "id": "2026-10-22-fake-ftc-phone-deactivation",
+    "date": "2026-10-22",
+    "channels": [
+      "Phone"
+    ],
+    "title": "Fake FTC calls threaten to shut off your phone",
+    "summary": "The FTC warned that callers posing as FTC officials claim a phone number in your name was used for scams in another country and threaten to disconnect your phone. They transfer you to a fake police officer, tell you to keep the call secret, then claim you're under arrest and demand a \"security deposit.\"",
+    "what_to_do": "Hang up. Real FTC employees never ask for money, threaten to cut off your phone or tell you to keep a call secret. Report the call to the FTC.",
+    "sources": [
+      {
+        "name": "FTC: The FTC is not calling to deactivate your phone number",
+        "url": "https://www.consumer.ftc.gov/consumer-alerts/2026/10/ftc-not-calling-deactivate-your-phone-number"
+      }
+    ]
+  },
+  {
     "id": "2026-10-15-midterm-election-scams",
     "date": "2026-10-15",
     "channels": [
