@@ -7,6 +7,7 @@
   --display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --logo-shield:#12365e; --logo-glass:#ffffff;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root{
@@ -14,6 +15,7 @@
   --ink:#e6eef7; --ink-2:#9fb1c6; --blue:#7db4ea; --blue-ink:#0b1521;
   --band:#0f2a48; --band-ink:#eaf3fc; --band-ink-2:#a9c2dc;
   --fake:#ef7d5e; --fake-soft:#3a1f17; --real:#62c2a1; --real-soft:#13302a;
+  --logo-shield:#eaf3fc; --logo-glass:#0b1521;
   color-scheme:dark}}
 
 *{box-sizing:border-box}
@@ -35,7 +37,7 @@ h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.
 
 header.top{border-bottom:3px solid var(--ink);background:var(--paper)}
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;padding-block:14px}
-.logo{font-family:var(--display);font-weight:900;font-stretch:125%;font-size:28px;letter-spacing:-.02em;text-decoration:none}
+.logo{display:inline-flex;align-items:center;gap:0;font-family:var(--display);font-weight:900;font-stretch:125%;font-size:28px;letter-spacing:-.02em;text-decoration:none}
 .logo span{color:var(--fake)}
 nav.main{display:flex;gap:6px 18px;flex-wrap:wrap;font-family:var(--display);font-weight:600;font-size:15px}
 nav.main a{text-decoration:none;padding-block:4px;border-bottom:2px solid transparent}
@@ -233,3 +235,4 @@ footer.site .fine{grid-column:1/-1;font-family:var(--mono);font-size:12px;color:
 .upload p{margin:0 0 6px;font-weight:600}
 .upload-track{height:10px;background:var(--rule);border-radius:5px;overflow:hidden}
 .upload-bar{height:100%;width:0;background:var(--blue);transition:width .2s}
+.logo-mark{flex:0 0 auto;margin-right:1px}

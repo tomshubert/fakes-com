@@ -58,7 +58,8 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <meta name="description" content="{e(description)}">
 {robots}
 <link rel="canonical" href="{SITE}{path}">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fakes.com">
 <meta property="og:title" content="{e(title)}">
@@ -77,7 +78,7 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <a class="skip" href="#main">Skip to content</a>
 {banner}
 <header class="top"><div class="wrap">
-  <a class="logo" href="/">FAKES<span>.</span>COM</a>
+  <a class="logo" href="/" aria-label="Fakes.com home"><svg class="logo-mark" width="30" height="35" viewBox="0 0 104 120" aria-hidden="true"><path d="M52 4 L98 20 V56 C98 86 78 106 52 116 C26 106 6 86 6 56 V20 Z" fill="var(--logo-shield)"/><circle cx="43" cy="48" r="25" fill="var(--logo-shield)" stroke="var(--logo-glass)" stroke-width="8"/><circle cx="43" cy="48" r="8" fill="var(--fake)"/><line x1="61" y1="67" x2="77" y2="85" stroke="var(--logo-glass)" stroke-width="9" stroke-linecap="round"/></svg>FAKES<span>.</span>COM</a>
   <nav class="main" aria-label="Main">{nav}</nav>
 </div></header>
 <main id="main">
