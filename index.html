@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=b055352a7f">
+<link rel="stylesheet" href="/assets/site.css?v=a0cc982c4b">
 <script>window.FAKES_GAME=[{"m": "From: Chase Fraud Alert <alerts@chase-secure-verify.example>\nWe detected a $2,340 purchase. If this wasn't you, reply with your card number and PIN to cancel it.", "a": "fake", "why": "Banks never ask for your PIN, and the sender's address isn't the bank's real domain. Call the number on the back of your card instead."}, {"m": "Your dentist appointment is confirmed for Tue 11/17 at 2:30 PM. Reply C to confirm or call our office to reschedule.", "a": "real", "why": "No link, no payment, no pressure, and it sends you to an office you already know. If you're unsure, call the office directly."}, {"m": "Mom it's me, I broke my phone and this is a friend's number. I'm stuck and need $800 for a repair, can you Zelle it now? Please don't call, I can't talk.", "a": "fake", "why": "A new number, urgency, a payment app, and a request not to call are the classic family-emergency setup. Call your child on their usual number first."}, {"m": "USPS: Your package is on hold due to an incomplete address. Update within 12 hours or it will be returned: usps-redelivery.example/track", "a": "fake", "why": "USPS texts only people who asked for tracking updates, and even those texts never include a link. The web address isn't usps.com either."}, {"m": "Your Amazon order #113-4471205 has shipped. Track it any time in Your Orders in the Amazon app.", "a": "real", "why": "It doesn't ask you to click anything or pay anything, and it points you to the app you already use. Checking there is always safe."}, {"m": "This is the IRS. A lawsuit has been filed against you for unpaid taxes. Call 202-555-0143 immediately or a warrant will be issued for your arrest.", "a": "fake", "why": "The IRS normally contacts you by mail first and doesn't threaten arrest by phone or text."}, {"m": "Hi, this is Dana from Dr. Patel's office. Your lab results are in your patient portal. Log in the usual way to view them.", "a": "real", "why": "It tells you to log in the way you normally do instead of giving you a link. That's what a careful office does."}, {"m": "Congratulations! You've been selected for a $1,000 Costco reward. Just pay $4.95 shipping to claim: costco-rewards.example", "a": "fake", "why": "A prize that costs money to claim is a scam, and the address isn't Costco's real site."}, {"m": "Microsoft Security: Your computer is infected with 3 viruses. Do not shut down. Call Microsoft Support at 312-555-0199 now.", "a": "fake", "why": "Microsoft doesn't put phone numbers in pop-up warnings. Close the browser; if it won't close, restart the computer."}];</script><script src="/assets/game.js?v=0edea2980b" defer></script>
 </head>
 <body>
@@ -28,7 +28,7 @@
 
 <header class="top"><div class="wrap">
   <a class="logo" href="/" aria-label="Fakes.com home"><svg class="logo-mark" width="40" height="46" viewBox="0 0 104 120" aria-hidden="true"><path d="M52 4 L98 20 V56 C98 86 78 106 52 116 C26 106 6 86 6 56 V20 Z" fill="var(--logo-shield)"/><circle cx="43" cy="48" r="25" fill="var(--logo-shield)" stroke="var(--logo-glass)" stroke-width="8"/><circle cx="43" cy="48" r="8" fill="var(--fake)"/><line x1="61" y1="67" x2="77" y2="85" stroke="var(--logo-glass)" stroke-width="9" stroke-linecap="round"/></svg><span class="logo-words"><span class="logo-name">FAKES<span>.</span>COM</span><span class="logo-tag">Look closer. Stay safe.</span></span></a>
-  <nav class="main" aria-label="Main"><a href="/check">Check It</a><a href="/alerts">Scam Alerts</a><a href="/guides/">Guides</a><a href="/verify/">Real or Fake?</a><a href="/spot-the-fake">Spot the Fake</a><a href="/about">About</a></nav>
+  <nav class="main" aria-label="Main"><a href="/check">Check It</a><a href="/alerts">Scam Alerts</a><a href="/guides/">Guides</a><a href="/verify/">Spot Counterfeits</a><a href="/spot-the-fake">Practice Game</a><a href="/about">About</a></nav>
 </div></header>
 <main id="main">
 <section class="hero"><div class="wrap">
@@ -37,7 +37,8 @@
     <h1>Check if it's <em>fake</em> before you click, pay or believe it.</h1>
     <p class="lede">Plain-English warnings about the scams going around right now, how to spot AI-made voices and videos, and how to tell real products from knockoffs. Every fact links to its source.</p>
     <div class="byline">By <b>Tom Shubert</b> · IT consultant to small businesses and individuals</div>
-    <div class="cta"><a class="btn" href="/check">Check something now</a><a class="btn ghost" href="/alerts">See this week's scams</a></div>
+    <div class="cta"><a class="btn" href="/check">Check a message or link</a><a class="btn ghost" href="/alerts">See this week's scams</a></div>
+    <p class="trust">Free to use. No account needed. We never ask for passwords, card numbers or payment.</p>
   </div>
   <div class="stamp-card" aria-label="Example of a fake text message">
     <div class="head"><span class="label">Example text message</span><span class="stamp">FAKE</span></div>
@@ -47,7 +48,15 @@
     <p class="fine">Sample written by Fakes.com. The web address is deliberately fake.</p>
   </div>
 </div></section>
-<section class="figures" aria-label="Fraud by the numbers"><div class="wrap"><div class="fig"><div class="n">$15.9B</div><p>reported lost to fraud in 2025, up from over $12B in 2024</p><div class="src"><a href="https://www.ftc.gov/news-events/news/press-releases/2026/03/ftc-testifies-joint-economic-committee-agencys-efforts-combat-fraud">FTC, Mar 2026</a></div></div><div class="fig"><div class="n">$20.9B</div><p>in internet crime losses reported to the FBI in 2025, from just over 1 million complaints</p><div class="src"><a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 report</a></div></div><div class="fig"><div class="n">$893M</div><p>in losses from complaints involving AI, such as voice cloning and deepfakes</p><div class="src"><a href="https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf">FBI IC3 2025 report, p. 39</a></div></div><div class="fig"><div class="n">5×</div><p>increase in fraud losses reported by people 60+, from about $600M in 2020 to about $3B in 2025</p><div class="src"><a href="https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-issues-annual-report-congress-agencys-actions-protect-older-adults">FTC, Oct 2026</a></div></div></div></section>
+<section class="figures" aria-label="Fraud by the numbers"><div class="wrap"><div class="fig"><div class="n">$15.9B</div><p>reported lost to fraud in 2025, up from over $12B in 2024</p><div class="src"><a href="https://www.ftc.gov/news-events/news/press-releases/2026/03/ftc-testifies-joint-economic-committee-agencys-efforts-combat-fraud">FTC, Mar 2026</a></div></div><div class="fig"><div class="n">5×</div><p>increase in fraud losses reported by people 60+, from about $600M in 2020 to about $3B in 2025</p><div class="src"><a href="https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-issues-annual-report-congress-agencys-actions-protect-older-adults">FTC, Oct 2026</a></div></div></div></section>
+<section class="block about-strip"><div class="wrap split">
+  <div><div class="label">From the field</div>
+    <blockquote class="story">Someone in Germany signed into the email account of an employee at a law firm I support. The 24/7 security monitoring service I use flagged the login right away, and I locked the account down before any sensitive firm or client data was compromised.</blockquote>
+    <div class="who">Tom Shubert · real case, client name withheld</div></div>
+  <div><h3 style="font-size:26px;margin-bottom:10px">Why I built Fakes.com</h3>
+    <p>I've worked with computers since I was 13 and have done IT consulting for small businesses since the early 1990s. Along the way I've seen careful people lose real money to phishing emails and to fake "urgent" wire-transfer requests that appeared to come from their own boss.</p>
+    <p>This site is the advice I give my clients, written for everyone. <a href="/about">More about me →</a></p></div>
+</div></section>
 <section class="block"><div class="wrap">
   <div class="sec-head"><h2>Scam Alerts</h2><a href="/alerts">All alerts →</a></div>
   <div class="alerts"><article class="alert" id="2026-11-10-jail-monitor-fee-calls">
@@ -80,41 +89,15 @@
   <div class="sec-head"><h2>Learn to Spot Fakes</h2><a href="/guides/">All guides →</a></div>
   <div class="cards3"><a class="gcard" href="/guides/business-email-compromise"><div class="label">Business Scams</div><h3>The &quot;Email From the Boss&quot; Scam: How to Stop a Fake Payment Request</h3><p>Business email compromise tricks employees into wiring money, changing payment details or buying gift cards. One phone call stops it.</p><span class="more">Read the guide →</span></a><a class="gcard" href="/guides/voice-clone-scams"><div class="label">Deepfakes &amp; AI</div><h3>Is That Really Your Grandson Calling? How to Beat Voice-Clone Scams</h3><p>Scammers can copy a loved one&#x27;s voice with AI. Here&#x27;s how the family-emergency scam works and the three steps that stop it.</p><span class="more">Read the guide →</span></a><a class="gcard" href="/guides/fake-online-stores"><div class="label">Fake Websites</div><h3>How to Check an Online Store Before You Pay</h3><p>Fake shops look polished and often advertise on social media. A one-minute check tells you whether to trust them.</p><span class="more">Read the guide →</span></a><a class="gcard" href="/guides/counterfeit-products"><div class="label">Real vs. Fake Products</div><h3>Real or Knockoff? How to Avoid Counterfeit Products Online</h3><p>Counterfeits aren&#x27;t just a ripoff. Fake electronics, cosmetics and safety gear can be dangerous. Here&#x27;s how to buy the real thing.</p><span class="more">Read the guide →</span></a></div>
 </div></section>
-<section class="block tint"><div class="wrap">
-  <div class="sec-head"><h2>Is your product real?</h2><a href="/verify/">Brand guides →</a></div>
+<section class="block"><div class="wrap">
+  <div class="sec-head"><h2>More free tools</h2></div>
   <div class="cards3">
-    <a class="gcard" href="/check#listing"><div class="label">Before you buy</div><h3>Check a listing</h3><p>Paste the item, price and seller. We'll point out the signs of a counterfeit or a scam seller before you spend anything.</p><span class="more">Check a listing →</span></a>
-    <a class="gcard" href="/check#item"><div class="label">Already bought it</div><h3>Check your item</h3><p>Upload up to three photos. We'll point out what looks off and tell you how to confirm with the brand.</p><span class="more">Check an item →</span></a>
-    <a class="gcard" href="/verify/"><div class="label">Brand by brand</div><h3>Official ways to verify</h3><p>Serial number lookups, authorized seller lists and the giveaways each brand says to look for.</p><span class="more">See the brands →</span></a>
+    <a class="gcard" href="/check#listing"><div class="label">Shopping</div><h3>Check a product before you buy</h3><p>Paste a listing and we'll point out the signs of a counterfeit or a scam seller.</p><span class="more">Check a listing →</span></a>
+    <a class="gcard" href="/verify/"><div class="label">Brand by brand</div><h3>Spot counterfeits</h3><p>Each brand's own ways to confirm a product is genuine: serial lookups, authorized sellers and warning signs.</p><span class="more">See the brands →</span></a>
+    <a class="gcard" href="/spot-the-fake"><div class="label">Practice</div><h3>Test yourself</h3><p>A quick daily game with realistic sample messages. Can you tell which ones are fake?</p><span class="more">Play →</span></a>
   </div>
 </div></section>
-<section class="game" id="game"><div class="wrap">
-  <div>
-    <div class="label">Daily game</div>
-    <h2 style="margin-top:10px">Spot the Fake</h2>
-    <p>Three messages a day. Real or fake? Each answer explains the clue, so you get faster at catching the next one.</p>
-    <p class="label" style="margin-top:18px">Practice messages written by Fakes.com</p>
-  </div>
-  <div class="q" aria-live="polite">
-    <div class="label" id="qnum">Message 1 of 3</div>
-    <div class="msg" id="qmsg">Loading…</div>
-    <div class="choices">
-      <button type="button" class="r" id="btn-real">REAL</button>
-      <button type="button" class="f" id="btn-fake">FAKE</button>
-    </div>
-    <div class="result" id="qres" hidden></div>
-    <div class="qfoot"><span class="score" id="score">Score: 0 / 0</span>
-      <button type="button" class="btn ghost" id="next" hidden>Next message</button></div>
-  </div>
-</div></section>
-<section class="block"><div class="wrap split">
-  <div><div class="label">From the field</div>
-    <blockquote class="story">Someone in Germany signed into the email account of an employee at a law firm I support. The 24/7 security monitoring service I use flagged the login right away, and I locked the account down before any sensitive firm or client data was compromised.</blockquote>
-    <div class="who">Tom Shubert · real case, client name withheld</div></div>
-  <div><h3 style="font-size:26px;margin-bottom:10px">Why I built Fakes.com</h3>
-    <p>I've worked with computers since I was 13 and have done IT consulting for small businesses since the early 1990s. Along the way I've seen careful people lose real money to phishing emails and to fake "urgent" wire-transfer requests that appeared to come from their own boss.</p>
-    <p>This site is the advice I give my clients, written for everyone. <a href="/about">More about me →</a></p></div>
-</div></section>
+
 <section class="signup"><div class="wrap">
   <div><h2>Get the weekly scam alert</h2><p>The scams going around this week and how to avoid them. One short email every Monday. Free.</p></div>
   <form id="signup" novalidate>
@@ -143,8 +126,8 @@ document.getElementById('signup').addEventListener('submit',function(ev){
 <footer class="site"><div class="wrap">
   <div><h4>Fakes.com</h4><p>Plain-English warnings about scams, deepfakes and counterfeits, from IT consultant Tom Shubert. Every fact links to its source.</p></div>
   <div><h4>Site</h4><ul>
-    <li><a href="/check">Check It</a></li><li><a href="/verify/">Real or Fake? brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
-    <li><a href="/spot-the-fake">Spot the Fake</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <li><a href="/check">Check It</a></li><li><a href="/verify/">Spot counterfeits: brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
+    <li><a href="/spot-the-fake">Practice game</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
   <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
     <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/terms">Terms of Use</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
   <div class="fine">© 2026 Fakes.com · Fakes.com never sells or links to counterfeit goods.</div>

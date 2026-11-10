@@ -10,7 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://fakes.com"
 PREVIEW = False  # True = search engines told not to index + preview banner. Set False at launch.
 
-NAV = [("/check", "Check It"), ("/alerts", "Scam Alerts"), ("/guides/", "Guides"), ("/verify/", "Real or Fake?"), ("/spot-the-fake", "Spot the Fake"), ("/about", "About")]
+NAV = [("/check", "Check It"), ("/alerts", "Scam Alerts"), ("/guides/", "Guides"), ("/verify/", "Spot Counterfeits"), ("/spot-the-fake", "Practice Game"), ("/about", "About")]
 FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900"
          "&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap")
 
@@ -87,8 +87,8 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <footer class="site"><div class="wrap">
   <div><h4>Fakes.com</h4><p>Plain-English warnings about scams, deepfakes and counterfeits, from IT consultant Tom Shubert. Every fact links to its source.</p></div>
   <div><h4>Site</h4><ul>
-    <li><a href="/check">Check It</a></li><li><a href="/verify/">Real or Fake? brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
-    <li><a href="/spot-the-fake">Spot the Fake</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <li><a href="/check">Check It</a></li><li><a href="/verify/">Spot counterfeits: brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
+    <li><a href="/spot-the-fake">Practice game</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
   <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
     <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/terms">Terms of Use</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
   <div class="fine">© {year} Fakes.com · Fakes.com never sells or links to counterfeit goods.</div>
@@ -135,10 +135,6 @@ def game_scripts(pool):
 FIGURES = [
     ("$15.9B", "reported lost to fraud in 2025, up from over $12B in 2024",
      "FTC, Mar 2026", "https://www.ftc.gov/news-events/news/press-releases/2026/03/ftc-testifies-joint-economic-committee-agencys-efforts-combat-fraud"),
-    ("$20.9B", "in internet crime losses reported to the FBI in 2025, from just over 1 million complaints",
-     "FBI IC3 2025 report", "https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf"),
-    ("$893M", "in losses from complaints involving AI, such as voice cloning and deepfakes",
-     "FBI IC3 2025 report, p. 39", "https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf"),
     ("5×", "increase in fraud losses reported by people 60+, from about $600M in 2020 to about $3B in 2025",
      "FTC, Oct 2026", "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-issues-annual-report-congress-agencys-actions-protect-older-adults"),
 ]
@@ -196,7 +192,8 @@ def main():
     <h1>Check if it's <em>fake</em> before you click, pay or believe it.</h1>
     <p class="lede">Plain-English warnings about the scams going around right now, how to spot AI-made voices and videos, and how to tell real products from knockoffs. Every fact links to its source.</p>
     <div class="byline">By <b>Tom Shubert</b> · IT consultant to small businesses and individuals</div>
-    <div class="cta"><a class="btn" href="/check">Check something now</a><a class="btn ghost" href="/alerts">See this week's scams</a></div>
+    <div class="cta"><a class="btn" href="/check">Check a message or link</a><a class="btn ghost" href="/alerts">See this week's scams</a></div>
+    <p class="trust">Free to use. No account needed. We never ask for passwords, card numbers or payment.</p>
   </div>
   <div class="stamp-card" aria-label="Example of a fake text message">
     <div class="head"><span class="label">Example text message</span><span class="stamp">FAKE</span></div>
@@ -207,6 +204,14 @@ def main():
   </div>
 </div></section>
 {figures_html()}
+<section class="block about-strip"><div class="wrap split">
+  <div><div class="label">From the field</div>
+    <blockquote class="story">Someone in Germany signed into the email account of an employee at a law firm I support. The 24/7 security monitoring service I use flagged the login right away, and I locked the account down before any sensitive firm or client data was compromised.</blockquote>
+    <div class="who">Tom Shubert · real case, client name withheld</div></div>
+  <div><h3 style="font-size:26px;margin-bottom:10px">Why I built Fakes.com</h3>
+    <p>I've worked with computers since I was 13 and have done IT consulting for small businesses since the early 1990s. Along the way I've seen careful people lose real money to phishing emails and to fake \"urgent\" wire-transfer requests that appeared to come from their own boss.</p>
+    <p>This site is the advice I give my clients, written for everyone. <a href="/about">More about me →</a></p></div>
+</div></section>
 <section class="block"><div class="wrap">
   <div class="sec-head"><h2>Scam Alerts</h2><a href="/alerts">All alerts →</a></div>
   <div class="alerts">{''.join(alert_card(a) for a in alerts[:4])}</div>
@@ -215,16 +220,15 @@ def main():
   <div class="sec-head"><h2>Learn to Spot Fakes</h2><a href="/guides/">All guides →</a></div>
   <div class="cards3">{guide_cards(guides)}</div>
 </div></section>
-{PRODUCT_CHECK}
-{GAME_BLOCK}
-<section class="block"><div class="wrap split">
-  <div><div class="label">From the field</div>
-    <blockquote class="story">Someone in Germany signed into the email account of an employee at a law firm I support. The 24/7 security monitoring service I use flagged the login right away, and I locked the account down before any sensitive firm or client data was compromised.</blockquote>
-    <div class="who">Tom Shubert · real case, client name withheld</div></div>
-  <div><h3 style="font-size:26px;margin-bottom:10px">Why I built Fakes.com</h3>
-    <p>I've worked with computers since I was 13 and have done IT consulting for small businesses since the early 1990s. Along the way I've seen careful people lose real money to phishing emails and to fake \"urgent\" wire-transfer requests that appeared to come from their own boss.</p>
-    <p>This site is the advice I give my clients, written for everyone. <a href="/about">More about me →</a></p></div>
+<section class="block"><div class="wrap">
+  <div class="sec-head"><h2>More free tools</h2></div>
+  <div class="cards3">
+    <a class="gcard" href="/check#listing"><div class="label">Shopping</div><h3>Check a product before you buy</h3><p>Paste a listing and we'll point out the signs of a counterfeit or a scam seller.</p><span class="more">Check a listing →</span></a>
+    <a class="gcard" href="/verify/"><div class="label">Brand by brand</div><h3>Spot counterfeits</h3><p>Each brand's own ways to confirm a product is genuine: serial lookups, authorized sellers and warning signs.</p><span class="more">See the brands →</span></a>
+    <a class="gcard" href="/spot-the-fake"><div class="label">Practice</div><h3>Test yourself</h3><p>A quick daily game with realistic sample messages. Can you tell which ones are fake?</p><span class="more">Play →</span></a>
+  </div>
 </div></section>
+
 <section class="signup"><div class="wrap">
   <div><h2>Get the weekly scam alert</h2><p>The scams going around this week and how to avoid them. One short email every Monday. Free.</p></div>
   <form id="signup" novalidate>
@@ -274,14 +278,14 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
         out[f"guides/{slug}.html"] = layout(meta["title"], meta["description"], f"/guides/{slug}", body, "/guides/")
 
     # Brand verification guides
-    body = f"""<section class="page-head"><div class="wrap"><div class="label">Brand guides</div><h1>Real or Fake? Check by Brand</h1>
+    body = f"""<section class="page-head"><div class="wrap"><div class="label">Brand guides</div><h1>Spot Counterfeits, Brand by Brand</h1>
   <p class="lede">Official ways to confirm a product is genuine, from the brands themselves: serial number lookups, authorized sellers and the giveaways they say to look for.</p></div></section>
 <section class="block"><div class="wrap"><div class="cards3">{verify_cards(brands)}</div>
   <div class="callout" style="margin-top:32px"><h3>Don't see your brand?</h3><p>Use our <a href="/check#listing">listing checker</a> before you buy, or our <a href="/check#item">item checker</a> on photos of something you received. New brand guides are added every week.</p></div>
 </div></section>"""
-    out["verify/index.html"] = layout("Real or Fake? Check by Brand", "Official ways to confirm a product is genuine, brand by brand: serial lookups, authorized sellers and what to look for.", "/verify/", body, "/verify/")
+    out["verify/index.html"] = layout("Spot Counterfeits, Brand by Brand", "Official ways to confirm a product is genuine, brand by brand: serial lookups, authorized sellers and what to look for.", "/verify/", body, "/verify/")
     for slug, meta, content in brands:
-        body = f"""<section class="page-head"><div class="wrap narrow"><div class="label">Real or fake? · {e(meta['brand'])}</div>
+        body = f"""<section class="page-head"><div class="wrap narrow"><div class="label">Spot counterfeits · {e(meta['brand'])}</div>
   <h1>{e(meta['title'])}</h1><p class="lede">{e(meta['description'])}</p>
   <div class="byline">By <b>Tom Shubert</b> · Updated {fmt_date(meta['updated'])}</div></div></section>
 <article class="wrap narrow article">{content}</article>"""
@@ -296,7 +300,8 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
 
     # Checker
     body = """<section class="page-head"><div class="wrap narrow"><div class="label">Free tool</div><h1>Is it fake? Check it here.</h1>
-  <p class="lede">Check a suspicious message, link, email, PDF, product, or a post or news story that might not be true. You'll get the warning signs and exactly how to check for sure.</p></div></section>
+  <p class="lede">Check a suspicious message, link, email, PDF, product, or a post or news story that might not be true. You'll get the warning signs and exactly how to check for sure.</p>
+  <p class="trust">Free to use. No account needed. We never ask for passwords, card numbers or payment.</p></div></section>
 <section class="block"><div class="wrap narrow">
   <form id="checker" class="checker" novalidate>
     <fieldset class="mode-tabs">
