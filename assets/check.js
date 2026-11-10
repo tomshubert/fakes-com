@@ -18,6 +18,13 @@
       photos: "Add screenshots (up to 3)", multi: true,
       empty: "Paste the listing details or add a screenshot first."
     },
+    claim: {
+      label: "Paste the post, caption, headline or claim (or add a screenshot)",
+      placeholder: "Example: Eating two tablespoons of apple cider vinegar a day reverses type 2 diabetes, doctors are hiding this!",
+      photos: "Add a screenshot", multi: false,
+      empty: "Paste the post or claim, or add a screenshot first.",
+      note: "One free fact-check per day. Facebook, Instagram and TikTok links can't be opened, so paste the words or add a screenshot."
+    },
     item: {
       label: "Describe the item: brand, product, where you bought it and what you paid",
       placeholder: "Example: Nike Air Jordan 1 bought on a resale app for $90. The box label looks blurry.",
@@ -64,6 +71,8 @@
     $("msg").placeholder = cfg.placeholder;
     $("shot-label").textContent = cfg.photos;
     $("shot").multiple = cfg.multi;
+    $("mode-note").textContent = cfg.note || "";
+    $("mode-note").hidden = !cfg.note;
     images = []; $("shot").value = ""; $("shot-name").textContent = "";
     $("err").textContent = ""; $("result").hidden = true;
     document.querySelectorAll(".mode-tabs input").forEach(function (r) { r.checked = r.value === mode; });
@@ -93,7 +102,52 @@
   function li(arr) { var ul = document.createElement("ul"); arr.forEach(function (t) { var l = document.createElement("li"); l.textContent = t; ul.appendChild(l); }); return ul; }
   function section(title, node) { var d = document.createElement("div"); var h = document.createElement("h3"); h.textContent = title; d.appendChild(h); d.appendChild(node); return d; }
 
+  var RATINGS = {
+    "false": ["FALSE", "fake"], misleading: ["MISLEADING", "fake"], unproven: ["UNPROVEN", "neutral"],
+    disputed: ["DISPUTED", "neutral"], mostly_true: ["MOSTLY TRUE", "real"], "true": ["TRUE", "real"], opinion: ["OPINION", "neutral"]
+  };
+  var OVERALL = {
+    "false": ["FALSE", "fake"], misleading: ["MISLEADING", "fake"], mixed: ["MIXED", "neutral"],
+    supported: ["SUPPORTED", "real"], cant_tell: ["CAN'T TELL", "neutral"]
+  };
+  function stamp(lab, small) {
+    var s = document.createElement("span");
+    s.className = "stamp" + (lab[1] === "real" ? " real" : lab[1] === "neutral" ? " neutral" : "") + (small ? " small" : "");
+    s.textContent = lab[0]; return s;
+  }
+  function renderClaim(r) {
+    var out = $("result"); out.textContent = ""; out.hidden = false;
+    var head = document.createElement("div"); head.className = "verdict-head";
+    head.appendChild(stamp(OVERALL[r.overall] || OVERALL.cant_tell));
+    var hl = document.createElement("p"); hl.className = "verdict-line"; hl.textContent = r.headline;
+    head.appendChild(hl); out.appendChild(head);
+    r.claims.forEach(function (c) {
+      var box = document.createElement("div"); box.className = "claim";
+      var top = document.createElement("div"); top.className = "claim-top";
+      top.appendChild(stamp(RATINGS[c.rating] || RATINGS.unproven, true));
+      var q = document.createElement("p"); q.className = "claim-text"; q.textContent = c.claim; top.appendChild(q);
+      box.appendChild(top);
+      var ex = document.createElement("p"); ex.textContent = c.explanation; box.appendChild(ex);
+      if (c.sources.length) {
+        var ul = document.createElement("ul"); ul.className = "claim-sources";
+        c.sources.forEach(function (s) {
+          var l = document.createElement("li"); var a = document.createElement("a");
+          a.href = s.url; a.textContent = s.title || s.url; a.target = "_blank"; a.rel = "noopener nofollow";
+          l.appendChild(a); ul.appendChild(l);
+        });
+        box.appendChild(ul);
+      }
+      out.appendChild(box);
+    });
+    if (r.what_to_do.length) out.appendChild(section("What to do", li(r.what_to_do)));
+    var note = document.createElement("p"); note.className = "fine";
+    note.textContent = "This is an automated fact-check based on a quick web search, and it can be wrong. Read the sources yourself before sharing or acting on anything.";
+    out.appendChild(note);
+    out.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function render(r) {
+    if (r.mode === "claim") return renderClaim(r);
     var out = $("result"); out.textContent = ""; out.hidden = false;
     var set = mode === "message" ? LABELS.message : LABELS.product;
     var lab = set[r.verdict] || set.cant_tell;
@@ -126,7 +180,7 @@
     $("err").textContent = "";
     if (mode === "item" && !images.length) { $("err").textContent = MODES.item.empty; return; }
     if (!text && !images.length) { $("err").textContent = MODES[mode].empty; return; }
-    var btn = $("go"); btn.disabled = true; btn.textContent = "Checking…";
+    var btn = $("go"); btn.disabled = true; btn.textContent = mode === "claim" ? "Fact-checking… (up to a minute)" : "Checking…";
     fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ mode: mode, text: text, images: images, turnstile: token }) })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })

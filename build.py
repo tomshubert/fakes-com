@@ -276,7 +276,7 @@ def main():
 
     # Checker
     body = """<section class="page-head"><div class="wrap narrow"><div class="label">Free tool</div><h1>Is it fake? Check it here.</h1>
-  <p class="lede">Check a suspicious message, a product listing before you buy, or an item you already received. You'll get the warning signs and exactly how to check for sure.</p></div></section>
+  <p class="lede">Check a suspicious message, a product before or after you buy it, or a post or news story that might not be true. You'll get the warning signs and exactly how to check for sure.</p></div></section>
 <section class="block"><div class="wrap narrow">
   <form id="checker" class="checker" novalidate>
     <fieldset class="mode-tabs">
@@ -284,7 +284,9 @@ def main():
       <label><input type="radio" name="mode" value="message" checked><span>A message, email or website</span></label>
       <label><input type="radio" name="mode" value="listing"><span>A product before I buy it</span></label>
       <label><input type="radio" name="mode" value="item"><span>An item I already received</span></label>
+      <label><input type="radio" name="mode" value="claim"><span>A post, claim or news story</span></label>
     </fieldset>
+    <p id="mode-note" class="mode-note" hidden></p>
     <label for="msg" class="label" id="msg-label">Paste the message, email, link or phone number</label>
     <textarea id="msg" rows="7" maxlength="6000"></textarea>
     <div class="row">
