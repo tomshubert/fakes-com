@@ -189,9 +189,9 @@ async function handleCheck({ request, env }) {
   content.push({ type: "text", text: prompt });
 
   const request_body = mode === "claim"
-    ? { model: MODEL, max_tokens: 2000, system: CLAIM_SYSTEM, messages: [{ role: "user", content }],
+    ? { model: MODEL, max_tokens: 4000, system: CLAIM_SYSTEM, messages: [{ role: "user", content }],
         tools: [{ type: "web_search_20250305", name: "web_search", max_uses: CLAIM_MAX_SEARCHES }] }
-    : { model: MODEL, max_tokens: 1000, system: SYSTEM + MODE_NOTES[mode], messages: [{ role: "user", content }] };
+    : { model: MODEL, max_tokens: 2500, system: SYSTEM + MODE_NOTES[mode], messages: [{ role: "user", content }] };
 
   let res;
   try {
