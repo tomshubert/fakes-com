@@ -49,11 +49,21 @@ async function checkLimits(env, ip, mode) {
   if (Number(mine || 0) >= mineMax) return claim
     ? "You've used today's free fact-check. Please come back tomorrow. You can still use our other checks."
     : `You've used today's ${PER_VISITOR_PER_DAY} free checks. Please come back tomorrow.`;
+  return null;
+}
+
+// Count a check against the limits only once it has actually produced an answer,
+// so visitors aren't charged for checks that failed on our side.
+async function countCheck(env, ip, mode) {
+  if (!env.LIMITS) return;
+  const day = new Date().toISOString().slice(0, 10);
+  const prefix = mode === "claim" ? "claim:" : "";
+  const siteKey = `${prefix}site:${day}`, ipKey = `${prefix}ip:${day}:${ip || "unknown"}`;
   const ttl = { expirationTtl: 60 * 60 * 48 };
   try {
+    const [site, mine] = await Promise.all([env.LIMITS.get(siteKey), env.LIMITS.get(ipKey)]);
     await Promise.all([env.LIMITS.put(siteKey, String(Number(site || 0) + 1), ttl), env.LIMITS.put(ipKey, String(Number(mine || 0) + 1), ttl)]);
   } catch (e) { console.error("limits: KV write failed", e && e.message); }
-  return null;
 }
 
 const SYSTEM = `You are the "Is it fake?" checker on Fakes.com, a consumer-protection site run by IT consultant Tom Shubert. Ordinary people, often older and non-technical, paste a message, email, web address, phone number, ad or screenshot and ask whether it is a scam.
@@ -231,6 +241,8 @@ async function handleCheck({ request, env }) {
     console.error("unparseable answer, stop_reason:", data.stop_reason, raw.slice(0, 500));
     return json({ error: "The checker gave an unclear answer. Please try again. (code U)" }, 200);
   }
+
+  await countCheck(env, ip, mode);
 
   const list = v => Array.isArray(v) ? v.filter(x => typeof x === "string").slice(0, 5) : [];
 
