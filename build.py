@@ -229,11 +229,25 @@ def main():
   <form id="signup" novalidate>
     <label for="email" class="label" style="flex-basis:100%">Email address</label>
     <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+    <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
     <button class="btn" type="submit">Sign up</button>
     <div class="note" id="signup-note" aria-live="polite"></div>
   </form>
 </div></section>
-<script>document.getElementById('signup').addEventListener('submit',function(ev){{ev.preventDefault();document.getElementById('signup-note').textContent='The weekly email launches soon. Thanks for your interest!';}});</script>"""
+<script>
+document.getElementById('signup').addEventListener('submit',function(ev){{
+  ev.preventDefault();
+  var note=document.getElementById('signup-note'), btn=this.querySelector('button');
+  var email=document.getElementById('email').value.trim();
+  if(!email){{note.textContent='Please enter your email address.';return;}}
+  btn.disabled=true; note.textContent='Signing you up…';
+  fetch('/api/subscribe',{{method:'POST',headers:{{'content-type':'application/json'}},body:JSON.stringify({{email:email,website:document.getElementById('website').value,source:'home'}})}})
+    .then(function(r){{return r.json().then(function(d){{return {{ok:r.ok,d:d}};}});}})
+    .then(function(x){{ if(!x.ok) throw new Error(x.d.error||'Something went wrong.'); note.textContent="You're on the list. Watch your inbox for the weekly scam alert."; document.getElementById('email').value=''; }})
+    .catch(function(e){{ note.textContent=e.message||'Something went wrong. Please try again.'; }})
+    .finally(function(){{ btn.disabled=false; }});
+}});
+</script>"""
     out["index.html"] = layout("Fakes.com: Check if it's fake before you click, pay or believe it",
         "Plain-English scam alerts, deepfake guides and real-vs-fake product advice from IT consultant Tom Shubert. Every fact linked to its source.",
         "/", home, extra_head=game_scripts(pool))
