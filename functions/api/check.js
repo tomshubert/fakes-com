@@ -50,7 +50,9 @@ async function checkLimits(env, ip, mode) {
     ? "You've used today's free fact-check. Please come back tomorrow. You can still use our other checks."
     : `You've used today's ${PER_VISITOR_PER_DAY} free checks. Please come back tomorrow.`;
   const ttl = { expirationTtl: 60 * 60 * 48 };
-  await Promise.all([env.LIMITS.put(siteKey, String(Number(site || 0) + 1), ttl), env.LIMITS.put(ipKey, String(Number(mine || 0) + 1), ttl)]);
+  try {
+    await Promise.all([env.LIMITS.put(siteKey, String(Number(site || 0) + 1), ttl), env.LIMITS.put(ipKey, String(Number(mine || 0) + 1), ttl)]);
+  } catch (e) { console.error("limits: KV write failed", e && e.message); }
   return null;
 }
 
@@ -130,7 +132,7 @@ Keep "claims" to at most 3 items, each with at most 3 source URLs, and "what_to_
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
 
-export async function onRequestPost({ request, env }) {
+async function handleCheck({ request, env }) {
   if (!env.ANTHROPIC_API_KEY) return json({ error: "The checker isn't switched on yet. Please try again later." }, 503);
 
   let body;
@@ -256,4 +258,16 @@ export async function onRequestPost({ request, env }) {
 
 export function onRequest() {
   return json({ error: "Use the form at fakes.com/check." }, 405);
+}
+
+// Wrapper: whatever goes wrong, the visitor gets a plain message (with a short code), never a raw error page.
+export async function onRequestPost(ctx) {
+  try {
+    return await handleCheck(ctx);
+  } catch (e) {
+    const msg = String((e && (e.message || e)) || "unknown");
+    console.error("check failed:", msg, e && e.stack);
+    const code = /KV|limit/i.test(msg) ? "K" : /JSON/i.test(msg) ? "J" : /fetch|network/i.test(msg) ? "N" : "X";
+    return json({ error: `The checker had a problem (code ${code}). Please try again in a minute.` }, 500);
+  }
 }

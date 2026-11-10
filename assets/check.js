@@ -300,9 +300,11 @@
     var btn = $("go"); btn.disabled = true; btn.textContent = mode === "claim" ? "Fact-checking… (up to a minute)" : (/https?:\/\/|www\.|\.[a-z]{2,}\//i.test(text) || email) ? "Checking the link… (about 20 seconds)" : "Checking…";
     fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ mode: mode, text: text, images: images, pdf: pdf, email: email, attachment: attachment, turnstile: token }) })
-      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-      .then(function (x) { if (!x.ok || x.d.error) throw new Error(x.d.error || "Something went wrong."); render(x.d); })
-      .catch(function (e) { $("err").textContent = e.message || "The checker couldn't be reached. Please try again."; })
+      .then(function (r) { return r.text().then(function (t) { var d = null; try { d = JSON.parse(t); } catch (e) {} return { ok: r.ok, status: r.status, d: d }; }); })
+      .then(function (x) {
+        if (!x.d) throw new Error("The checker had a problem (error " + x.status + "). Please try again in a minute.");
+        if (!x.ok || x.d.error) throw new Error(x.d.error || "Something went wrong."); render(x.d); })
+      .catch(function (e) { $("err").textContent = (e && e.message && !/JSON|token/i.test(e.message)) ? e.message : "The checker couldn't be reached. Please try again in a minute."; })
       .finally(function () { btn.disabled = false; btn.textContent = "Check it"; if (widget !== null && window.turnstile) { window.turnstile.reset(widget); token = ""; } });
   });
 })();
