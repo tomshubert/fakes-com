@@ -2,7 +2,29 @@
   var form = document.getElementById("checker");
   if (!form) return;
   var $ = function (id) { return document.getElementById(id); };
-  var image = null, token = "", widget = null;
+  var images = [], token = "", widget = null, mode = "message";
+  var MAX_IMAGES = 3;
+
+  var MODES = {
+    message: {
+      label: "Paste the message, email, link or phone number",
+      placeholder: "Example: USPS: Your package is on hold. Update your address within 12 hours: ...",
+      photos: "Add a screenshot", multi: false,
+      empty: "Paste the message or add a screenshot first."
+    },
+    listing: {
+      label: "Paste the product listing: the item, price, seller name and web address",
+      placeholder: "Example: Apple AirPods Pro 2, $49.99, sold by TechDealsDirect, ships from overseas in 2-3 weeks, link: ...",
+      photos: "Add screenshots (up to 3)", multi: true,
+      empty: "Paste the listing details or add a screenshot first."
+    },
+    item: {
+      label: "Describe the item: brand, product, where you bought it and what you paid",
+      placeholder: "Example: Nike Air Jordan 1 bought on a resale app for $90. The box label looks blurry.",
+      photos: "Add photos of the item (up to 3)", multi: true,
+      empty: "Add at least one photo of the item first."
+    }
+  };
 
   // Load the "verify you're human" check if it's configured.
   fetch("/api/config").then(function (r) { return r.json(); }).then(function (c) {
@@ -35,34 +57,65 @@
     });
   }
 
+  function setMode(m) {
+    mode = MODES[m] ? m : "message";
+    var cfg = MODES[mode];
+    $("msg-label").textContent = cfg.label;
+    $("msg").placeholder = cfg.placeholder;
+    $("shot-label").textContent = cfg.photos;
+    $("shot").multiple = cfg.multi;
+    images = []; $("shot").value = ""; $("shot-name").textContent = "";
+    $("err").textContent = ""; $("result").hidden = true;
+    document.querySelectorAll(".mode-tabs input").forEach(function (r) { r.checked = r.value === mode; });
+  }
+  document.querySelectorAll(".mode-tabs input").forEach(function (r) {
+    r.addEventListener("change", function () { if (r.checked) setMode(r.value); });
+  });
+  var fromHash = (location.hash || "").replace("#", "");
+  setMode(MODES[fromHash] ? fromHash : "message");
+
   $("shot").addEventListener("change", function () {
-    var f = this.files && this.files[0];
-    image = null; $("shot-name").textContent = "";
-    if (!f) return;
-    shrink(f).then(function (d) { image = d; $("shot-name").textContent = "Added: " + f.name; })
-      .catch(function () { $("shot-name").textContent = "That file couldn't be read. Try a JPG or PNG screenshot."; });
+    var files = Array.prototype.slice.call(this.files || []);
+    images = []; $("shot-name").textContent = "";
+    if (!files.length) return;
+    var limit = MODES[mode].multi ? MAX_IMAGES : 1;
+    if (files.length > limit) { $("shot-name").textContent = "Only the first " + limit + " will be used."; files = files.slice(0, limit); }
+    Promise.all(files.map(shrink)).then(function (list) {
+      images = list;
+      $("shot-name").textContent = "Added: " + files.map(function (f) { return f.name; }).join(", ");
+    }).catch(function () { $("shot-name").textContent = "A file couldn't be read. Try JPG or PNG photos."; });
   });
 
   var LABELS = {
-    likely_scam: ["LIKELY SCAM", "fake"], suspicious: ["SUSPICIOUS", "fake"],
-    no_red_flags_found: ["NO RED FLAGS FOUND", "real"], cant_tell: ["CAN'T TELL", "neutral"]
+    message: { likely_scam: ["LIKELY SCAM", "fake"], suspicious: ["SUSPICIOUS", "fake"], no_red_flags_found: ["NO RED FLAGS FOUND", "real"], cant_tell: ["CAN'T TELL", "neutral"] },
+    product: { likely_scam: ["LIKELY FAKE", "fake"], suspicious: ["SUSPICIOUS", "fake"], no_red_flags_found: ["NO RED FLAGS FOUND", "real"], cant_tell: ["CAN'T TELL", "neutral"] }
   };
   function li(arr) { var ul = document.createElement("ul"); arr.forEach(function (t) { var l = document.createElement("li"); l.textContent = t; ul.appendChild(l); }); return ul; }
   function section(title, node) { var d = document.createElement("div"); var h = document.createElement("h3"); h.textContent = title; d.appendChild(h); d.appendChild(node); return d; }
 
   function render(r) {
     var out = $("result"); out.textContent = ""; out.hidden = false;
-    var lab = LABELS[r.verdict] || LABELS.cant_tell;
+    var set = mode === "message" ? LABELS.message : LABELS.product;
+    var lab = set[r.verdict] || set.cant_tell;
     var head = document.createElement("div"); head.className = "verdict-head";
     var st = document.createElement("span"); st.className = "stamp " + (lab[1] === "real" ? "real" : lab[1] === "neutral" ? "neutral" : ""); st.textContent = lab[0];
     var hl = document.createElement("p"); hl.className = "verdict-line"; hl.textContent = r.headline;
     head.appendChild(st); head.appendChild(hl); out.appendChild(head);
-    if (r.red_flags.length) out.appendChild(section("Red flags", li(r.red_flags)));
+    if (r.red_flags.length) out.appendChild(section(mode === "message" ? "Red flags" : "Warning signs", li(r.red_flags)));
     if (r.reassuring_signs.length) out.appendChild(section("Signs in its favor", li(r.reassuring_signs)));
     if (r.what_to_do.length) out.appendChild(section("What to do", li(r.what_to_do)));
     if (r.how_to_verify) { var p = document.createElement("p"); p.textContent = r.how_to_verify; out.appendChild(section("How to check for sure", p)); }
+    if (mode !== "message") {
+      var more = document.createElement("p");
+      more.appendChild(document.createTextNode("See our "));
+      var a = document.createElement("a"); a.href = "/verify/"; a.textContent = "brand verification guides";
+      more.appendChild(a); more.appendChild(document.createTextNode(" for official ways to confirm a product is genuine."));
+      out.appendChild(more);
+    }
     var note = document.createElement("p"); note.className = "fine";
-    note.textContent = "This is an automated check and can be wrong. When in doubt, contact the company or person directly using a phone number or website you find yourself.";
+    note.textContent = mode === "message"
+      ? "This is an automated check and can be wrong. When in doubt, contact the company or person directly using a phone number or website you find yourself."
+      : "This is an automated check and can be wrong. Photos can't prove a product is genuine. Only the brand or a professional authenticator can confirm that.";
     out.appendChild(note);
     out.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -71,9 +124,11 @@
     ev.preventDefault();
     var text = $("msg").value.trim();
     $("err").textContent = "";
-    if (!text && !image) { $("err").textContent = "Paste the message or add a screenshot first."; return; }
+    if (mode === "item" && !images.length) { $("err").textContent = MODES.item.empty; return; }
+    if (!text && !images.length) { $("err").textContent = MODES[mode].empty; return; }
     var btn = $("go"); btn.disabled = true; btn.textContent = "Checking…";
-    fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ text: text, image: image, turnstile: token }) })
+    fetch("/api/check", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ mode: mode, text: text, images: images, turnstile: token }) })
       .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
       .then(function (x) { if (!x.ok || x.d.error) throw new Error(x.d.error || "Something went wrong."); render(x.d); })
       .catch(function (e) { $("err").textContent = e.message || "The checker couldn't be reached. Please try again."; })

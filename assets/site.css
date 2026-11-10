@@ -190,3 +190,11 @@ footer.site .fine{grid-column:1/-1;font-family:var(--mono);font-size:12px;color:
 .verdict-head{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 .verdict-line{font-family:var(--display);font-weight:700;font-size:20px;flex:1 1 220px}
 .stamp.neutral{color:var(--ink-2);border-color:var(--ink-2)}
+
+.mode-tabs{border:0;padding:0;margin:0 0 6px;display:flex;flex-wrap:wrap;gap:8px}
+.mode-tabs legend{margin-bottom:8px;padding:0}
+.mode-tabs label{cursor:pointer}
+.mode-tabs input{position:absolute;opacity:0;width:1px;height:1px}
+.mode-tabs span{display:inline-block;font-family:var(--display);font-weight:600;font-size:15px;padding:9px 14px;border:2px solid var(--rule);background:var(--card);color:var(--ink)}
+.mode-tabs input:checked + span{border-color:var(--blue);background:var(--blue);color:var(--blue-ink)}
+.mode-tabs input:focus-visible + span{outline:2px solid var(--blue);outline-offset:2px}

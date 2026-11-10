@@ -22,6 +22,16 @@ Static site for fakes.com, owned by Tom Shubert (IT consultant). Published by Cl
 7. Commit with a message like "Add scam alerts for YYYY-MM-DD" and push to main.
 8. If nothing new and well-sourced turned up, change nothing and say so. A quiet day is better than a weak alert.
 
+## Weekly brand verification guide (the weekly scheduled task)
+Guides live in `content/verify/<brand-product>.html` and are published at /verify/<slug>. Copy the front-matter format of an existing guide (title, brand, description, updated).
+1. Pick ONE frequently counterfeited brand or product that has no guide yet (check `content/verify/`). Prefer brands that publish official anti-counterfeit guidance: a serial or code lookup, an authorized-seller list, or a "how to spot fakes" page.
+2. The brand's own website is the primary source. Open and read every source. Government sources (CBP, FTC) may supplement. Do not rely on blogs or forums.
+3. Only state what the sources say. Do not describe what genuine products look like unless the brand itself documents it. Never claim any check proves a product is genuine.
+4. Structure: where to buy (authorized sellers), the brand's official verification steps, warning signs it lists, what to do if you have a fake, and links to /check#listing and /check#item. End with a Sources list.
+5. Paraphrase; never copy sentences. Plain English, about 400-700 words. Slug: lowercase-hyphenated.
+6. Run `python3 build.py`, commit "Add brand guide: <Brand>" and push to main.
+7. If no brand with solid official guidance is left, change nothing and say so.
+
 ## Off limits
 - Client names, Tom's rates or billing details, and Tom's personal email addresses never appear on the site.
 - Never sell, promote or link to counterfeit goods.

@@ -10,7 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://fakes.com"
 PREVIEW = False  # True = search engines told not to index + preview banner. Set False at launch.
 
-NAV = [("/check", "Check It"), ("/alerts", "Scam Alerts"), ("/guides/", "Guides"), ("/spot-the-fake", "Spot the Fake"), ("/about", "About")]
+NAV = [("/check", "Check It"), ("/alerts", "Scam Alerts"), ("/guides/", "Guides"), ("/verify/", "Real or Fake?"), ("/spot-the-fake", "Spot the Fake"), ("/about", "About")]
 FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900"
          "&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap")
 
@@ -81,7 +81,7 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <footer class="site"><div class="wrap">
   <div><h4>Fakes.com</h4><p>Plain-English warnings about scams, deepfakes and counterfeits, from IT consultant Tom Shubert. Every fact links to its source.</p></div>
   <div><h4>Site</h4><ul>
-    <li><a href="/check">Check It</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
+    <li><a href="/check">Check It</a></li><li><a href="/verify/">Real or Fake? brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
     <li><a href="/spot-the-fake">Spot the Fake</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
   <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
     <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
@@ -149,6 +149,21 @@ def guide_cards(guides):
         f'<h3>{e(m["title"])}</h3><p>{e(m["description"])}</p><span class="more">Read the guide →</span></a>'
         for slug, m, _ in guides)
 
+def verify_cards(brands):
+    return "".join(
+        f'<a class="gcard" href="/verify/{slug}"><div class="label">{e(m["brand"])}</div>'
+        f'<h3>{e(m["title"])}</h3><p>{e(m["description"])}</p><span class="more">Read the guide →</span></a>'
+        for slug, m, _ in brands)
+
+PRODUCT_CHECK = """<section class="block tint"><div class="wrap">
+  <div class="sec-head"><h2>Is your product real?</h2><a href="/verify/">Brand guides →</a></div>
+  <div class="cards3">
+    <a class="gcard" href="/check#listing"><div class="label">Before you buy</div><h3>Check a listing</h3><p>Paste the item, price and seller. We'll point out the signs of a counterfeit or a scam seller before you spend anything.</p><span class="more">Check a listing →</span></a>
+    <a class="gcard" href="/check#item"><div class="label">Already bought it</div><h3>Check your item</h3><p>Upload up to three photos. We'll point out what looks off and tell you how to confirm with the brand.</p><span class="more">Check an item →</span></a>
+    <a class="gcard" href="/verify/"><div class="label">Brand by brand</div><h3>Official ways to verify</h3><p>Serial number lookups, authorized seller lists and the giveaways each brand says to look for.</p><span class="more">See the brands →</span></a>
+  </div>
+</div></section>"""
+
 def main():
     alerts = sorted(json.loads((ROOT / "data/alerts.json").read_text()), key=lambda a: a["date"], reverse=True)
     pool = json.loads((ROOT / "data/game.json").read_text())
@@ -158,6 +173,13 @@ def main():
         guides.append((p.stem, meta, body))
     order = ["voice-clone-scams", "fake-online-stores", "counterfeit-products"]
     guides.sort(key=lambda g: order.index(g[0]) if g[0] in order else 99)
+    brands = []
+    vdir = ROOT / "content/verify"
+    if vdir.exists():
+        for p in sorted(vdir.glob("*.html")):
+            meta, body = load_partial(p)
+            brands.append((p.stem, meta, body))
+    brands.sort(key=lambda b: b[1]["brand"].lower())
     newest = alerts[0]["date"] if alerts else datetime.date.today().isoformat()
     out = {}
 
@@ -168,7 +190,7 @@ def main():
     <h1>Check if it's <em>fake</em> before you click, pay or believe it.</h1>
     <p class="lede">Plain-English warnings about the scams going around right now, how to spot AI-made voices and videos, and how to tell real products from knockoffs. Every fact links to its source.</p>
     <div class="byline">By <b>Tom Shubert</b> · IT consultant to small businesses and individuals</div>
-    <div class="cta"><a class="btn" href="/check">Check a message now</a><a class="btn ghost" href="/alerts">See this week's scams</a></div>
+    <div class="cta"><a class="btn" href="/check">Check something now</a><a class="btn ghost" href="/alerts">See this week's scams</a></div>
   </div>
   <div class="stamp-card" aria-label="Example of a fake text message">
     <div class="head"><span class="label">Example text message</span><span class="stamp">FAKE</span></div>
@@ -187,6 +209,7 @@ def main():
   <div class="sec-head"><h2>Learn to Spot Fakes</h2><a href="/guides/">All guides →</a></div>
   <div class="cards3">{guide_cards(guides)}</div>
 </div></section>
+{PRODUCT_CHECK}
 {GAME_BLOCK}
 <section class="block"><div class="wrap split">
   <div><div class="label">From the field</div>
@@ -230,6 +253,20 @@ def main():
 <article class="wrap narrow article">{content}</article>"""
         out[f"guides/{slug}.html"] = layout(meta["title"], meta["description"], f"/guides/{slug}", body, "/guides/")
 
+    # Brand verification guides
+    body = f"""<section class="page-head"><div class="wrap"><div class="label">Brand guides</div><h1>Real or Fake? Check by Brand</h1>
+  <p class="lede">Official ways to confirm a product is genuine, from the brands themselves: serial number lookups, authorized sellers and the giveaways they say to look for.</p></div></section>
+<section class="block"><div class="wrap"><div class="cards3">{verify_cards(brands)}</div>
+  <div class="callout" style="margin-top:32px"><h3>Don't see your brand?</h3><p>Use our <a href="/check#listing">listing checker</a> before you buy, or our <a href="/check#item">item checker</a> on photos of something you received. New brand guides are added every week.</p></div>
+</div></section>"""
+    out["verify/index.html"] = layout("Real or Fake? Check by Brand", "Official ways to confirm a product is genuine, brand by brand: serial lookups, authorized sellers and what to look for.", "/verify/", body, "/verify/")
+    for slug, meta, content in brands:
+        body = f"""<section class="page-head"><div class="wrap narrow"><div class="label">Real or fake? · {e(meta['brand'])}</div>
+  <h1>{e(meta['title'])}</h1><p class="lede">{e(meta['description'])}</p>
+  <div class="byline">By <b>Tom Shubert</b> · Updated {fmt_date(meta['updated'])}</div></div></section>
+<article class="wrap narrow article">{content}</article>"""
+        out[f"verify/{slug}.html"] = layout(meta["title"], meta["description"], f"/verify/{slug}", body, "/verify/")
+
     # Game page
     body = f"""<section class="page-head"><div class="wrap"><div class="label">Daily game</div><h1>Spot the Fake</h1>
   <p class="lede">Three new practice messages every day. Decide if each one is real or fake, then see the clue that gives it away.</p></div></section>
@@ -239,13 +276,19 @@ def main():
 
     # Checker
     body = """<section class="page-head"><div class="wrap narrow"><div class="label">Free tool</div><h1>Is it fake? Check it here.</h1>
-  <p class="lede">Paste a suspicious text, email, web address or ad, or add a screenshot. You'll get the red flags and exactly how to check for sure.</p></div></section>
+  <p class="lede">Check a suspicious message, a product listing before you buy, or an item you already received. You'll get the warning signs and exactly how to check for sure.</p></div></section>
 <section class="block"><div class="wrap narrow">
   <form id="checker" class="checker" novalidate>
-    <label for="msg" class="label">Paste the message, email, link or phone number</label>
-    <textarea id="msg" rows="8" maxlength="6000" placeholder="Example: USPS: Your package is on hold. Update your address within 12 hours: ..."></textarea>
+    <fieldset class="mode-tabs">
+      <legend class="label">What do you want to check?</legend>
+      <label><input type="radio" name="mode" value="message" checked><span>A message, email or website</span></label>
+      <label><input type="radio" name="mode" value="listing"><span>A product before I buy it</span></label>
+      <label><input type="radio" name="mode" value="item"><span>An item I already received</span></label>
+    </fieldset>
+    <label for="msg" class="label" id="msg-label">Paste the message, email, link or phone number</label>
+    <textarea id="msg" rows="7" maxlength="6000"></textarea>
     <div class="row">
-      <label class="btn ghost file" for="shot">Add a screenshot</label>
+      <label class="btn ghost file" for="shot" id="shot-label">Add a screenshot</label>
       <input id="shot" type="file" accept="image/*">
       <span id="shot-name" class="label"></span>
     </div>
@@ -258,7 +301,7 @@ def main():
   <div class="callout"><h3>Already sent money or shared a password?</h3>
     <p>Call your bank or card company now using the number on your card or statement, change the password, and report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>.</p></div>
 </div></section>"""
-    out["check.html"] = layout("Is It Fake? Free Scam Checker", "Paste a suspicious text, email, link or screenshot and get the red flags and how to verify it.", "/check", body, "/check",
+    out["check.html"] = layout("Is It Fake? Free Scam Checker", "Check a suspicious message, a product listing before you buy, or an item you received for signs it's fake.", "/check", body, "/check",
         extra_head='<script src="/assets/check.js" defer></script>')
 
     # Simple pages
@@ -279,7 +322,7 @@ def main():
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(text)
 
-    urls = ["/", "/check", "/alerts", "/guides/", "/spot-the-fake", "/about", "/contact", "/standards", "/privacy", "/disclosure"] + [f"/guides/{s}" for s, _, _ in guides]
+    urls = ["/", "/check", "/alerts", "/guides/", "/spot-the-fake", "/about", "/contact", "/standards", "/privacy", "/disclosure"] + [f"/guides/{s}" for s, _, _ in guides] + ["/verify/"] + [f"/verify/{s}" for s, _, _ in brands]
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{newest}</lastmod></url>\n" for u in urls) + "</urlset>\n")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")

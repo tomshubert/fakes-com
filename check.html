@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Is It Fake? Free Scam Checker | Fakes.com</title>
-<meta name="description" content="Paste a suspicious text, email, link or screenshot and get the red flags and how to verify it.">
+<meta name="description" content="Check a suspicious message, a product listing before you buy, or an item you received for signs it&#x27;s fake.">
 
 <link rel="canonical" href="https://fakes.com/check">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fakes.com">
 <meta property="og:title" content="Is It Fake? Free Scam Checker">
-<meta property="og:description" content="Paste a suspicious text, email, link or screenshot and get the red flags and how to verify it.">
+<meta property="og:description" content="Check a suspicious message, a product listing before you buy, or an item you received for signs it&#x27;s fake.">
 <meta property="og:url" content="https://fakes.com/check">
 <meta property="og:image" content="https://fakes.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -27,17 +27,23 @@
 
 <header class="top"><div class="wrap">
   <a class="logo" href="/">FAKES<span>.</span>COM</a>
-  <nav class="main" aria-label="Main"><a href="/check" aria-current="page">Check It</a><a href="/alerts">Scam Alerts</a><a href="/guides/">Guides</a><a href="/spot-the-fake">Spot the Fake</a><a href="/about">About</a></nav>
+  <nav class="main" aria-label="Main"><a href="/check" aria-current="page">Check It</a><a href="/alerts">Scam Alerts</a><a href="/guides/">Guides</a><a href="/verify/">Real or Fake?</a><a href="/spot-the-fake">Spot the Fake</a><a href="/about">About</a></nav>
 </div></header>
 <main id="main">
 <section class="page-head"><div class="wrap narrow"><div class="label">Free tool</div><h1>Is it fake? Check it here.</h1>
-  <p class="lede">Paste a suspicious text, email, web address or ad, or add a screenshot. You'll get the red flags and exactly how to check for sure.</p></div></section>
+  <p class="lede">Check a suspicious message, a product listing before you buy, or an item you already received. You'll get the warning signs and exactly how to check for sure.</p></div></section>
 <section class="block"><div class="wrap narrow">
   <form id="checker" class="checker" novalidate>
-    <label for="msg" class="label">Paste the message, email, link or phone number</label>
-    <textarea id="msg" rows="8" maxlength="6000" placeholder="Example: USPS: Your package is on hold. Update your address within 12 hours: ..."></textarea>
+    <fieldset class="mode-tabs">
+      <legend class="label">What do you want to check?</legend>
+      <label><input type="radio" name="mode" value="message" checked><span>A message, email or website</span></label>
+      <label><input type="radio" name="mode" value="listing"><span>A product before I buy it</span></label>
+      <label><input type="radio" name="mode" value="item"><span>An item I already received</span></label>
+    </fieldset>
+    <label for="msg" class="label" id="msg-label">Paste the message, email, link or phone number</label>
+    <textarea id="msg" rows="7" maxlength="6000"></textarea>
     <div class="row">
-      <label class="btn ghost file" for="shot">Add a screenshot</label>
+      <label class="btn ghost file" for="shot" id="shot-label">Add a screenshot</label>
       <input id="shot" type="file" accept="image/*">
       <span id="shot-name" class="label"></span>
     </div>
@@ -54,7 +60,7 @@
 <footer class="site"><div class="wrap">
   <div><h4>Fakes.com</h4><p>Plain-English warnings about scams, deepfakes and counterfeits, from IT consultant Tom Shubert. Every fact links to its source.</p></div>
   <div><h4>Site</h4><ul>
-    <li><a href="/check">Check It</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
+    <li><a href="/check">Check It</a></li><li><a href="/verify/">Real or Fake? brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
     <li><a href="/spot-the-fake">Spot the Fake</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
   <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
     <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>

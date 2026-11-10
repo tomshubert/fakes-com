@@ -4,7 +4,9 @@
 
 const MODEL = "claude-sonnet-5-5";
 const MAX_TEXT = 6000;            // characters
-const MAX_IMAGE_B64 = 2_000_000;  // ~1.5 MB image
+const MAX_IMAGE_B64 = 2_000_000;  // ~1.5 MB per image
+const MAX_IMAGES = 3;
+const MODES = ["message", "listing", "item"];
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const PER_VISITOR_PER_DAY = 10;
 const SITE_PER_DAY = 500;
@@ -59,6 +61,23 @@ Respond with ONLY a JSON object, no other text, in exactly this shape:
  "how_to_verify": "one or two sentences"}
 Use empty arrays where nothing applies. Keep each list to at most 5 items.`;
 
+// Extra instructions for the two product modes. The base rules above still apply.
+const MODE_NOTES = {
+  message: "",
+  listing: `
+
+MODE: BEFORE YOU BUY. The person is thinking about buying a product and pasted a listing (text, link and/or screenshots). Judge the risk that the product is counterfeit or the seller is a scam. Consider: price compared with normal retail (only if you genuinely know the typical range; otherwise say the person should compare prices at the brand's own site and major retailers), whether the seller is the brand or an authorized seller, the marketplace, shipping origin, payment method, wording and spelling, photos that look copied from the brand's site, and too-good-to-be-true claims. For this mode, "likely_scam" means likely counterfeit or a scam seller. Never say a listing or product is authentic. Always suggest buying from the brand or an authorized seller listed on the brand's own website, and paying by credit card. Mention that Fakes.com has brand verification guides at fakes.com/verify when relevant.`,
+  item: `
+
+MODE: I ALREADY BOUGHT IT. The person received an item and uploaded photos (and maybe a description) and wants to know if it is counterfeit. You CANNOT authenticate a product from photos, and you must say so plainly in how_to_verify. Point out visible signs that commonly indicate counterfeits for this type of product (logo shape and font, stitching, materials, label and tag quality, packaging and print quality, serial or date codes that look wrong, missing paperwork), and say what you cannot judge from the photos. Do not state specific details of what a brand's genuine product looks like unless they are widely documented; otherwise tell the person to compare with photos on the brand's official website. For this mode, "likely_scam" means likely counterfeit, and "no_red_flags_found" means you saw nothing obviously wrong, which is NOT proof it is genuine. In what_to_do, include asking for clearer photos of specific areas if that would help, checking any serial number with the brand directly, and, for expensive items, using a professional authentication service. If the item may be unsafe as a fake (chargers, batteries, cosmetics, medicine, helmets, car seats), say to stop using it. If they paid by credit card or through a marketplace, mention disputing the charge or requesting a refund. If the photos don't show a product, use "cant_tell".`,
+};
+
+const PROMPT_LEAD = {
+  message: "Check this for signs of a scam or fake.",
+  listing: "I'm thinking of buying this. Check the listing for signs of a counterfeit or scam seller.",
+  item: "I received this item. Check these photos and details for signs that it's counterfeit.",
+};
+
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
 
@@ -69,12 +88,15 @@ export async function onRequestPost({ request, env }) {
   try { body = await request.json(); } catch { return json({ error: "Something went wrong reading your submission. Please try again." }, 400); }
 
   const text = typeof body.text === "string" ? body.text.trim() : "";
-  const image = body.image && typeof body.image.data === "string" ? body.image : null;
+  const mode = MODES.includes(body.mode) ? body.mode : "message";
+  let images = Array.isArray(body.images) ? body.images : (body.image ? [body.image] : []);
+  images = images.filter(i => i && typeof i.data === "string");
 
-  if (!text && !image) return json({ error: "Paste the message or add a screenshot first." }, 400);
+  if (!text && !images.length) return json({ error: mode === "item" ? "Add at least one photo of the item first." : "Paste the details or add a screenshot first." }, 400);
   if (text.length > MAX_TEXT) return json({ error: `That's too long. Please paste ${MAX_TEXT.toLocaleString()} characters or fewer.` }, 400);
-  if (image && (!IMAGE_TYPES.includes(image.media_type) || image.data.length > MAX_IMAGE_B64))
-    return json({ error: "That image is too large or not a supported type. Try a smaller JPG or PNG screenshot." }, 400);
+  if (images.length > MAX_IMAGES) return json({ error: `Please add no more than ${MAX_IMAGES} photos.` }, 400);
+  if (images.some(i => !IMAGE_TYPES.includes(i.media_type) || i.data.length > MAX_IMAGE_B64))
+    return json({ error: "One of those images is too large or not a supported type. Try smaller JPG or PNG photos." }, 400);
 
   const ip = request.headers.get("CF-Connecting-IP") || "";
   if (!(await verifyHuman(env, body.turnstile, ip)))
@@ -83,16 +105,16 @@ export async function onRequestPost({ request, env }) {
   if (limited) return json({ error: limited }, 429);
 
   const content = [];
-  if (image) content.push({ type: "image", source: { type: "base64", media_type: image.media_type, data: image.data } });
+  for (const image of images) content.push({ type: "image", source: { type: "base64", media_type: image.media_type, data: image.data } });
   content.push({ type: "text", text:
-    "Check this for signs of a scam or fake.\n\n<submission>\n" + (text || "(screenshot only)") + "\n</submission>" });
+    PROMPT_LEAD[mode] + "\n\n<submission>\n" + (text || "(photos only)") + "\n</submission>" });
 
   let res;
   try {
     res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-      body: JSON.stringify({ model: MODEL, max_tokens: 900, system: SYSTEM, messages: [{ role: "user", content }] }),
+      body: JSON.stringify({ model: MODEL, max_tokens: 1000, system: SYSTEM + MODE_NOTES[mode], messages: [{ role: "user", content }] }),
     });
   } catch {
     return json({ error: "The checker couldn't be reached. Please try again in a minute." }, 502);
