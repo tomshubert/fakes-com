@@ -1,5 +1,42 @@
 [
   {
+    "id": "2026-11-10-fake-va-grant-social-media",
+    "date": "2026-11-10",
+    "channels": [
+      "Veterans",
+      "Social media"
+    ],
+    "title": "Fake VA grant offers sent on social media",
+    "summary": "The FTC warns that scammers are mining veterans' social media profiles, such as service history, promotion photos and tagged places, then messaging them about grants while claiming to be from the Department of Veterans Affairs. The messages lead to convincing fake sites that ask for a Social Security number or VA account login. Fake profiles using military lingo are also pushing \"guaranteed\" investment schemes aimed at veterans.",
+    "what_to_do": "The VA won't message you on social media, so check any benefit offer by going to the VA's official website yourself, and never give your Social Security number or VA login to someone who contacted you. Don't take investment advice from someone you met online.",
+    "sources": [
+      {
+        "name": "FTC: A Veterans Day reminder on how to spot scams on social media",
+        "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/veterans-day-reminder-how-spot-scams-social-media"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-10-fake-deputy-arrest-calls",
+    "date": "2026-11-10",
+    "channels": [
+      "Phone"
+    ],
+    "title": "Callers posing as deputies threaten arrest",
+    "summary": "Sheriff's offices in Montgomery County, Texas, and Hyde County, North Carolina, are warning about callers who pretend to be deputies, say they have legal papers or a warrant, and threaten arrest unless money is sent. Some use a real officer's name or fake the caller ID. Both offices say deputies never demand payment by phone for warrants, bail, missed jury duty or fees.",
+    "what_to_do": "Hang up, don't send money or gift cards, and call the sheriff's office at a number you look up yourself, not one the caller gives you.",
+    "sources": [
+      {
+        "name": "KPRC Click2Houston, reporting the Montgomery County (Texas) Sheriff's Office warning (Nov 9, 2026)",
+        "url": "https://www.click2houston.com/news/local/2026/11/10/sheriffs-office-is-warning-seniors-to-be-aware-about-ongoing-fake-law-enforcement-scams/"
+      },
+      {
+        "name": "WCTI12, reporting the Hyde County (N.C.) Sheriff's Office warning (Nov 10, 2026)",
+        "url": "https://wcti12.com/news/local/hyde-county-sheriffs-office-warns-of-scammers-posing-as-deputies-threatening-arrests"
+      }
+    ]
+  },
+  {
     "id": "2026-11-10-jail-monitor-fee-calls",
     "date": "2026-11-10",
     "channels": [
