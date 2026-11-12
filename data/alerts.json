@@ -1,5 +1,37 @@
 [
   {
+    "id": "2026-11-11-fake-rental-listings-north-canton",
+    "date": "2026-11-11",
+    "channels": [
+      "Online"
+    ],
+    "title": "Fake rental listings on real estate websites",
+    "summary": "North Canton, Ohio, police say scammers are posting fake rental listings on well-known real estate websites. Renters are asked to fill out an application with pay stubs and bank records, then to send a security deposit or other payment by bank transfer, which can lead to lost money and identity theft. Police note that a listing on a familiar site is not proof it is real.",
+    "what_to_do": "Confirm who owns the property and that the person is allowed to rent it before sharing financial documents or paying any deposit. If you shared information or sent money, contact your local police.",
+    "sources": [
+      {
+        "name": "Cleveland19, reporting the North Canton (Ohio) Police Department warning (Nov 11, 2026)",
+        "url": "https://www.cleveland19.com/2026/11/11/north-canton-police-warn-rental-scam-using-fake-listings-legitimate-real-estate-sites/"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-11-church-gift-card-calls-ripon",
+    "date": "2026-11-11",
+    "channels": [
+      "Phone"
+    ],
+    "title": "Calls asking church members to buy gift cards",
+    "summary": "Police in Ripon, Wisconsin, say callers contacted members of a local church and asked them to buy gift cards, claiming the money would help another member with medical needs. The callers then asked for the card details to be read to them over the phone. Members recognized the scam and warned others.",
+    "what_to_do": "Never read gift card numbers to someone who calls you, and check any request for help directly with your church or the person named, using contact details you already have.",
+    "sources": [
+      {
+        "name": "WBAY, reporting the Ripon (Wis.) Police Department warning (Nov 11, 2026)",
+        "url": "https://www.wbay.com/2026/11/11/ripon-police-warn-gift-card-scam-calls-targeting-church-members/"
+      }
+    ]
+  },
+  {
     "id": "2026-11-10-fake-va-grant-social-media",
     "date": "2026-11-10",
     "channels": [
