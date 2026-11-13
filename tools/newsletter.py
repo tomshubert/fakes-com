@@ -39,7 +39,7 @@ def viral_block(v):
 <div style="{FONT}font-size:13px;margin-top:8px"><a href="{e(v['sources'][0]['url'])}" style="color:#1f63a8;font-weight:bold;text-decoration:none">See it at {e(v['sources'][0]['name'].split(' (')[0])} &rarr;</a></div>
 </td></tr></table></td></tr>"""
 
-def build(alert_ids=None, viral_ids=None, today=None):
+def build(alert_ids=None, viral_ids=None, today=None, logo=SITE + "/assets/logo-email.png"):
     alerts = sorted(json.loads((ROOT / "data/alerts.json").read_text()), key=lambda a: a["date"], reverse=True)
     viral = sorted(json.loads((ROOT / "data/viral.json").read_text()), key=lambda a: a["date"], reverse=True)
     pick_a = [a for i in alert_ids for a in alerts if a["id"] == i] if alert_ids else alerts[:3]
@@ -54,7 +54,7 @@ def build(alert_ids=None, viral_ids=None, today=None):
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px">
 <tr><td bgcolor="{NAVY}" style="background-color:{NAVY};padding:22px 24px">
   <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-  <td style="padding-right:10px"><img src="{SITE}/apple-touch-icon.png" width="40" height="40" alt="FAKES.COM" style="display:block;border-radius:8px;color:#ffffff;font-size:10px"></td>
+  <td style="padding-right:10px"><img src="{logo}" width="35" height="40" alt="" style="display:block;border:0"></td>
   <td><div style="{FONT}font-size:24px;font-weight:900;letter-spacing:.5px;color:#ffffff">FAKES<span style="color:#ff8a66">.</span>COM</div>
   <div style="{FONT}font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#bcd2e8">Look closer. Stay safe.</div></td></tr></table>
   <div style="{FONT}font-size:26px;line-height:1.2;font-weight:bold;color:#ffffff;margin-top:18px">This week's scams &amp; fakes</div>
