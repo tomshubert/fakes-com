@@ -44,7 +44,7 @@ Guides live in `content/verify/<brand-product>.html` and are published at /verif
 
 ## Weekly newsletter
 - Mailing address for the footer of every newsletter email (required by CAN-SPAM): FAKES.COM, PO Box 8922, Calabasas, CA 91372-8922
-- Service: Brevo (free plan: 300 emails a day), sending from hello@fakes.com as "Tom at Fakes.com". Sign-ups go to a Brevo list via functions/api/subscribe.js (env BREVO_API_KEY, BREVO_LIST_ID in Cloudflare Pages).
+- Service: Brevo (free plan: 300 emails a day), sending from hello@fakes.com as "Tom at Fakes.com". Sign-ups go to a Brevo list via functions/api/subscribe.js (Brevo list #2; secret BREVO_API_KEY in Cloudflare Pages and GitHub Actions).
 - Fully automated: .github/workflows/newsletter.yml runs tools/send_newsletter.py every Thursday. It builds the email from data/alerts.json and data/viral.json, skips weeks with nothing new, and refuses to send above 300 subscribers (split sending needed then). Nobody sends it by hand.
 
 ## Off limits

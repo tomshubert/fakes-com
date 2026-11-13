@@ -5,7 +5,7 @@ Fakes.com list. Brevo adds the one-click unsubscribe link and List-Unsubscribe h
 
 Environment:
   BREVO_API_KEY   (GitHub secret)
-  BREVO_LIST_ID   (GitHub secret or variable): the Brevo list that sign-ups go to
+  BREVO_LIST_ID   optional; defaults to Brevo list #2, where sign-ups go
   MODE            "send" (default) sends now; "draft" only creates the campaign in Brevo
 """
 import datetime, json, os, sys, urllib.request, urllib.error, pathlib
@@ -33,7 +33,7 @@ def call(method, path, body=None):
 
 def main():
     mode = os.environ.get("MODE", "send")
-    list_id = int(os.environ["BREVO_LIST_ID"])
+    list_id = int(os.environ.get("BREVO_LIST_ID") or 2)
     today = datetime.date.today()
 
     # Skip a week with nothing new rather than resend old news.

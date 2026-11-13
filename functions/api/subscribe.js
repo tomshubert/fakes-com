@@ -3,6 +3,7 @@
 // starting with "sub:") and added to the Brevo list that the weekly email goes to.
 
 const PER_IP_PER_DAY = 5;
+const BREVO_LIST = 2; // Brevo list #2 receives the weekly email
 
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
@@ -33,12 +34,12 @@ export async function onRequestPost({ request, env }) {
 
   // Add to the Brevo list that receives the weekly email (when configured).
   // Someone who unsubscribed earlier stays unsubscribed in Brevo.
-  if (env.BREVO_API_KEY && env.BREVO_LIST_ID) {
+  if (env.BREVO_API_KEY) {
     try {
       const r = await fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",
         headers: { "api-key": env.BREVO_API_KEY, "content-type": "application/json", accept: "application/json" },
-        body: JSON.stringify({ email, listIds: [Number(env.BREVO_LIST_ID)], updateEnabled: true }),
+        body: JSON.stringify({ email, listIds: [Number(env.BREVO_LIST_ID || BREVO_LIST)], updateEnabled: true }),
       });
       if (!r.ok) console.log("brevo contact", r.status, (await r.text()).slice(0, 300));
     } catch (e) {
