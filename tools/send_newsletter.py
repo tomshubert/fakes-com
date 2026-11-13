@@ -36,16 +36,17 @@ def main():
     list_id = int(os.environ.get("BREVO_LIST_ID") or 2)
     today = datetime.date.today()
 
+    # Called every week, even when nothing is sent: Brevo disables keys unused for 90 days.
+    info = call("GET", f"/contacts/lists/{list_id}")
+    count = info.get("uniqueSubscribers", info.get("totalSubscribers", 0))
+    print(f"List {list_id}: {count} subscribers")
+
     # Skip a week with nothing new rather than resend old news.
     root = pathlib.Path(__file__).resolve().parent.parent
     dates = [x["date"] for f in ("alerts", "viral") for x in json.loads((root / f"data/{f}.json").read_text())]
     if mode == "send" and not any(d >= (today - datetime.timedelta(days=8)).isoformat() for d in dates):
         print("Nothing new in the last 8 days; not sending.")
         return
-
-    info = call("GET", f"/contacts/lists/{list_id}")
-    count = info.get("uniqueSubscribers", info.get("totalSubscribers", 0))
-    print(f"List {list_id}: {count} subscribers")
     if count == 0 and mode == "send":
         print("No subscribers yet; not sending.")
         return
