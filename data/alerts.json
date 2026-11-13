@@ -1,5 +1,59 @@
 [
   {
+    "id": "2026-11-12-child-injured-calls-norman",
+    "date": "2026-11-12",
+    "channels": [
+      "Phone"
+    ],
+    "title": "Calls claiming your child was hurt and needs money",
+    "summary": "Norman, Oklahoma, police say callers are telling parents their child was in a crash or an assault and was injured, then asking for money for medical care or bail. Someone may come on the line pretending to be the child, blaming an injury for sounding different, and the caller may say police took the child's phone. They push for fast payment by gift card, payment app or wire transfer.",
+    "what_to_do": "Hang up and call your child yourself, then contact your local police. Never pay with gift cards or give personal details to someone who called you.",
+    "sources": [
+      {
+        "name": "KOKH Fox 25, reporting the Norman (Okla.) Police Department warning (Nov 12, 2026)",
+        "url": "https://okcfox.com/news/local/norman-police-department-warns-community-of-ongoing-phone-scam-targeting-parents"
+      },
+      {
+        "name": "Norman Transcript, reporting the Norman Police Department warning (Nov 12, 2026)",
+        "url": "https://www.normantranscript.com/news/norman-police-issue-warning-about-phone-scam-targeting-parents/article_c3be49bd-e138-4c0c-8c09-fef53d010d04.html"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-12-illegal-online-pharmacies-georgia",
+    "date": "2026-11-12",
+    "channels": [
+      "Online"
+    ],
+    "title": "Illegal online pharmacies selling unsafe medicine",
+    "summary": "The Georgia Attorney General's Office warns that some online pharmacies are illegal and may sell counterfeit, expired, unapproved or poorly stored drugs that can harm your health. Warning signs include selling prescription drugs without a valid prescription, prices that look too low, and no checkable U.S. address or licensed pharmacist.",
+    "what_to_do": "Before ordering, confirm the pharmacy is licensed through your state board of pharmacy and ask a licensed pharmacist if you have questions. Report a suspicious pharmacy to your state attorney general.",
+    "sources": [
+      {
+        "name": "WSB-TV via Yahoo News, reporting the Georgia Attorney General's Office alert (Nov 12, 2026)",
+        "url": "https://www.yahoo.com/news/us/articles/georgia-ag-warns-residents-counterfeit-204805265.html"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-12-fake-holiday-charities-graham",
+    "date": "2026-11-12",
+    "channels": [
+      "Social media",
+      "Email",
+      "Phone"
+    ],
+    "title": "Fake charities asking for holiday donations",
+    "summary": "Graham, North Carolina, police warn that scammers set up fake charities or pose as real ones during the holiday giving season, reaching people by social media, email, text or phone. They use emotional stories, urgent appeals and look-alike fundraising pages, and may ask for gift cards, cryptocurrency or transfers to personal accounts.",
+    "what_to_do": "Research a charity with a charity rating service before giving, and donate through its official website rather than a link in a message you did not expect. Report a fake charity to your local police or the FTC.",
+    "sources": [
+      {
+        "name": "WXLV ABC45, reporting the Graham (N.C.) Police Department warning (Nov 12, 2026)",
+        "url": "https://abc45.com/news/local/graham-police-warn-residents-to-watch-for-holiday-charity-scams-as-giving-season-nears"
+      }
+    ]
+  },
+  {
     "id": "2026-11-11-fake-rental-listings-north-canton",
     "date": "2026-11-11",
     "channels": [
