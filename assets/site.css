@@ -271,3 +271,24 @@ body,.block.tint,.signup{background-image:var(--pattern);background-size:84px 84
 .verdict.fake{color:var(--fake)}.verdict.warn{color:#9a5b00}.verdict.real{color:var(--real)}
 @media (prefers-color-scheme:dark){.verdict.warn{color:#f0b35a}}
 .alert.viral .tags{align-items:center}
+
+/* Viral fake cards: our own illustration + verdict stamp, short text, one clear link. */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px}
+.vcard{background:var(--card);border:1px solid var(--rule);display:flex;flex-direction:column;min-width:0}
+.vthumb{position:relative;display:grid;place-items:center;aspect-ratio:16/8;max-width:100%;background:var(--banner);color:#9cc7f2;text-decoration:none;overflow:hidden}
+.vthumb svg{width:46%;height:auto;opacity:.9}
+.vthumb.real{background:#174c40;color:#a9e0cf}
+.vthumb.warn{background:#5a3a07;color:#f5cf8f}
+.vstamp{position:absolute;right:14px;top:14px;font-family:var(--display);font-weight:900;font-stretch:110%;font-size:20px;letter-spacing:.08em;text-transform:uppercase;padding:3px 12px;border:3px solid currentColor;transform:rotate(-6deg);background:rgba(0,0,0,.18)}
+.vthumb.fake .vstamp{color:#ff8a66}.vthumb.real .vstamp{color:#7fe0c0}.vthumb.warn .vstamp{color:#ffc56b}
+.vkind{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:#eaf3fc}
+.vthumb:hover svg{opacity:1}
+.vbody{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.vbody h2,.vbody h3{font-size:21px;font-weight:700;font-stretch:90%;margin:0;line-height:1.2}
+.vbody p{margin:0;font-size:15.5px}
+.vclue{color:var(--ink-2)}
+.vclue b{color:var(--real)}
+.vlink{margin-top:auto;font-family:var(--display);font-weight:700;font-size:15px;text-decoration:none;color:var(--blue)}
+.vlink:hover{text-decoration:underline}
+.vthumb svg{width:40%}.vstamp{font-size:17px;right:12px;top:12px}
+.vthumb svg{margin-top:22px}

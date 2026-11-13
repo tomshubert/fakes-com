@@ -5,8 +5,8 @@
     "kind": "AI video",
     "verdict": "Fake",
     "title": "Saluting veteran at a Veterans Day parade",
-    "summary": "A Facebook video posted days before Veterans Day showed a scarred veteran being saluted at a parade and was shared as real footage. Lead Stories found it was made with AI.",
-    "tell": "Watch the details: a girl's drumsticks vanish from her hands, the buttons and medals on the man's uniform melt into the fabric, and the flag's stripes change width as it moves. Real cameras don't do that.",
+    "summary": "A video of a scarred veteran being saluted at a parade was shared as real. Lead Stories found it was made with AI.",
+    "tell": "Drumsticks vanish, medals melt into the uniform and the flag's stripes change width.",
     "sources": [
       {
         "name": "Lead Stories (Nov 12, 2026)",
@@ -20,8 +20,8 @@
     "kind": "AI photo",
     "verdict": "Fake",
     "title": "Colosseum and Eiffel Tower lit blue for the midterms",
-    "summary": "A Facebook collage claimed the Colosseum and the Eiffel Tower were lit blue to celebrate Democratic wins in the 2026 midterms. Lead Stories found the images were made with AI, and neither landmark announced or showed any such lighting.",
-    "tell": "Check the landmark's own website and social media. A real event like this would be announced there and covered by news outlets; here there was nothing.",
+    "summary": "Photos claimed the Colosseum and Eiffel Tower were lit blue for Democratic midterm wins. Lead Stories found they were made with AI.",
+    "tell": "Neither landmark's own website or social media showed any such lighting.",
     "sources": [
       {
         "name": "Lead Stories (Nov 6, 2026)",
@@ -36,8 +36,8 @@
     "kind": "Old video, new claim",
     "verdict": "Misleading",
     "title": "Pennsylvania voter registration \"scheme\" video",
-    "summary": "A post on X said a video proved a large voter registration fraud scheme in Lancaster, Pennsylvania, in the 2026 election. Lead Stories found the video was a district attorney's press conference from October 2024 about the previous election, a case that had already been resolved.",
-    "tell": "Before sharing, check when a video was first posted. Old footage with a new caption is one of the most common ways false claims spread.",
+    "summary": "A post said a video proved 2026 voter registration fraud in Pennsylvania. Lead Stories found it was a 2024 press conference about the previous election.",
+    "tell": "Check when a video was first posted. Old clips with new captions are a common trick.",
     "sources": [
       {
         "name": "Lead Stories (Nov 5, 2026)",
@@ -52,8 +52,8 @@
     "kind": "AI-edited photo",
     "verdict": "Fake",
     "title": "Sharp photo of the Florida jet crash",
-    "summary": "After a Learjet crashed in Palm Beach County, Florida, on November 1, a crisp photo spread on X that seemed to show the plane missing a wing. Lead Stories found it was apparently a frame from real dashcam video cleaned up with AI, and the real footage shows both wings.",
-    "tell": "Be wary of a news photo that looks sharper than any real footage of the event. AI \"enhancement\" can invent details that weren't there.",
+    "summary": "A crisp photo of the Florida jet crash seemed to show a missing wing. Lead Stories found it was apparently dashcam video \"cleaned up\" with AI.",
+    "tell": "It looked sharper than any real footage, and the real video shows both wings.",
     "sources": [
       {
         "name": "Lead Stories (Nov 2, 2026)",
@@ -67,8 +67,8 @@
     "kind": "Real video called fake",
     "verdict": "Real",
     "title": "Florida jet crash video is real, not AI",
-    "summary": "A post on X claimed dashcam video of the same Palm Beach County crash was \"100%\" made with AI. PolitiFact rated that Pants on Fire: major news outlets confirmed the footage, and it was traced to the person who filmed it.",
-    "tell": "Calling something \"AI\" can be a false claim too. Check whether trusted news outlets have confirmed the footage before deciding either way.",
+    "summary": "A post claimed dashcam video of the Florida jet crash was \"100%\" AI. PolitiFact found it was real and confirmed by major news outlets.",
+    "tell": "Calling something \"AI\" can be false too. Check whether trusted news outlets confirmed it.",
     "sources": [
       {
         "name": "PolitiFact (Nov 2, 2026)",

@@ -29,7 +29,8 @@ Static site for fakes.com, owned by Tom Shubert (IT consultant). Published by Cl
 3. Balance and tone (non-negotiable): apply the same standard to every political side. Over time, election and political items must not lean toward debunking one side. Prefer non-political items (disasters, crashes, celebrities, health, holidays, money). No opinions, no characterizing anyone's motives, no mocking. Calm, plain English.
 4. Describe fakes in words only. Never repost, embed or link to the fake image or video itself, and never download photos of real people. Do not name private individuals or the accounts that posted the fake.
 5. Keep at most 12 items; remove the oldest beyond that and anything older than 60 days.
-6. If nothing qualifies, change nothing. A quiet day is better than a weak item.
+6. Keep it short: summary is two short sentences (what was claimed, what the fact-checker found); tell is one short sentence. Cards show our own illustration chosen from `kind` (it must contain "video", "photo" or neither for a rumor) and link to the fact check, where readers see the fake safely labeled.
+7. If nothing qualifies, change nothing. A quiet day is better than a weak item.
 
 ## Weekly brand verification guide (the weekly scheduled task)
 Guides live in `content/verify/<brand-product>.html` and are published at /verify/<slug>. Copy the front-matter format of an existing guide (title, brand, description, updated).

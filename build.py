@@ -108,15 +108,33 @@ def alert_card(a, heading="h3"):
   <div class="src-line">Source: {srcs}</div>
 </article>"""
 
+VIRAL_ART = {
+    # Our own simple drawings, so we never repost (or help spread) the fake itself.
+    "video": '<svg viewBox="0 0 160 100" aria-hidden="true"><rect x="10" y="10" width="140" height="80" rx="8" fill="none" stroke="currentColor" stroke-width="5"/><path d="M10 26h140M10 74h140" stroke="currentColor" stroke-width="3" opacity=".5"/><path d="M18 14v8M34 14v8M50 14v8M66 14v8M82 14v8M98 14v8M114 14v8M130 14v8M18 78v8M34 78v8M50 78v8M66 78v8M82 78v8M98 78v8M114 78v8M130 78v8" stroke="currentColor" stroke-width="4" opacity=".5"/><path d="M68 36v28l24-14z" fill="currentColor"/></svg>',
+    "photo": '<svg viewBox="0 0 160 100" aria-hidden="true"><rect x="20" y="10" width="120" height="80" rx="6" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="108" cy="34" r="9" fill="currentColor"/><path d="M26 82l34-34 22 22 14-14 38 26z" fill="currentColor" opacity=".85"/></svg>',
+    "rumor": '<svg viewBox="0 0 160 100" aria-hidden="true"><path d="M28 14h104a10 10 0 0 1 10 10v40a10 10 0 0 1-10 10H70l-24 18v-18H28a10 10 0 0 1-10-10V24a10 10 0 0 1 10-10z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M68 34a12 12 0 1 1 18 10c-4 2-6 4-6 9" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="80" cy="63" r="4" fill="currentColor"/></svg>',
+}
+
+def viral_art(kind):
+    k = kind.lower()
+    return VIRAL_ART["video" if "video" in k else "photo" if ("photo" in k or "image" in k) else "rumor"]
+
 def viral_card(v, heading="h3"):
-    srcs = " · ".join(f'<a href="{e(s["url"])}">{e(s["name"])}</a>' for s in v["sources"])
     cls = {"Fake": "fake", "Misleading": "warn", "Real": "real"}.get(v["verdict"], "fake")
-    return f"""<article class="alert viral" id="{e(v['id'])}">
-  <div class="tags"><span class="chip">{e(v['kind'])}</span><span class="chip neutral">{short_date(v['date'])}</span><span class="verdict {cls}">{e(v['verdict'])}</span></div>
-  <{heading}>{e(v['title'])}</{heading}>
-  <p>{e(v['summary'])}</p>
-  <div class="do"><b>How you can tell:</b> {e(v['tell'])}</div>
-  <div class="src-line">Fact check: {srcs}</div>
+    src = v["sources"][0]
+    who = src["name"].split(" (")[0]
+    return f"""<article class="vcard" id="{e(v['id'])}">
+  <a class="vthumb {cls}" href="{e(src['url'])}" aria-label="See the fact check at {e(who)}">
+    {viral_art(v['kind'])}
+    <span class="vstamp">{e(v['verdict'])}</span>
+    <span class="vkind">{e(v['kind'])} · {short_date(v['date'])}</span>
+  </a>
+  <div class="vbody">
+    <{heading}>{e(v['title'])}</{heading}>
+    <p>{e(v['summary'])}</p>
+    <p class="vclue"><b>The clue:</b> {e(v['tell'])}</p>
+    <a class="vlink" href="{e(src['url'])}">See it at {e(who)} &rarr;</a>
+  </div>
 </article>"""
 
 GAME_BLOCK = """<section class="game" id="game"><div class="wrap">
@@ -231,7 +249,7 @@ def main():
 <section class="block"><div class="wrap">
   <div class="sec-head"><h2>Viral Fakes</h2><a href="/viral-fakes">All viral fakes →</a></div>
   <p class="sec-lede">Fake photos, AI videos and false rumors spreading right now, each checked by an established fact-checker.</p>
-  <div class="alerts">{''.join(viral_card(v) for v in ([x for x in viral if not x.get('political')] + [x for x in viral if x.get('political')])[:2])}</div>
+  <div class="vgrid">{''.join(viral_card(v) for v in ([x for x in viral if not x.get('political')] + [x for x in viral if x.get('political')])[:3])}</div>
 </div></section>
 <section class="block tint"><div class="wrap">
   <div class="sec-head"><h2>Learn to Spot Fakes</h2><a href="/guides/">All guides →</a></div>
@@ -282,9 +300,9 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
 <section class="block"><div class="wrap"><div class="alerts">{''.join(alert_card(a, 'h2') for a in alerts)}</div></div></section>"""
     body_v = f"""<section class="page-head"><div class="wrap">
   <div class="label">Updated {fmt_date(viral[0]['date'])}</div><h1>Viral Fakes</h1>
-  <p class="lede">Fake photos, AI-made videos and false rumors going around right now. Each one has been checked by an established fact-checker, and each comes with the clue that gives it away. We describe fakes in words and never repost them.</p>
+  <p class="lede">Fake photos, AI videos and false rumors going around now, each checked by an established fact-checker. Tap any card to see the fake, safely labeled, at the fact-checker's site.</p>
 </div></section>
-<section class="block"><div class="wrap"><div class="alerts">{''.join(viral_card(v, 'h2') for v in viral)}</div>
+<section class="block"><div class="wrap"><div class="vgrid">{''.join(viral_card(v, 'h2') for v in viral)}</div>
   <p class="sec-lede" style="margin-top:28px">Seen something you're not sure about? <a href="/check#claim">Check a post, photo or rumor</a>.</p>
 </div></section>"""
     out["viral-fakes.html"] = layout("Viral Fakes: Fake Photos, Videos and Rumors", "Fake photos, AI videos and false rumors going around now, each checked by an established fact-checker, with the clue that gives it away.", "/viral-fakes", body_v, "/viral-fakes")
