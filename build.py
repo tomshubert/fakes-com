@@ -108,24 +108,17 @@ def alert_card(a, heading="h3"):
   <div class="src-line">Source: {srcs}</div>
 </article>"""
 
-VIRAL_ART = {
-    # Our own simple drawings, so we never repost (or help spread) the fake itself.
-    "video": '<svg viewBox="0 0 160 100" aria-hidden="true"><rect x="10" y="10" width="140" height="80" rx="8" fill="none" stroke="currentColor" stroke-width="5"/><path d="M10 26h140M10 74h140" stroke="currentColor" stroke-width="3" opacity=".5"/><path d="M18 14v8M34 14v8M50 14v8M66 14v8M82 14v8M98 14v8M114 14v8M130 14v8M18 78v8M34 78v8M50 78v8M66 78v8M82 78v8M98 78v8M114 78v8M130 78v8" stroke="currentColor" stroke-width="4" opacity=".5"/><path d="M68 36v28l24-14z" fill="currentColor"/></svg>',
-    "photo": '<svg viewBox="0 0 160 100" aria-hidden="true"><rect x="20" y="10" width="120" height="80" rx="6" fill="none" stroke="currentColor" stroke-width="5"/><circle cx="108" cy="34" r="9" fill="currentColor"/><path d="M26 82l34-34 22 22 14-14 38 26z" fill="currentColor" opacity=".85"/></svg>',
-    "rumor": '<svg viewBox="0 0 160 100" aria-hidden="true"><path d="M28 14h104a10 10 0 0 1 10 10v40a10 10 0 0 1-10 10H70l-24 18v-18H28a10 10 0 0 1-10-10V24a10 10 0 0 1 10-10z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/><path d="M68 34a12 12 0 1 1 18 10c-4 2-6 4-6 9" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="80" cy="63" r="4" fill="currentColor"/></svg>',
-}
-
-def viral_art(kind):
-    k = kind.lower()
-    return VIRAL_ART["video" if "video" in k else "photo" if ("photo" in k or "image" in k) else "rumor"]
-
 def viral_card(v, heading="h3"):
     cls = {"Fake": "fake", "Misleading": "warn", "Real": "real"}.get(v["verdict"], "fake")
     src = v["sources"][0]
     who = src["name"].split(" (")[0]
+    # The fact-checker's own link-preview image (never the original post), shown small,
+    # blurred and stamped, credited and linked back, the way a social network shows a shared link.
+    img = (f'<img src="{e(v["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">'
+           f'<span class="vcredit">Image: {e(who)}</span>') if v.get("image") else ""
     return f"""<article class="vcard" id="{e(v['id'])}">
-  <a class="vthumb {cls}" href="{e(src['url'])}" aria-label="See the fact check at {e(who)}">
-    {viral_art(v['kind'])}
+  <a class="vthumb {cls}{' has-img' if img else ''}" href="{e(src['url'])}" aria-label="See the fact check at {e(who)}">
+    {img}
     <span class="vstamp">{e(v['verdict'])}</span>
     <span class="vkind">{e(v['kind'])} · {short_date(v['date'])}</span>
   </a>

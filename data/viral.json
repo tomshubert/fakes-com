@@ -12,7 +12,8 @@
         "name": "Lead Stories (Nov 12, 2026)",
         "url": "https://hoax-alert.leadstories.com/2026/11/fact-check-video-of-saluting-scarred-veteran-is-not-real-footage-of-veterans-day-parade.html"
       }
-    ]
+    ],
+    "image": "https://leadstories.com/caption_3500179.jpg"
   },
   {
     "id": "2026-11-06-landmarks-lit-blue",
@@ -28,7 +29,8 @@
         "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-images-of-colosseum-and-eiffel-tower-turned-blue-for-2026-midterms-are-not-real-photos.html"
       }
     ],
-    "political": true
+    "political": true,
+    "image": "https://leadstories.com/caption_3500141.jpg"
   },
   {
     "id": "2026-11-05-old-voter-registration-video",
@@ -59,7 +61,8 @@
         "name": "Lead Stories (Nov 2, 2026)",
         "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-florida-learjet-crash-sharp-photo-wing-engine-cowling-tail.html"
       }
-    ]
+    ],
+    "image": "https://leadstories.com/caption_3500087.jpg"
   },
   {
     "id": "2026-11-02-real-crash-video-called-ai",
