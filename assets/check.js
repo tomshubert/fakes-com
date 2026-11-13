@@ -142,6 +142,38 @@
     });
   }
 
+  // Saved emails often carry large attachments or images the checker doesn't need.
+  // Keep every header, every text/HTML part and each attachment's name and type,
+  // but drop the bulky contents of other parts, right here in the browser.
+  function slimEmail(raw) {
+    var MAX = 950000;
+    if (raw.length <= MAX) return raw;
+    var bounds = [];
+    raw.replace(/boundary="?([^";\r\n]+)"?/gi, function (m, b) { bounds.push("--" + b.trim()); return m; });
+    var lines = raw.split(/\r?\n/), out = [], state = "top", keep = true, hdr = [], dropped = 0;
+    function isBoundary(l) { for (var i = 0; i < bounds.length; i++) if (l.indexOf(bounds[i]) === 0) return true; return false; }
+    function flushDropped() { if (dropped) { out.push("[Attachment content removed by Fakes.com to save space: about " + Math.round(dropped / 1024) + " KB]"); dropped = 0; } }
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i];
+      if (bounds.length && isBoundary(l)) { flushDropped(); out.push(l); state = "hdr"; hdr = []; keep = true; continue; }
+      if (state === "hdr") {
+        out.push(l);
+        if (l === "") {
+          var h = hdr.join("\n").toLowerCase();
+          var ct = (h.match(/content-type:\s*([^;\s]+)/) || [])[1] || "text/plain";
+          keep = /^(text\/|multipart\/|message\/)/.test(ct);
+          state = "body";
+        } else hdr.push(l);
+        continue;
+      }
+      if (state === "body" && !keep) { dropped += l.length + 1; continue; }
+      out.push(l);
+    }
+    flushDropped();
+    var slim = out.join("\r\n");
+    return slim.length > MAX ? slim.slice(0, MAX) : slim;
+  }
+
   function takeFiles(list) {
     var files = Array.prototype.slice.call(list || []);
     var cfg = MODES[mode];
@@ -163,10 +195,10 @@
     if (doc) {
       if (isEmail(doc) && !cfg.emails) { $("shot-name").textContent = "Saved emails can be checked in the \"message, email or website\" option."; return; }
       if (isPdf(doc) && !cfg.docs) { $("shot-name").textContent = "Please add photos for this kind of check."; return; }
-      var limitMB = isPdf(doc) ? 3 : 1;
+      var limitMB = isPdf(doc) ? 3 : 25;
       if (doc.size > limitMB * 1024 * 1024) { $("shot-name").textContent = "That file is too large (limit " + limitMB + " MB)."; return; }
       return readAs(doc, isEmail(doc) ? "text" : "dataurl").then(function (res) {
-        if (isEmail(doc)) email = res; else pdf = { data: String(res).split(",")[1] };
+        if (isEmail(doc)) email = slimEmail(String(res)); else pdf = { data: String(res).split(",")[1] };
         $("shot-name").textContent = "Added: " + doc.name;
       }).catch(function () { $("shot-name").textContent = "That file couldn't be read."; });
     }
