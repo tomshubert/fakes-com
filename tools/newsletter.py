@@ -18,19 +18,19 @@ def nice_date(d): return datetime.date.fromisoformat(d).strftime("%b %-d")
 
 def alert_block(a):
     return f"""<tr><td style="padding:0 0 18px">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid {RULE};border-top:4px solid #1f63a8">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid {RULE};border-top:4px solid #1f63a8">
 <tr><td style="padding:18px 20px">
 <div style="{FONT}font-size:11px;letter-spacing:1px;text-transform:uppercase;color:{RED};font-weight:bold">{e(' · '.join(a['channels'][:2]))} &nbsp;<span style="color:{INK2}">{nice_date(a['date'])}</span></div>
 <div style="{FONT}font-size:19px;line-height:1.25;font-weight:bold;color:{INK};margin:6px 0 8px">{e(a['title'])}</div>
 <div style="{SERIF}font-size:15px;line-height:1.55;color:{INK}">{e(a['summary'])}</div>
-<div style="{SERIF}font-size:15px;line-height:1.5;color:{INK};background:#dcefe7;border-left:3px solid {GREEN};padding:10px 12px;margin-top:10px"><b style="{FONT}color:{GREEN}">What to do:</b> {e(a['what_to_do'])}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:10px"><tr><td bgcolor="#dcefe7" style="{SERIF}background-color:#dcefe7;border-left:3px solid {GREEN};padding:10px 12px;font-size:15px;line-height:1.5;color:{INK}"><b style="{FONT}color:{GREEN}">What to do:</b> {e(a['what_to_do'])}</td></tr></table>
 <div style="{FONT}font-size:12px;color:{INK2};margin-top:8px">Source: <a href="{e(a['sources'][0]['url'])}" style="color:{INK2}">{e(a['sources'][0]['name'])}</a></div>
 </td></tr></table></td></tr>"""
 
 def viral_block(v):
     color = {"Fake": RED, "Misleading": "#9a5b00", "Real": GREEN}.get(v["verdict"], RED)
     return f"""<tr><td style="padding:0 0 14px">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid {RULE}">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid {RULE}">
 <tr><td style="padding:16px 20px">
 <span style="{FONT}display:inline-block;font-size:13px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:{color};border:2px solid {color};padding:2px 8px">{e(v['verdict'])}</span>
 <span style="{FONT}font-size:11px;letter-spacing:1px;text-transform:uppercase;color:{INK2};margin-left:8px">{e(v['kind'])}</span>
@@ -48,13 +48,13 @@ def build(alert_ids=None, viral_ids=None, today=None):
     today = today or datetime.date.today()
     also_html = "".join(f'<li style="margin:0 0 6px"><a href="{SITE}/alerts#{e(a["id"])}" style="color:{INK}">{e(a["title"])}</a></li>' for a in also)
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>This week's scams and fakes</title></head>
-<body style="margin:0;padding:0;background:{PAPER}">
+<body bgcolor="{PAPER}" style="margin:0;padding:0;background-color:{PAPER}">
 <div style="display:none;max-height:0;overflow:hidden">The scams and fakes worth knowing about this week, and what to do.</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{PAPER}"><tr><td align="center" style="padding:20px 12px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="{PAPER}" style="background-color:{PAPER}"><tr><td align="center" style="padding:20px 12px">
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px">
-<tr><td style="background:{NAVY};padding:22px 24px">
+<tr><td bgcolor="{NAVY}" style="background-color:{NAVY};padding:22px 24px">
   <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-  <td style="padding-right:10px"><img src="{SITE}/apple-touch-icon.png" width="40" height="40" alt="" style="display:block;border-radius:8px"></td>
+  <td style="padding-right:10px"><img src="{SITE}/apple-touch-icon.png" width="40" height="40" alt="FAKES.COM" style="display:block;border-radius:8px;color:#ffffff;font-size:10px"></td>
   <td><div style="{FONT}font-size:24px;font-weight:900;letter-spacing:.5px;color:#ffffff">FAKES<span style="color:#ff8a66">.</span>COM</div>
   <div style="{FONT}font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#bcd2e8">Look closer. Stay safe.</div></td></tr></table>
   <div style="{FONT}font-size:26px;line-height:1.2;font-weight:bold;color:#ffffff;margin-top:18px">This week's scams &amp; fakes</div>
@@ -72,7 +72,7 @@ def build(alert_ids=None, viral_ids=None, today=None):
   <ul style="{SERIF}font-size:15px;line-height:1.5;padding-left:20px;margin:8px 0 0">{also_html}</ul>
 </td></tr>
 <tr><td align="center" style="padding:22px 0 26px">
-  <a href="{SITE}/check" style="{FONT}display:inline-block;background:#1f63a8;color:#ffffff;font-weight:bold;font-size:16px;text-decoration:none;padding:14px 26px">Got something suspicious? Check it free &rarr;</a>
+  <table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#1f63a8" style="background-color:#1f63a8;padding:14px 26px"><a href="{SITE}/check" style="{FONT}color:#ffffff;font-weight:bold;font-size:16px;text-decoration:none">Got something suspicious? Check it free &rarr;</a></td></tr></table>
 </td></tr>
 <tr><td style="border-top:1px solid {RULE};padding:18px 4px 30px">
   <div style="{FONT}font-size:12px;line-height:1.6;color:{INK2}">You're getting this because you signed up at fakes.com. Every alert links to its original source. Fakes.com will never ask for your passwords, card numbers or payment.<br><br>
