@@ -32,6 +32,10 @@ Guides live in `content/verify/<brand-product>.html` and are published at /verif
 6. Run `python3 build.py`, commit "Add brand guide: <Brand>" and push to main.
 7. If no brand with solid official guidance is left, change nothing and say so.
 
+## Weekly newsletter
+- Mailing address for the footer of every newsletter email (required by CAN-SPAM): FAKES.COM, PO Box 8922, Calabasas, CA 91372-8922
+- Planned service: Kit (free plan), sending from hello@fakes.com as "Tom at Fakes.com". Not set up yet; until it is, don't promise or send newsletters.
+
 ## Off limits
 - Client names, Tom's rates or billing details, and Tom's personal email addresses never appear on the site.
 - Never sell, promote or link to counterfeit goods.
