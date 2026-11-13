@@ -1,6 +1,6 @@
 // POST /api/subscribe — adds an email address to the weekly scam-alert list.
-// Addresses are stored in Fakes.com's own Cloudflare storage (the LIMITS namespace,
-// under keys starting with "sub:"). Nothing is shared or sent yet.
+// Addresses are kept in Fakes.com's own Cloudflare storage (the LIMITS namespace, keys
+// starting with "sub:") and added to the Brevo list that the weekly email goes to.
 
 const PER_IP_PER_DAY = 5;
 
@@ -29,6 +29,21 @@ export async function onRequestPost({ request, env }) {
   const key = `sub:${email}`;
   if (!(await env.LIMITS.get(key))) {
     await env.LIMITS.put(key, JSON.stringify({ email, signed_up: new Date().toISOString(), source: String(body.source || "site").slice(0, 40) }));
+  }
+
+  // Add to the Brevo list that receives the weekly email (when configured).
+  // Someone who unsubscribed earlier stays unsubscribed in Brevo.
+  if (env.BREVO_API_KEY && env.BREVO_LIST_ID) {
+    try {
+      const r = await fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: { "api-key": env.BREVO_API_KEY, "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify({ email, listIds: [Number(env.BREVO_LIST_ID)], updateEnabled: true }),
+      });
+      if (!r.ok) console.log("brevo contact", r.status, (await r.text()).slice(0, 300));
+    } catch (e) {
+      console.log("brevo contact error", String(e));
+    }
   }
   return json({ ok: true });
 }

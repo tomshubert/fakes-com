@@ -1,0 +1,28 @@
+name: Weekly newsletter
+
+on:
+  schedule:
+    # Thursdays 15:17 UTC (7:17 AM Pacific in winter, 8:17 AM in summer),
+    # after the daily alerts task has run.
+    - cron: "17 15 * * 4"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "draft = create in Brevo without sending; send = send now"
+        default: draft
+        type: choice
+        options: [draft, send]
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 tools/send_newsletter.py
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          BREVO_LIST_ID: ${{ secrets.BREVO_LIST_ID }}
+          MODE: ${{ github.event.inputs.mode || 'send' }}
