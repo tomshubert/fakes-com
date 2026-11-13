@@ -297,3 +297,6 @@ body,.block.tint,.signup{background-image:var(--pattern);background-size:84px 84
 .vthumb .vstamp{top:50%;right:auto;left:50%;transform:translate(-50%,-50%) rotate(-8deg);font-size:30px;padding:4px 18px;border-width:4px;background:rgba(11,21,33,.35)}
 .vthumb.fake .vstamp{color:#ff5a3c;border-color:#ff5a3c}
 .vcredit{position:absolute;right:12px;bottom:12px;font-family:var(--mono);font-size:10.5px;color:#cfe0f2;opacity:.9}
+.vthumb.has-img{aspect-ratio:16/9}
+.vthumb img{filter:blur(1.2px) saturate(.9);transform:scale(1.02)}
+.vthumb .vstamp{font-size:26px}
