@@ -10,7 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://fakes.com"
 PREVIEW = False  # True = search engines told not to index + preview banner. Set False at launch.
 
-NAV = [("/check", "Check It"), ("/alerts", "Scam Alerts"), ("/guides/", "Guides"), ("/verify/", "Spot Counterfeits"), ("/spot-the-fake", "Practice Game"), ("/about", "About")]
+NAV = [("/check", "Check It"), ("/alerts", "Scam Alerts"), ("/viral-fakes", "Viral Fakes"), ("/guides/", "Guides"), ("/verify/", "Spot Counterfeits"), ("/about", "About")]
 FONTS = ("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900"
          "&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap")
 
@@ -87,7 +87,7 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <footer class="site"><div class="wrap">
   <div><h4>Fakes.com</h4><p>Plain-English warnings about scams, deepfakes and counterfeits, from IT consultant Tom Shubert. Every fact links to its source.</p></div>
   <div><h4>Site</h4><ul>
-    <li><a href="/check">Check It</a></li><li><a href="/verify/">Spot counterfeits: brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
+    <li><a href="/check">Check It</a></li><li><a href="/viral-fakes">Viral Fakes</a></li><li><a href="/verify/">Spot counterfeits: brand guides</a></li><li><a href="/alerts">Scam Alerts</a></li><li><a href="/guides/">Guides</a></li>
     <li><a href="/spot-the-fake">Practice game</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></div>
   <div><h4>Been scammed?</h4><p>Report it at <a href="https://reportfraud.ftc.gov/">ReportFraud.ftc.gov</a> and <a href="https://www.ic3.gov/">IC3.gov</a>. If you sent money, call your bank right away.</p>
     <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/terms">Terms of Use</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
@@ -106,6 +106,17 @@ def alert_card(a, heading="h3"):
   <p>{e(a['summary'])}</p>
   <div class="do"><b>What to do:</b> {e(a['what_to_do'])}</div>
   <div class="src-line">Source: {srcs}</div>
+</article>"""
+
+def viral_card(v, heading="h3"):
+    srcs = " · ".join(f'<a href="{e(s["url"])}">{e(s["name"])}</a>' for s in v["sources"])
+    cls = {"Fake": "fake", "Misleading": "warn", "Real": "real"}.get(v["verdict"], "fake")
+    return f"""<article class="alert viral" id="{e(v['id'])}">
+  <div class="tags"><span class="chip">{e(v['kind'])}</span><span class="chip neutral">{short_date(v['date'])}</span><span class="verdict {cls}">{e(v['verdict'])}</span></div>
+  <{heading}>{e(v['title'])}</{heading}>
+  <p>{e(v['summary'])}</p>
+  <div class="do"><b>How you can tell:</b> {e(v['tell'])}</div>
+  <div class="src-line">Fact check: {srcs}</div>
 </article>"""
 
 GAME_BLOCK = """<section class="game" id="game"><div class="wrap">
@@ -168,12 +179,13 @@ PRODUCT_CHECK = """<section class="block tint"><div class="wrap">
 
 def main():
     alerts = sorted(json.loads((ROOT / "data/alerts.json").read_text()), key=lambda a: a["date"], reverse=True)
+    viral = sorted(json.loads((ROOT / "data/viral.json").read_text()), key=lambda a: a["date"], reverse=True)
     pool = json.loads((ROOT / "data/game.json").read_text())
     guides = []
     for p in sorted((ROOT / "content/guides").glob("*.html")):
         meta, body = load_partial(p)
         guides.append((p.stem, meta, body))
-    order = ["business-email-compromise", "voice-clone-scams", "fake-online-stores", "counterfeit-products"]
+    order = ["business-email-compromise", "fake-photos-videos-rumors", "voice-clone-scams", "fake-online-stores", "counterfeit-products"]
     guides.sort(key=lambda g: order.index(g[0]) if g[0] in order else 99)
     brands = []
     vdir = ROOT / "content/verify"
@@ -188,7 +200,7 @@ def main():
     # Home
     home = f"""<section class="hero"><div class="wrap">
   <div>
-    <div class="label">Scams · Deepfakes · Counterfeits</div>
+    <div class="label">Scams · Fake photos &amp; videos · Rumors · Counterfeits</div>
     <h1>Check if it's <em>fake</em> before you click, pay or believe it.</h1>
     <p class="lede">Plain-English warnings about the scams going around right now, how to spot AI-made voices and videos, and how to tell real products from knockoffs. Every fact links to its source.</p>
     <div class="byline">By <b>Tom Shubert</b> · IT consultant to small businesses and individuals</div>
@@ -215,6 +227,11 @@ def main():
 <section class="block"><div class="wrap">
   <div class="sec-head"><h2>Scam Alerts</h2><a href="/alerts">All alerts →</a></div>
   <div class="alerts">{''.join(alert_card(a) for a in alerts[:4])}</div>
+</div></section>
+<section class="block"><div class="wrap">
+  <div class="sec-head"><h2>Viral Fakes</h2><a href="/viral-fakes">All viral fakes →</a></div>
+  <p class="sec-lede">Fake photos, AI videos and false rumors spreading right now, each checked by an established fact-checker.</p>
+  <div class="alerts">{''.join(viral_card(v) for v in ([x for x in viral if not x.get('political')] + [x for x in viral if x.get('political')])[:2])}</div>
 </div></section>
 <section class="block tint"><div class="wrap">
   <div class="sec-head"><h2>Learn to Spot Fakes</h2><a href="/guides/">All guides →</a></div>
@@ -263,6 +280,14 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
   <p class="lede">Scams going around right now, based on warnings from government agencies and police. Each alert says what to do and links to the original warning.</p>
 </div></section>
 <section class="block"><div class="wrap"><div class="alerts">{''.join(alert_card(a, 'h2') for a in alerts)}</div></div></section>"""
+    body_v = f"""<section class="page-head"><div class="wrap">
+  <div class="label">Updated {fmt_date(viral[0]['date'])}</div><h1>Viral Fakes</h1>
+  <p class="lede">Fake photos, AI-made videos and false rumors going around right now. Each one has been checked by an established fact-checker, and each comes with the clue that gives it away. We describe fakes in words and never repost them.</p>
+</div></section>
+<section class="block"><div class="wrap"><div class="alerts">{''.join(viral_card(v, 'h2') for v in viral)}</div>
+  <p class="sec-lede" style="margin-top:28px">Seen something you're not sure about? <a href="/check#claim">Check a post, photo or rumor</a>.</p>
+</div></section>"""
+    out["viral-fakes.html"] = layout("Viral Fakes: Fake Photos, Videos and Rumors", "Fake photos, AI videos and false rumors going around now, each checked by an established fact-checker, with the clue that gives it away.", "/viral-fakes", body_v, "/viral-fakes")
     out["alerts.html"] = layout("Scam Alerts", "Current scam warnings from government agencies and police, with what to do about each one.", "/alerts", body, "/alerts")
 
     # Guides index + guides
@@ -309,7 +334,7 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
       <label><input type="radio" name="mode" value="message" checked><span>A message, email or website</span></label>
       <label><input type="radio" name="mode" value="listing"><span>A product before I buy it</span></label>
       <label><input type="radio" name="mode" value="item"><span>An item I already received</span></label>
-      <label><input type="radio" name="mode" value="claim"><span>A post, claim or news story</span></label>
+      <label><input type="radio" name="mode" value="claim"><span>A photo, video, post or rumor</span></label>
     </fieldset>
     <p id="mode-note" class="mode-note" hidden></p>
     <label for="msg" class="label" id="msg-label">Paste the message, email, link or phone number</label>
@@ -375,7 +400,7 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(text)
 
-    urls = ["/", "/check", "/alerts", "/guides/", "/spot-the-fake", "/about", "/contact", "/standards", "/privacy", "/disclosure", "/terms"] + [f"/guides/{s}" for s, _, _ in guides] + ["/verify/"] + [f"/verify/{s}" for s, _, _ in brands]
+    urls = ["/", "/check", "/alerts", "/viral-fakes", "/guides/", "/spot-the-fake", "/about", "/contact", "/standards", "/privacy", "/disclosure", "/terms"] + [f"/guides/{s}" for s, _, _ in guides] + ["/verify/"] + [f"/verify/{s}" for s, _, _ in brands]
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         "".join(f"  <url><loc>{SITE}{u}</loc><lastmod>{newest}</lastmod></url>\n" for u in urls) + "</urlset>\n")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")

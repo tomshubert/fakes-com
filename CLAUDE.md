@@ -22,6 +22,15 @@ Static site for fakes.com, owned by Tom Shubert (IT consultant). Published by Cl
 7. Commit with a message like "Add scam alerts for YYYY-MM-DD" and push to main.
 8. If nothing new and well-sourced turned up, change nothing and say so. A quiet day is better than a weak alert.
 
+## Daily viral fakes update (part of the daily scheduled task)
+`data/viral.json` feeds the Viral Fakes page (/viral-fakes) and the homepage. Fields: id, date (YYYY-MM-DD of the fact check), kind (short label such as "AI video", "AI photo", "Old video, new claim", "Real video called fake", "False rumor"), verdict ("Fake", "Misleading" or "Real"), title, summary, tell ("How you can tell": the clue a reader can use), sources [{name, url}], and political: true for anything about elections, parties, politicians or government policy (the homepage features non-political items first).
+1. Search for fake photos, AI-made videos and false viral rumors debunked in the last 3 days by established fact-checkers: Lead Stories, PolitiFact, FactCheck.org, AP Fact Check, Reuters Fact Check, AFP Fact Check, USA Today Fact Check. Prefer items that ordinary Americans are likely to see in their feeds.
+2. Add 0 to 2 new items, not duplicates. Open and read each fact check; every statement must be supported by it. Paraphrase; never copy sentences. Name the fact-checker and date in the source name.
+3. Balance and tone (non-negotiable): apply the same standard to every political side. Over time, election and political items must not lean toward debunking one side. Prefer non-political items (disasters, crashes, celebrities, health, holidays, money). No opinions, no characterizing anyone's motives, no mocking. Calm, plain English.
+4. Describe fakes in words only. Never repost, embed or link to the fake image or video itself, and never download photos of real people. Do not name private individuals or the accounts that posted the fake.
+5. Keep at most 12 items; remove the oldest beyond that and anything older than 60 days.
+6. If nothing qualifies, change nothing. A quiet day is better than a weak item.
+
 ## Weekly brand verification guide (the weekly scheduled task)
 Guides live in `content/verify/<brand-product>.html` and are published at /verify/<slug>. Copy the front-matter format of an existing guide (title, brand, description, updated).
 1. Pick ONE frequently counterfeited brand or product that has no guide yet (check `content/verify/`). Prefer brands that publish official anti-counterfeit guidance: a serial or code lookup, an authorized-seller list, or a "how to spot fakes" page.

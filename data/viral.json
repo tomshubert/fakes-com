@@ -1,0 +1,79 @@
+[
+  {
+    "id": "2026-11-12-veterans-day-ai-video",
+    "date": "2026-11-12",
+    "kind": "AI video",
+    "verdict": "Fake",
+    "title": "Saluting veteran at a Veterans Day parade",
+    "summary": "A Facebook video posted days before Veterans Day showed a scarred veteran being saluted at a parade and was shared as real footage. Lead Stories found it was made with AI.",
+    "tell": "Watch the details: a girl's drumsticks vanish from her hands, the buttons and medals on the man's uniform melt into the fabric, and the flag's stripes change width as it moves. Real cameras don't do that.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 12, 2026)",
+        "url": "https://hoax-alert.leadstories.com/2026/11/fact-check-video-of-saluting-scarred-veteran-is-not-real-footage-of-veterans-day-parade.html"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-06-landmarks-lit-blue",
+    "date": "2026-11-06",
+    "kind": "AI photo",
+    "verdict": "Fake",
+    "title": "Colosseum and Eiffel Tower lit blue for the midterms",
+    "summary": "A Facebook collage claimed the Colosseum and the Eiffel Tower were lit blue to celebrate Democratic wins in the 2026 midterms. Lead Stories found the images were made with AI, and neither landmark announced or showed any such lighting.",
+    "tell": "Check the landmark's own website and social media. A real event like this would be announced there and covered by news outlets; here there was nothing.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 6, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-images-of-colosseum-and-eiffel-tower-turned-blue-for-2026-midterms-are-not-real-photos.html"
+      }
+    ],
+    "political": true
+  },
+  {
+    "id": "2026-11-05-old-voter-registration-video",
+    "date": "2026-11-05",
+    "kind": "Old video, new claim",
+    "verdict": "Misleading",
+    "title": "Pennsylvania voter registration \"scheme\" video",
+    "summary": "A post on X said a video proved a large voter registration fraud scheme in Lancaster, Pennsylvania, in the 2026 election. Lead Stories found the video was a district attorney's press conference from October 2024 about the previous election, a case that had already been resolved.",
+    "tell": "Before sharing, check when a video was first posted. Old footage with a new caption is one of the most common ways false claims spread.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 5, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-video-does-not-prove-2026-massive-voter-registration-fraud-scheme-in-pennsylvania.html"
+      }
+    ],
+    "political": true
+  },
+  {
+    "id": "2026-11-02-learjet-ai-photo",
+    "date": "2026-11-02",
+    "kind": "AI-edited photo",
+    "verdict": "Fake",
+    "title": "Sharp photo of the Florida jet crash",
+    "summary": "After a Learjet crashed in Palm Beach County, Florida, on November 1, a crisp photo spread on X that seemed to show the plane missing a wing. Lead Stories found it was apparently a frame from real dashcam video cleaned up with AI, and the real footage shows both wings.",
+    "tell": "Be wary of a news photo that looks sharper than any real footage of the event. AI \"enhancement\" can invent details that weren't there.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 2, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-florida-learjet-crash-sharp-photo-wing-engine-cowling-tail.html"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-02-real-crash-video-called-ai",
+    "date": "2026-11-02",
+    "kind": "Real video called fake",
+    "verdict": "Real",
+    "title": "Florida jet crash video is real, not AI",
+    "summary": "A post on X claimed dashcam video of the same Palm Beach County crash was \"100%\" made with AI. PolitiFact rated that Pants on Fire: major news outlets confirmed the footage, and it was traced to the person who filmed it.",
+    "tell": "Calling something \"AI\" can be a false claim too. Check whether trusted news outlets have confirmed the footage before deciding either way.",
+    "sources": [
+      {
+        "name": "PolitiFact (Nov 2, 2026)",
+        "url": "https://politifact.com/factchecks/2026/nov/02/tweets/palm-beach-florida-plane-crash-video-ai/"
+      }
+    ]
+  }
+]

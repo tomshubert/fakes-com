@@ -19,10 +19,10 @@
       empty: "Paste the listing details or add a screenshot first."
     },
     claim: {
-      label: "Paste the post, caption, headline or claim (or add a screenshot)",
+      label: "Paste the post, caption, rumor or claim, or add a screenshot of the photo or video",
       placeholder: "Example: Eating two tablespoons of apple cider vinegar a day reverses type 2 diabetes, doctors are hiding this!",
       photos: "Add a screenshot or PDF", multi: false, docs: true,
-      empty: "Paste the post or claim, or add a screenshot first.",
+      empty: "Paste the post or rumor, or add a screenshot first.",
       note: "One free fact-check per day. Facebook, Instagram and TikTok links can't be opened, so paste the words or add a screenshot."
     },
     item: {
