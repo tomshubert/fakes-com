@@ -1,5 +1,39 @@
 [
   {
+    "id": "2026-11-13-card-firearm-calls-quincy",
+    "date": "2026-11-13",
+    "channels": [
+      "Phone"
+    ],
+    "title": "Calls claiming your card bought a gun",
+    "summary": "Quincy, Illinois, police say callers pretending to be a credit card company's fraud team claim your card was used to buy a firearm in another city. The charge never happened, and some people called don't even have a card from that company. The goal is to get personal details or card numbers, and in one case the caller had the person download Signal to talk to a fake FBI agent.",
+    "what_to_do": "Hang up and call the number on the back of your card to check for any fraud alert. Don't give personal information to someone who called you, and know that the FBI won't contact you through Signal.",
+    "sources": [
+      {
+        "name": "Quincy Herald-Whig, reporting the Quincy (Ill.) Police Department warning (Nov 13, 2026)",
+        "url": "https://whig.com/2026/11/13/quincy-police-warn-of-phone-scam-claiming-credit-card-was-used-to-buy-a-firearm/"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-12-fake-ftc-websites",
+    "date": "2026-11-12",
+    "channels": [
+      "Websites",
+      "Phone",
+      "Text"
+    ],
+    "title": "Fake FTC websites and FTC impersonators",
+    "summary": "The FTC says scammers copy its name, logo and page design to build look-alike websites, and contact people by phone, text, email or social media claiming to be FTC agents, sometimes with fake badges. Some tell you to move your money or hand over cash to keep it safe.",
+    "what_to_do": "Before typing in personal details, check that the site's address ends in .gov, since real FTC sites always do. A real FTC employee will never ask you to move money or hand cash to anyone.",
+    "sources": [
+      {
+        "name": "FTC: How to spot fake FTC websites and FTC impersonators",
+        "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/how-spot-fake-ftc-websites-and-ftc-impersonators"
+      }
+    ]
+  },
+  {
     "id": "2026-11-12-child-injured-calls-norman",
     "date": "2026-11-12",
     "channels": [

@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-11-12-jensen-huang-fake-quote",
+    "date": "2026-11-12",
+    "kind": "False rumor",
+    "verdict": "Fake",
+    "title": "Jensen Huang quote about \"focusing on women\"",
+    "summary": "A meme quoted Nvidia CEO Jensen Huang saying smart people don't waste time focusing on women. Lead Stories found no evidence he ever said it and no news coverage of the remark.",
+    "tell": "The quote names no source, date or event, and no news outlet reported it.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 12, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-nvidia-ceo-jensen-huang-did-not-say-intelligent-people-never-waste-their-time-focusing-women.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-12-veterans-day-ai-video",
     "date": "2026-11-12",
     "kind": "AI video",
