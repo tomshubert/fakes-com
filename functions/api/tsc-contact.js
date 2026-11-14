@@ -26,7 +26,7 @@ export async function onRequestPost(ctx) {
     return await handle(ctx, origin);
   } catch (e) {
     console.log("tsc-contact error", String(e && e.stack || e));
-    return json({ error: "Sorry, your message didn't go through. Please call 818.635.6777 or email info@tomshubert.com.", detail: String(e && e.message || e).slice(0, 200) }, 500, origin);
+    return json({ error: "Sorry, your message didn't go through. Please call 818.635.6777 or email info@tomshubert.com.", detail: String(e && e.message || e).slice(0, 200) }, 200, origin);
   }
 }
 
@@ -71,8 +71,10 @@ async function handle({ request, env }, origin) {
     }),
   });
   if (!r.ok) {
-    console.log("brevo send", r.status, (await r.text()).slice(0, 300));
-    return json({ error: "Sorry, your message didn't go through. Please call 818.635.6777 or email info@tomshubert.com.", detail: "send " + r.status }, 502, origin);
+    const t = (await r.text()).slice(0, 300);
+    console.log("brevo send", r.status, t);
+    // 200 with ok:false: Cloudflare replaces 5xx bodies with its own page, which hides the reason.
+    return json({ ok: false, error: "Sorry, your message didn't go through. Please call 818.635.6777 or email info@tomshubert.com.", detail: "send " + r.status + " " + t.replace(/[^\w .:,'-]/g, " ").slice(0, 200) }, 200, origin);
   }
   return json({ ok: true }, 200, origin);
 }
