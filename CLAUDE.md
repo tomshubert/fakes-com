@@ -50,3 +50,6 @@ Guides live in `content/verify/<brand-product>.html` and are published at /verif
 ## Off limits
 - Client names, Tom's rates or billing details, and Tom's personal email addresses never appear on the site.
 - Never sell, promote or link to counterfeit goods.
+
+## tomshubert.com contact form
+- functions/api/tsc-contact.js receives the contact form on tomshubert.com (Tom's IT consulting site, a separate static site) and emails it to info@tomshubert.com through the same Brevo account (sender hello@fakes.com, reply-to the visitor). It only accepts requests from tomshubert.com and tomshubert-com.pages.dev, rate-limits per IP (LIMITS KV, keys "tscip:"), and stores nothing. It shares the 300 emails/day Brevo limit with the newsletter. Don't remove it without moving the form elsewhere.
