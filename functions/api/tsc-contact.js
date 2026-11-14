@@ -20,8 +20,17 @@ export function onRequestOptions({ request }) {
   return new Response(null, { status: 204, headers: cors(request.headers.get("origin")) });
 }
 
-export async function onRequestPost({ request, env }) {
-  const origin = request.headers.get("origin");
+export async function onRequestPost(ctx) {
+  const origin = ctx.request.headers.get("origin");
+  try {
+    return await handle(ctx, origin);
+  } catch (e) {
+    console.log("tsc-contact error", String(e && e.stack || e));
+    return json({ error: "Sorry, your message didn't go through. Please call 818.635.6777 or email info@tomshubert.com.", detail: String(e && e.message || e).slice(0, 200) }, 500, origin);
+  }
+}
+
+async function handle({ request, env }, origin) {
   if (!Object.keys(cors(origin)).length) return json({ error: "Not allowed." }, 403, origin);
 
   let b;
@@ -34,13 +43,13 @@ export async function onRequestPost({ request, env }) {
   if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)) return json({ error: "Please enter a valid email address." }, 400, origin);
   if (message.length < 5) return json({ error: "Please tell me a little about what you need." }, 400, origin);
 
-  if (env.LIMITS) {
+  if (env.LIMITS) try {
     const ip = request.headers.get("CF-Connecting-IP") || "unknown";
     const key = `tscip:${new Date().toISOString().slice(0, 10)}:${ip}`;
     const n = Number((await env.LIMITS.get(key)) || 0);
     if (n >= PER_IP_PER_DAY) return json({ error: "Too many messages from this connection today. Please call 818.635.6777." }, 429, origin);
     await env.LIMITS.put(key, String(n + 1), { expirationTtl: 60 * 60 * 48 });
-  }
+  } catch (e) { console.log("tsc-contact limits", String(e)); }
   if (!env.BREVO_API_KEY) return json({ error: "The form isn't working right now. Please call 818.635.6777." }, 503, origin);
 
   const rows = [["Name", name], ["Email", email], ["Phone", phone], ["Company", company]].filter(([, v]) => v);
@@ -63,7 +72,7 @@ export async function onRequestPost({ request, env }) {
   });
   if (!r.ok) {
     console.log("brevo send", r.status, (await r.text()).slice(0, 300));
-    return json({ error: "Sorry, your message didn't go through. Please call 818.635.6777 or email info@tomshubert.com." }, 502, origin);
+    return json({ error: "Sorry, your message didn't go through. Please call 818.635.6777 or email info@tomshubert.com.", detail: "send " + r.status }, 502, origin);
   }
   return json({ ok: true }, 200, origin);
 }
