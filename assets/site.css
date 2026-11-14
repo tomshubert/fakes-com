@@ -306,3 +306,5 @@ body,.block.tint,.signup{background-image:var(--pattern);background-size:84px 84
 .vthumb.has-img::after{background:linear-gradient(180deg,rgba(11,21,33,0) 55%,rgba(11,21,33,.8))}
 .vthumb.has-img .vstamp{top:12px;right:12px;left:auto;transform:rotate(-6deg);font-size:22px;padding:3px 14px;border-width:4px;background:rgba(11,21,33,.72)}
 .vthumb.has-img.real .vstamp{color:#7fe0c0;border-color:#7fe0c0}
+.vthumb.has-img .vcredit{top:10px;left:10px;right:auto;bottom:auto;font-size:10px;padding:2px 6px;background:rgba(11,21,33,.72);border-radius:3px}
+.vthumb.has-img .vkind{left:10px;bottom:10px;padding:3px 7px;background:rgba(11,21,33,.82);border-radius:3px}
