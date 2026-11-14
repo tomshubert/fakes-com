@@ -25,3 +25,4 @@ jobs:
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           MODE: ${{ github.event.inputs.mode || 'send' }}
+          TZ: America/Los_Angeles
