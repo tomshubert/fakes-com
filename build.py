@@ -115,7 +115,7 @@ def viral_card(v, heading="h3"):
     # The fact-checker's own link-preview image (never the original post), shown small,
     # blurred and stamped, credited and linked back, the way a social network shows a shared link.
     img = (f'<img src="{e(v["image"])}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">'
-           f'<span class="vcredit">Image: {e(who)}</span>') if v.get("image") else ""
+           f'<span class="vcredit">Image: {e(v.get("image_credit") or who)}</span>') if v.get("image") else ""
     return f"""<article class="vcard" id="{e(v['id'])}">
   <a class="vthumb {cls}{' has-img' if img else ''}" href="{e(src['url'])}" aria-label="See the fact check at {e(who)}">
     {img}
