@@ -196,7 +196,7 @@ def main():
     for p in sorted((ROOT / "content/guides").glob("*.html")):
         meta, body = load_partial(p)
         guides.append((p.stem, meta, body))
-    order = ["business-email-compromise", "fake-photos-videos-rumors", "voice-clone-scams", "fake-online-stores", "counterfeit-products"]
+    order = ["business-email-compromise", "fake-photos-videos-rumors", "ai-influencers", "voice-clone-scams", "fake-online-stores", "counterfeit-products"]
     guides.sort(key=lambda g: order.index(g[0]) if g[0] in order else 99)
     brands = []
     vdir = ROOT / "content/verify"
