@@ -4,7 +4,7 @@
 // Visitors' messages are not stored. Replies go straight to the visitor (reply-to).
 
 const TO = "info@tomshubert.com";
-const ALLOWED_ORIGINS = ["https://tomshubert.com", "https://www.tomshubert.com", "https://tomshubert-com.pages.dev"];
+const ALLOWED_ORIGINS = ["https://fakes.com", "https://tomshubert.com", "https://www.tomshubert.com", "https://tomshubert-com.pages.dev"];
 const PER_IP_PER_DAY = 5;
 
 function cors(origin) {
