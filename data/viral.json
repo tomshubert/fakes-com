@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-11-14-airport-ground-stop-ai-video",
+    "date": "2026-11-14",
+    "kind": "AI video",
+    "verdict": "Fake",
+    "title": "Travelers sleeping in a U.S. airport during the ground stop",
+    "summary": "A viral clip was shared as showing crowds sleeping in an American airport during the nationwide FAA ground stop on Nov. 13. Lead Stories found the video was most likely made with AI and is not real footage.",
+    "tell": "Look for odd details: piles of bedroom pillows, two identical women in matching pink hoodies, bodies blending together, and soda-brand posters announcing cancellations.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 14, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-viral-clip-does-not-show-real-footage-of-american-airport-during-ground-stop.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-12-jensen-huang-fake-quote",
     "date": "2026-11-12",
     "kind": "False rumor",

@@ -1,5 +1,22 @@
 [
   {
+    "id": "2026-11-14-marketplace-send-back-jacksonville",
+    "date": "2026-11-14",
+    "channels": [
+      "Online",
+      "Payment apps"
+    ],
+    "title": "Marketplace buyers who ask you to send money back",
+    "summary": "The Jacksonville Sheriff's Office says a Facebook Marketplace seller lost $700 after a \"buyer\" claimed their business Zelle account could only send a larger amount, asked the seller to return the difference, and no payment ever arrived. The scammer then sent a fake customer service link and talked the seller into paying for a supposed account upgrade.",
+    "what_to_do": "Check that the money is really in your account before you hand over an item or send anything back, because a real buyer will never ask you to refund part of a payment that hasn't cleared. Report the attempt to your local police.",
+    "sources": [
+      {
+        "name": "News4JAX, reporting the Jacksonville Sheriff's Office warning (Nov 14, 2026)",
+        "url": "https://news4jax.com/news/local/2026/11/14/online-marketplace-scam-costs-local-victim-700"
+      }
+    ]
+  },
+  {
     "id": "2026-11-13-card-firearm-calls-quincy",
     "date": "2026-11-13",
     "channels": [
