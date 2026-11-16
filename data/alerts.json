@@ -1,5 +1,22 @@
 [
   {
+    "id": "2026-11-15-fake-virus-popups-fort-bend",
+    "date": "2026-11-15",
+    "channels": [
+      "Computer",
+      "Phone"
+    ],
+    "title": "Fake virus pop-ups that tell you to call for help",
+    "summary": "The Fort Bend County (Texas) Sheriff's Office is warning about alarming pop-ups and fake security alerts that say your computer was hacked, infected or found to hold illegal material. The message gives a phone number that claims to be Microsoft or another tech support company, and the person who answers demands payment with gift cards, cryptocurrency or cash fed into a Bitcoin ATM.",
+    "what_to_do": "Don't call a number shown in a surprise pop-up, and never let someone who contacted you take remote control of your computer. Real tech companies don't ask to be paid with gift cards or Bitcoin ATM deposits.",
+    "sources": [
+      {
+        "name": "KPRC Click2Houston, reporting the Fort Bend County Sheriff's Office warning (Nov 15, 2026)",
+        "url": "https://www.click2houston.com/news/local/2026/11/15/sheriffs-office-warns-about-computer-virus-scams/"
+      }
+    ]
+  },
+  {
     "id": "2026-11-14-marketplace-send-back-jacksonville",
     "date": "2026-11-14",
     "channels": [
@@ -13,6 +30,27 @@
       {
         "name": "News4JAX, reporting the Jacksonville Sheriff's Office warning (Nov 14, 2026)",
         "url": "https://news4jax.com/news/local/2026/11/14/online-marketplace-scam-costs-local-victim-700"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-13-fake-permit-fee-emails-springfield",
+    "date": "2026-11-13",
+    "channels": [
+      "Email",
+      "Small business"
+    ],
+    "title": "Fake city emails asking for permit fees",
+    "summary": "The City of Springfield, Oregon, says a scammer posing as a Planning Commission member emailed someone with a pending development application, used public details about the project, and attached an invoice to be paid by wire transfer. The FBI has warned that this scheme is happening nationwide, with fake invoices that threaten permit delays and ask for wire, payment app or cryptocurrency payments.",
+    "what_to_do": "Before paying any permit or application fee, call the city or county office using the number on its official website, not one in the email. If you already paid, contact your bank right away and report it to the FBI's Internet Crime Complaint Center.",
+    "sources": [
+      {
+        "name": "KMTR NBC16, reporting the City of Springfield (Ore.) warning (Nov 13, 2026)",
+        "url": "https://nbc16.com/news/local/springfield-warns-of-suspected-email-scam-targeting-planning-and-development-applicants"
+      },
+      {
+        "name": "FBI IC3 Public Service Announcement I-030926-PSA",
+        "url": "https://ic3.gov/PSA/2026/PSA260309"
       }
     ]
   },
