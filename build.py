@@ -41,7 +41,26 @@ def load_partial(path):
         text = text[m.end():]
     return meta, text.strip()
 
-def layout(title, description, path, body, active=None, extra_head=""):
+def ld_script(ld):
+    """Structured data (schema.org JSON-LD) so search engines know what a page is."""
+    if not ld:
+        return ""
+    return '<script type="application/ld+json">' + json.dumps(ld, ensure_ascii=False).replace("</", "<\\/") + "</script>\n"
+
+PUBLISHER = {"@type": "Organization", "name": "Fakes.com", "url": "https://fakes.com/",
+             "logo": {"@type": "ImageObject", "url": "https://fakes.com/apple-touch-icon.png"}}
+AUTHOR = {"@type": "Person", "name": "Tom Shubert", "url": "https://fakes.com/about"}
+
+def article_ld(meta, path):
+    d = {"@context": "https://schema.org", "@type": "Article", "headline": meta["title"][:110],
+         "description": meta["description"], "author": AUTHOR, "publisher": PUBLISHER,
+         "mainEntityOfPage": SITE + path, "image": SITE + "/og-image.png"}
+    if meta.get("updated"):
+        d["dateModified"] = meta["updated"]
+        d["datePublished"] = meta.get("published", meta["updated"])
+    return d
+
+def layout(title, description, path, body, active=None, extra_head="", ld=None, og_type="website"):
     nav = "".join(
         f'<a href="{href}"{" aria-current=\"page\"" if active == href else ""}>{label}</a>' for href, label in NAV)
     robots = '<meta name="robots" content="noindex">' if PREVIEW else ""
@@ -60,7 +79,7 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="Fakes.com">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(description)}">
@@ -72,7 +91,7 @@ def layout(title, description, path, body, active=None, extra_head=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 <link rel="stylesheet" href="{asset("/assets/site.css")}">
-{extra_head}
+{extra_head}{ld_script(ld)}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -283,7 +302,11 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
 </script>"""
     out["index.html"] = layout("Fakes.com: Check if it's fake before you click, pay or believe it",
         "Plain-English scam alerts, deepfake guides and real-vs-fake product advice from IT consultant Tom Shubert. Every fact linked to its source.",
-        "/", home, extra_head=game_scripts(pool))
+        "/", home, extra_head=game_scripts(pool),
+        ld={"@context": "https://schema.org", "@graph": [
+            {"@type": "WebSite", "name": "Fakes.com", "url": "https://fakes.com/"},
+            dict(PUBLISHER, **{"@id": "https://fakes.com/#org", "founder": AUTHOR,
+                 "email": "hello@fakes.com", "description": "Free plain-English warnings about scams, fake photos and videos, rumors and counterfeits."})]})
 
     # Alerts
     body = f"""<section class="page-head"><div class="wrap">
@@ -305,13 +328,13 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
     body = f"""<section class="page-head"><div class="wrap"><div class="label">Guides</div><h1>Learn to Spot Fakes</h1>
   <p class="lede">How the most common scams work, the signs to look for, and exactly what to do.</p></div></section>
 <section class="block"><div class="wrap"><div class="cards3">{guide_cards(guides)}</div></div></section>"""
-    out["guides/index.html"] = layout("Guides", "Plain-English guides to spotting voice-clone scams, fake online stores and counterfeit products.", "/guides/", body, "/guides/")
+    out["guides/index.html"] = layout("Guides", "Plain-English guides to spotting scam emails, fake photos and videos, AI-made influencers, voice-clone scams, fake online stores and counterfeit products.", "/guides/", body, "/guides/")
     for slug, meta, content in guides:
         body = f"""<section class="page-head"><div class="wrap narrow"><div class="label">{e(meta['label'])}</div>
   <h1>{e(meta['title'])}</h1><p class="lede">{e(meta['description'])}</p>
   <div class="byline">By <b>Tom Shubert</b> · Updated {fmt_date(meta['updated'])}</div></div></section>
 <article class="wrap narrow article">{content}</article>"""
-        out[f"guides/{slug}.html"] = layout(meta["title"], meta["description"], f"/guides/{slug}", body, "/guides/")
+        out[f"guides/{slug}.html"] = layout(meta["title"], meta["description"], f"/guides/{slug}", body, "/guides/", ld=article_ld(meta, f"/guides/{slug}"), og_type="article")
 
     # Brand verification guides
     body = f"""<section class="page-head"><div class="wrap"><div class="label">Brand guides</div><h1>Spot Counterfeits, Brand by Brand</h1>
@@ -325,7 +348,7 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
   <h1>{e(meta['title'])}</h1><p class="lede">{e(meta['description'])}</p>
   <div class="byline">By <b>Tom Shubert</b> · Updated {fmt_date(meta['updated'])}</div></div></section>
 <article class="wrap narrow article">{content}</article>"""
-        out[f"verify/{slug}.html"] = layout(meta["title"], meta["description"], f"/verify/{slug}", body, "/verify/")
+        out[f"verify/{slug}.html"] = layout(meta["title"], meta["description"], f"/verify/{slug}", body, "/verify/", ld=article_ld(meta, f"/verify/{slug}"), og_type="article")
 
     # Game page
     body = f"""<section class="page-head"><div class="wrap"><div class="label">Daily game</div><h1>Spot the Fake</h1>
