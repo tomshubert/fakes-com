@@ -57,6 +57,10 @@ Guides live in `content/verify/<brand-product>.html` and are published at /verif
 - Service: Brevo (free plan: 300 emails a day), sending from hello@fakes.com as "Tom at Fakes.com". Sign-ups go to a Brevo list via functions/api/subscribe.js (Brevo list #2; secret BREVO_API_KEY in Cloudflare Pages and GitHub Actions).
 - Fully automated: .github/workflows/newsletter.yml runs tools/send_newsletter.py every Monday morning (7:17 AM Pacific), after the daily alerts task. It builds the email from data/alerts.json and data/viral.json, skips weeks with nothing new, and refuses to send above 300 subscribers (split sending needed then). Nobody sends it by hand.
 
+## Affiliates
+- /protect (content/pages/protect.html) recommends NordPass and Aura after the free steps. Applications submitted Nov 17, 2026 (NordPass via affiliates.nordvpn.com, Aura via Impact, both under tom@tomshubert.com). Until approved, links are plain links and the disclosure page says so; when approved, swap in tracking links and update content/pages/disclosure.html.
+- Affiliate links never go in alerts, viral fakes or checker results. The `impact-site-verification` meta tag in build.py proves site ownership to Impact; don't remove it.
+
 ## Off limits
 - Client names, Tom's rates or billing details, and Tom's personal email addresses never appear on the site.
 - Never sell, promote or link to counterfeit goods.
