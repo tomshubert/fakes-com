@@ -271,7 +271,7 @@ def main():
     for p in sorted((ROOT / "content/guides").glob("*.html")):
         meta, body = load_partial(p)
         guides.append((p.stem, meta, body))
-    order = ["business-email-compromise", "fake-photos-videos-rumors", "ai-influencers", "voice-clone-scams", "fake-online-stores", "counterfeit-products"]
+    order = ["scam-texts", "business-email-compromise", "fake-photos-videos-rumors", "ai-influencers", "voice-clone-scams", "fake-online-stores", "counterfeit-products"]
     guides.sort(key=lambda g: order.index(g[0]) if g[0] in order else 99)
     brands = []
     vdir = ROOT / "content/verify"
@@ -378,7 +378,7 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
     body = f"""<section class="page-head"><div class="wrap"><div class="label">Guides</div><h1>Learn to Spot Fakes</h1>
   <p class="lede">How the most common scams work, the signs to look for, and exactly what to do.</p></div></section>
 <section class="block"><div class="wrap"><div class="cards3">{guide_cards(guides)}</div></div></section>"""
-    out["guides/index.html"] = layout("Guides", "Plain-English guides to spotting scam emails, fake photos and videos, AI-made influencers, voice-clone scams, fake online stores and counterfeit products.", "/guides/", body, "/guides/")
+    out["guides/index.html"] = layout("Guides", "Plain-English guides to spotting scam texts, scam emails, fake photos and videos, AI-made influencers, voice-clone scams, fake online stores and counterfeit products.", "/guides/", body, "/guides/")
     for slug, meta, content in guides:
         body = f"""<section class="page-head"><div class="wrap narrow"><div class="label">{e(meta['label'])}</div>
   <h1>{e(meta['title'])}</h1><p class="lede">{e(meta['description'])}</p>

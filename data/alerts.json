@@ -7,12 +7,16 @@
       "Holiday shopping"
     ],
     "title": "Fake package delivery texts before the holidays",
-    "summary": "The Wayne County (N.Y.) Sheriff's Office warns that holiday shoppers are getting texts saying a package couldn't be delivered or needs a small payment. The links can lead to copycat sites built to collect card numbers and other personal details.",
+    "summary": "The Wayne County (N.Y.) Sheriff's Office warns that holiday shoppers are getting texts saying a package couldn't be delivered or needs a small payment. The links can lead to copycat sites built to collect card numbers and other personal details. The Los Angeles County Sheriff's Department has warned about the same kind of delivery texts, plus fake flash-sale offers ahead of Cyber Monday.",
     "what_to_do": "Don't tap the link; check your order in the store's own app or website instead, then delete the text or forward it to 7726 to report it.",
     "sources": [
       {
         "name": "FingerLakes1.com, reporting the Wayne County (N.Y.) Sheriff's Office warning (Nov 17, 2026)",
         "url": "https://www.fingerlakes1.com/2026/11/17/holiday-shopping-safety-local-sheriffs-warn-about-theft-traffic-and-fake-delivery-texts/"
+      },
+      {
+        "name": "KTLA, reporting the Los Angeles County Sheriff's Department warning (Nov 16, 2026)",
+        "url": "https://ktla.com/news/local-news/cyber-monday-scam-warning-los-angeles/"
       }
     ]
   },
