@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
-<link rel="stylesheet" href="/assets/site.css?v=825098c06b">
+<link rel="stylesheet" href="/assets/site.css?v=a08fcde836">
 
 </head>
 <body>
@@ -44,5 +44,8 @@
     <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/terms">Terms of Use</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
   <div class="fine">© 2026 Fakes.com · Fakes.com never sells or links to counterfeit goods.</div>
 </div></footer>
-</body>
+<script>document.addEventListener('click',function(ev){var b=ev.target.closest('.share-copy');if(!b)return;var u=b.parentNode.getAttribute('data-url');
+function done(){b.textContent='Link copied';setTimeout(function(){b.textContent='Copy link'},2000)}
+if(navigator.share&&/Mobi|Android|iPhone/i.test(navigator.userAgent)){navigator.share({title:b.parentNode.getAttribute('data-title'),url:u}).catch(function(){});return}
+if(navigator.clipboard){navigator.clipboard.writeText(u).then(done,function(){prompt('Copy this link:',u)})}else{prompt('Copy this link:',u)}});</script></body>
 </html>

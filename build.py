@@ -112,9 +112,27 @@ def layout(title, description, path, body, active=None, extra_head="", ld=None, 
     <ul><li><a href="/standards">Sources &amp; corrections</a></li><li><a href="/terms">Terms of Use</a></li><li><a href="/privacy">Privacy</a></li><li><a href="/disclosure">Advertising disclosure</a></li></ul></div>
   <div class="fine">© {year} Fakes.com · Fakes.com never sells or links to counterfeit goods.</div>
 </div></footer>
-</body>
+{SHARE_JS}</body>
 </html>
 """
+
+def share_bar(url, title, label="Share this"):
+    """Simple share links (text, email, Facebook, copy). No tracking scripts; works without JavaScript."""
+    from urllib.parse import quote
+    msg = f"{title} {url}"
+    sms = "sms:?&body=" + quote(msg)
+    mail = "mailto:?subject=" + quote(title) + "&body=" + quote(f"Thought you should see this: {url}")
+    fb = "https://www.facebook.com/sharer/sharer.php?u=" + quote(url, safe="")
+    return (f'<div class="share" data-url="{e(url)}" data-title="{e(title)}"><span class="share-label">{e(label)}:</span>'
+            f'<a href="{e(sms)}">Text</a><a href="{e(mail)}">Email</a><a href="{e(fb)}" target="_blank" rel="noopener">Facebook</a>'
+            f'<button type="button" class="share-copy">Copy link</button></div>')
+
+SHARE_JS = """<script>document.addEventListener('click',function(ev){var b=ev.target.closest('.share-copy');if(!b)return;var u=b.parentNode.getAttribute('data-url');
+function done(){b.textContent='Link copied';setTimeout(function(){b.textContent='Copy link'},2000)}
+if(navigator.share&&/Mobi|Android|iPhone/i.test(navigator.userAgent)){navigator.share({title:b.parentNode.getAttribute('data-title'),url:u}).catch(function(){});return}
+if(navigator.clipboard){navigator.clipboard.writeText(u).then(done,function(){prompt('Copy this link:',u)})}else{prompt('Copy this link:',u)}});</script>"""
+
+PROTECT_BOX = """<div class="callout protect-box"><h3>Want more protection?</h3><p>A few free steps stop most scams and identity theft: freezing your credit, two-step sign-in and a password manager. <a href="/protect">See the free steps and our picks →</a></p></div>"""
 
 def alert_card(a, heading="h3"):
     chips = "".join(f'<span class="chip">{e(c)}</span>' for c in a["channels"][:2])
@@ -125,6 +143,7 @@ def alert_card(a, heading="h3"):
   <p>{e(a['summary'])}</p>
   <div class="do"><b>What to do:</b> {e(a['what_to_do'])}</div>
   <div class="src-line">Source: {srcs}</div>
+  {share_bar(SITE + "/alerts#" + a["id"], "Scam alert: " + a["title"], "Warn someone")}
 </article>"""
 
 def viral_card(v, heading="h3"):
@@ -383,7 +402,7 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
         body = f"""<section class="page-head"><div class="wrap narrow"><div class="label">{e(meta['label'])}</div>
   <h1>{e(meta['title'])}</h1><p class="lede">{e(meta['description'])}</p>
   <div class="byline">By <b>Tom Shubert</b> · Updated {fmt_date(meta['updated'])}</div></div></section>
-<article class="wrap narrow article">{content}</article>"""
+<article class="wrap narrow article">{content}{PROTECT_BOX if slug not in ("counterfeit-products",) else ""}{share_bar(SITE + "/guides/" + slug, meta["title"], "Share this guide")}</article>"""
         out[f"guides/{slug}.html"] = layout(meta["title"], meta["description"], f"/guides/{slug}", body, "/guides/", ld=article_ld(meta, f"/guides/{slug}"), og_type="article")
 
     # Brand verification guides

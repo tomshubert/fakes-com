@@ -310,3 +310,10 @@ body,.block.tint,.signup{background-image:var(--pattern);background-size:84px 84
 .vthumb.has-img.real .vstamp{color:#7fe0c0;border-color:#7fe0c0}
 .vthumb.has-img .vcredit{top:10px;left:10px;right:auto;bottom:auto;font-size:10px;padding:2px 6px;background:rgba(11,21,33,.72);border-radius:3px}
 .vthumb.has-img .vkind{left:10px;bottom:10px;padding:3px 7px;background:rgba(11,21,33,.82);border-radius:3px}
+
+/* Share links */
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:12px;font-size:14px}
+.share-label{color:var(--muted,#5b6878);font-weight:600}
+.share a,.share button{font:inherit;color:var(--link,#1d5fa8);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.article .share{margin-top:28px;padding-top:16px;border-top:1px solid var(--line,#d8e1ea)}
+.protect-box{margin-top:28px}
