@@ -2,9 +2,9 @@ name: Weekly newsletter
 
 on:
   schedule:
-    # Thursdays 15:17 UTC (7:17 AM Pacific in winter, 8:17 AM in summer),
+    # Mondays 15:17 UTC (7:17 AM Pacific / 10:17 AM Eastern in winter, an hour later in summer),
     # after the daily alerts task has run.
-    - cron: "17 15 * * 4"
+    - cron: "17 15 * * 1"
   workflow_dispatch:
     inputs:
       mode:
