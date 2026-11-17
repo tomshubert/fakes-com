@@ -87,6 +87,7 @@ def layout(title, description, path, body, active=None, extra_head="", ld=None, 
 <meta property="og:image" content="{SITE}/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#12365e">
+<meta name="impact-site-verification" value="5423e863-4094-4cee-9202-3158ca978768">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
