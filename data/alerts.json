@@ -1,5 +1,40 @@
 [
   {
+    "id": "2026-11-17-fake-delivery-texts-wayne-county",
+    "date": "2026-11-17",
+    "channels": [
+      "Text",
+      "Holiday shopping"
+    ],
+    "title": "Fake package delivery texts before the holidays",
+    "summary": "The Wayne County (N.Y.) Sheriff's Office warns that holiday shoppers are getting texts saying a package couldn't be delivered or needs a small payment. The links can lead to copycat sites built to collect card numbers and other personal details.",
+    "what_to_do": "Don't tap the link; check your order in the store's own app or website instead, then delete the text or forward it to 7726 to report it.",
+    "sources": [
+      {
+        "name": "FingerLakes1.com, reporting the Wayne County (N.Y.) Sheriff's Office warning (Nov 17, 2026)",
+        "url": "https://www.fingerlakes1.com/2026/11/17/holiday-shopping-safety-local-sheriffs-warn-about-theft-traffic-and-fake-delivery-texts/"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-16-va-benefits-lookalike-numbers",
+    "date": "2026-11-16",
+    "channels": [
+      "Veterans",
+      "Phone",
+      "Mail"
+    ],
+    "title": "Look-alike VA phone numbers and fake veteran mailers",
+    "summary": "The FTC says scammers are setting up phone numbers that nearly match real VA hotlines, so a single mistyped digit can connect you to someone who charges for services the VA gives free. Others mail postcards for a \"Veterans Savings Program\" that doesn't exist, hoping you'll call and share your Social Security or bank details, or run social media ads for fake veterans grants.",
+    "what_to_do": "Apply for benefits only through the VA's official website or a VA regional office, and double-check any VA number before you call. Accredited helpers don't charge a fee to file a VA claim, so walk away from anyone asking for money up front.",
+    "sources": [
+      {
+        "name": "FTC: Three new tactics scammers use to go after VA benefits (Nov 16, 2026)",
+        "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/three-new-tactics-scammers-use-go-after-va-benefits"
+      }
+    ]
+  },
+  {
     "id": "2026-11-15-fake-virus-popups-fort-bend",
     "date": "2026-11-15",
     "channels": [
@@ -208,9 +243,9 @@
     "channels": [
       "Phone"
     ],
-    "title": "Callers posing as deputies threaten arrest",
-    "summary": "Sheriff's offices in Montgomery County, Texas, and Hyde County, North Carolina, are warning about callers who pretend to be deputies, say they have legal papers or a warrant, and threaten arrest unless money is sent. Some use a real officer's name or fake the caller ID. Both offices say deputies never demand payment by phone for warrants, bail, missed jury duty or fees.",
-    "what_to_do": "Hang up, don't send money or gift cards, and call the sheriff's office at a number you look up yourself, not one the caller gives you.",
+    "title": "Callers posing as deputies or police threaten arrest",
+    "summary": "Sheriff's offices and police departments are warning about callers who pretend to be deputies or officers, say you have a warrant or missed jury duty, and threaten arrest unless money is sent, sometimes as Bitcoin or a prepaid \"bond.\" Some use a real officer's name or fake the caller ID. Police in Texas, North Carolina and Connecticut have warned about this, and all say officers never demand payment by phone to clear a warrant.",
+    "what_to_do": "Hang up, don't send money, gift cards or cryptocurrency, and call the department at a number you look up yourself, not one the caller gives you.",
     "sources": [
       {
         "name": "KPRC Click2Houston, reporting the Montgomery County (Texas) Sheriff's Office warning (Nov 9, 2026)",
@@ -219,6 +254,14 @@
       {
         "name": "WCTI12, reporting the Hyde County (N.C.) Sheriff's Office warning (Nov 10, 2026)",
         "url": "https://wcti12.com/news/local/hyde-county-sheriffs-office-warns-of-scammers-posing-as-deputies-threatening-arrests"
+      },
+      {
+        "name": "Yahoo News, reporting the Midland (Texas) Police Department warning (Nov 16, 2026)",
+        "url": "https://www.yahoo.com/news/articles/midland-police-warn-crypto-scams-181905736.html"
+      },
+      {
+        "name": "Patch, reporting the Naugatuck (Conn.) Police Department warning (Nov 16, 2026)",
+        "url": "https://patch.com/connecticut/naugatuck/police-warn-residents-bitcoin-warrant-scam-reported-naugatuck-pd"
       }
     ]
   },

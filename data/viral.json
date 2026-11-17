@@ -1,5 +1,36 @@
 [
   {
+    "id": "2026-11-16-nov-17-blackout-rumor",
+    "date": "2026-11-16",
+    "kind": "False rumor",
+    "verdict": "Fake",
+    "title": "A nationwide 90-day blackout starting Nov. 17",
+    "summary": "TikTok posts, one using an edited clip of the president, claimed a 90-day nationwide blackout would start Nov. 17. PolitiFact rated it false: the clip was doctored, and what is actually planned that day is a national Emergency Alert System test on TV and radio.",
+    "tell": "No agency announced a blackout, and urgent warnings with no named official source are a red flag.",
+    "sources": [
+      {
+        "name": "PolitiFact (Nov 16, 2026)",
+        "url": "https://politifact.com/factchecks/2026/nov/16/tiktok-posts/blackout-nov-17-trump-us-emergency/"
+      }
+    ],
+    "political": true
+  },
+  {
+    "id": "2026-11-16-king-charles-urgent-address",
+    "date": "2026-11-16",
+    "kind": "False rumor",
+    "verdict": "Fake",
+    "title": "King Charles's \"urgent address\" about his son",
+    "summary": "A website story claimed King Charles III gave a tearful emergency address about a tragedy involving his son, with a photo of him crying. Lead Stories found no such speech on the royal family's site or in the news, and detection tools flagged the photo as AI-made.",
+    "tell": "Read past the headline: the story's own text admits there's no verified evidence the address happened.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 16, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-king-charles-did-not-make-urgent-announcement-about-his-son.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-14-airport-ground-stop-ai-video",
     "date": "2026-11-14",
     "kind": "AI video",
