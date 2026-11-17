@@ -18,9 +18,14 @@ Static site for fakes.com, owned by Tom Shubert (IT consultant). Published by Cl
    - Never link to or name a live scam website. Use no web addresses in alert text.
 4. Plain English, calm tone, no hype. Title under 60 characters. Summary 2-3 sentences. what_to_do 1-2 concrete sentences.
 5. Remove alerts older than 90 days from alerts.json.
-6. Run `python3 build.py`; it must succeed. Check the JSON is valid.
-7. Commit with a message like "Add scam alerts for YYYY-MM-DD" and push to main.
-8. If nothing new and well-sourced turned up, change nothing and say so. A quiet day is better than a weak alert.
+6. Homepage "Going around now" card (about once a week). An alert may carry an optional `featured` block, and the homepage shows the one with the newest `featured.since` for 8 days, then falls back to the built-in toll-text example. If no alert has a `featured.since` in the last 6 days, pick the most useful alert from the last 7 days (prefer an agency source and a scam ordinary people are likely to get) and add:
+   `"featured": {"since": "<today YYYY-MM-DD>", "format": "<text message | email | phone call | voicemail | pop-up | social media message | social media ad | website | letter>", "agency": "<who issued the warning, e.g. the FTC, Norman (Okla.) police>", "sample": "<short invented example message>", "tells": ["<2-3 clues>"]}`
+   - The sample is written by Fakes.com and is never copied from a real scam. Under 240 characters. Any web address must end in `.example`, any phone number must be 555-0100 to 555-0199, and use no real person's name. The build refuses anything else.
+   - Each tell must be supported by the alert's source, like the alert text itself. Short phrases, no ending period.
+   - Never present it as "the worst" or "top" scam; it is just one that is going around now. If nothing is strong enough, add nothing and the toll example returns.
+7. Run `python3 build.py`; it must succeed. Check the JSON is valid.
+8. Commit with a message like "Add scam alerts for YYYY-MM-DD" and push to main.
+9. If nothing new and well-sourced turned up, change nothing and say so. A quiet day is better than a weak alert.
 
 ## Daily viral fakes update (part of the daily scheduled task)
 `data/viral.json` feeds the Viral Fakes page (/viral-fakes) and the homepage. Fields: id, date (YYYY-MM-DD of the fact check), kind (short label such as "AI video", "AI photo", "Old video, new claim", "Real video called fake", "False rumor"), verdict ("Fake", "Misleading" or "Real"), title, summary, tell ("How you can tell": the clue a reader can use), sources [{name, url}], and political: true for anything about elections, parties, politicians or government policy (the homepage features non-political items first).

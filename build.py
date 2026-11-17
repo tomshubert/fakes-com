@@ -207,6 +207,62 @@ PRODUCT_CHECK = """<section class="block tint"><div class="wrap">
   </div>
 </div></section>"""
 
+# Homepage hero card. An alert may carry an optional "featured" block (see CLAUDE.md); the newest one
+# set within FEATURE_DAYS is shown as "Going around now". Otherwise the evergreen toll-text example is shown.
+FEATURE_DAYS = 8
+FEATURE_FORMATS = {"text message", "email", "phone call", "voicemail", "pop-up", "social media message",
+                   "social media ad", "website", "letter"}
+DEFAULT_CARD = """<div class="stamp-card" aria-label="Example of a fake text message">
+    <div class="head"><span class="label">Example text message</span><span class="stamp">FAKE</span></div>
+    <div class="sample">E-ZPass: You have an unpaid toll balance of $6.99. Pay within 24 hrs to avoid a $50 late fee: ezpass-tolls.example/pay</div>
+    <p class="why">How you can tell:</p>
+    <ul><li>A short deadline meant to rush you</li><li>A link that isn't your toll agency's real website</li><li>Maine's toll agency, for one, says it doesn't collect tolls by text</li></ul>
+    <p class="fine">Sample written by Fakes.com. The web address is deliberately fake.</p>
+  </div>"""
+
+def check_featured(a):
+    """Stops the build if a featured sample could point readers at anything real."""
+    f, where = a["featured"], f"alerts.json {a['id']} featured"
+    for k in ("since", "format", "agency", "sample", "tells"):
+        if not f.get(k):
+            raise SystemExit(f"{where}: missing {k}")
+    datetime.date.fromisoformat(f["since"])
+    if f["format"] not in FEATURE_FORMATS:
+        raise SystemExit(f"{where}: format must be one of {sorted(FEATURE_FORMATS)}")
+    if not 2 <= len(f["tells"]) <= 3:
+        raise SystemExit(f"{where}: give 2 or 3 tells")
+    if len(f["sample"]) > 240:
+        raise SystemExit(f"{where}: sample is too long (max 240 characters)")
+    for host in re.findall(r"(?i)\b(?:[a-z0-9-]+\.)+[a-z]{2,}\b", f["sample"]):
+        if not host.lower().endswith(".example"):
+            raise SystemExit(f"{where}: web address '{host}' must end in .example")
+    for num in re.findall(r"\d{3}\D{0,2}\d{3}\D?\d{4}", f["sample"]):
+        digits = re.sub(r"\D", "", num)
+        if digits[-7:-4] != "555" or not "0100" <= digits[-4:] <= "0199":
+            raise SystemExit(f"{where}: phone number '{num}' must be a fictional 555-0100 to 555-0199 number")
+
+def hero_card(alerts, today=None):
+    today = today or datetime.date.today()
+    cutoff = (today - datetime.timedelta(days=FEATURE_DAYS)).isoformat()
+    picks = [a for a in alerts if a.get("featured")]
+    for a in picks:
+        check_featured(a)
+    picks = sorted((a for a in picks if cutoff <= a["featured"]["since"] <= today.isoformat()),
+                   key=lambda a: a["featured"]["since"], reverse=True)
+    if not picks:
+        return DEFAULT_CARD
+    a = picks[0]
+    f = a["featured"]
+    tells = "".join(f"<li>{e(t)}</li>" for t in f["tells"])
+    return f"""<div class="stamp-card" aria-label="Example of a fake {e(f['format'])} going around now">
+    <div class="head"><span class="label">Going around now · Example {e(f['format'])}</span><span class="stamp">FAKE</span></div>
+    <div class="sample">{e(f['sample'])}</div>
+    <p class="why">How you can tell:</p>
+    <ul>{tells}</ul>
+    <p class="go"><a href="/alerts#{e(a['id'])}">{e(a['title'])} &rarr;</a></p>
+    <p class="fine">Sample written by Fakes.com, based on a warning from {e(f['agency'])} ({short_date(a['date'])}). Any web address or phone number in it is deliberately fake.</p>
+  </div>"""
+
 def main():
     alerts = sorted(json.loads((ROOT / "data/alerts.json").read_text()), key=lambda a: a["date"], reverse=True)
     viral = sorted(json.loads((ROOT / "data/viral.json").read_text()), key=lambda a: a["date"], reverse=True)
@@ -237,13 +293,7 @@ def main():
     <div class="cta"><a class="btn" href="/check">Check a message or link</a><a class="btn ghost" href="/alerts">See this week's scams</a></div>
     <p class="trust">Free to use. No account needed. We never ask for passwords, card numbers or payment.</p>
   </div>
-  <div class="stamp-card" aria-label="Example of a fake text message">
-    <div class="head"><span class="label">Example text message</span><span class="stamp">FAKE</span></div>
-    <div class="sample">E-ZPass: You have an unpaid toll balance of $6.99. Pay within 24 hrs to avoid a $50 late fee: ezpass-tolls.example/pay</div>
-    <p class="why">How you can tell:</p>
-    <ul><li>A short deadline meant to rush you</li><li>A link that isn't your toll agency's real website</li><li>Maine's toll agency, for one, says it doesn't collect tolls by text</li></ul>
-    <p class="fine">Sample written by Fakes.com. The web address is deliberately fake.</p>
-  </div>
+  {hero_card(alerts)}
 </div></section>
 {figures_html()}
 <section class="block about-strip"><div class="wrap split">

@@ -86,7 +86,18 @@
         "name": "FTC: How to spot fake FTC websites and FTC impersonators",
         "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/how-spot-fake-ftc-websites-and-ftc-impersonators"
       }
-    ]
+    ],
+    "featured": {
+      "since": "2026-11-17",
+      "format": "text message",
+      "agency": "the FTC",
+      "sample": "FTC Notice: This is an agent with the Federal Trade Commission. Your bank accounts are at risk. Move your savings to a protected account today. Details: ftc-protect.example",
+      "tells": [
+        "It claims to come from an FTC \"agent\" and shows up out of the blue",
+        "It tells you to move your money to keep it safe, which the FTC says its real staff never do",
+        "The web address doesn't end in .gov, and real FTC websites always do"
+      ]
+    }
   },
   {
     "id": "2026-11-12-child-injured-calls-norman",

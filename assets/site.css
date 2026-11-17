@@ -66,6 +66,8 @@ nav.main a:hover,nav.main a[aria-current="page"]{border-bottom-color:var(--blue)
 .stamp-card .why{margin:16px 0 4px;font-size:15px;font-weight:600}
 .stamp-card ul{margin:0;padding-left:20px;font-size:15px}
 .stamp-card .fine{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin:12px 0 0}
+.stamp-card .go{margin:14px 0 0;font-size:15px;font-weight:600}
+.stamp-card .go a{color:var(--blue)}
 
 /* figures */
 .figures{border-block:1px solid var(--rule);background:var(--sky)}
