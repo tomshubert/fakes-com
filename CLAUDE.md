@@ -58,7 +58,7 @@ Guides live in `content/verify/<brand-product>.html` and are published at /verif
 - Fully automated: .github/workflows/newsletter.yml runs tools/send_newsletter.py every Monday morning (7:17 AM Pacific), after the daily alerts task. It builds the email from data/alerts.json and data/viral.json, skips weeks with nothing new, and refuses to send above 300 subscribers (split sending needed then). Nobody sends it by hand.
 
 ## Affiliates
-- /protect (content/pages/protect.html) recommends NordPass and Aura after the free steps. Applications submitted Nov 17, 2026 (NordPass via affiliates.nordvpn.com, Aura via Impact, both under tom@tomshubert.com). Until approved, links are plain links and the disclosure page says so; when approved, swap in tracking links and update content/pages/disclosure.html.
+- /protect (content/pages/protect.html) recommends NordPass and Aura after the free steps. NordPass approved Nov 18, 2026 (Nord affiliate ID 161109; tracking link https://go.nordpass.io/aff_c?offer_id=488&aff_id=161109&url_id=9356, marked "Affiliate link", rel="sponsored nofollow"). Aura applied via Impact Nov 17 (tom@tomshubert.com), still pending: plain link until approved, then swap in its tracking link and update content/pages/disclosure.html. Nord's rules forbid bidding on Nord brand keywords in paid search.
 - Affiliate links never go in alerts, viral fakes or checker results. The `impact-site-verification` meta tag in build.py proves site ownership to Impact; don't remove it.
 
 ## Off limits
