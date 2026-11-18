@@ -454,10 +454,10 @@ document.getElementById('signup').addEventListener('submit',function(ev){{
     </div>
     <details id="email-help" class="help">
       <summary>How to save a suspicious email as a file</summary>
-      <p>A saved email (.eml file) includes hidden details that show whether it really came from the company it claims. Don't click anything inside the email.</p>
+      <p>A saved email (.eml or Outlook .msg file) includes hidden details that show whether it really came from the company it claims. Don't click anything inside the email.</p>
       <ul>
         <li><b>Gmail (on a computer):</b> open the email, click the three dots at the top right, then <b>Download message</b>.</li>
-        <li><b>Outlook (on a computer):</b> drag the email from your inbox onto your desktop, or open it and choose <b>File → Save As</b>.</li>
+        <li><b>Outlook (on a computer):</b> drag the email from your inbox onto your desktop, or open it and choose <b>File → Save As</b>. Both the .msg and .eml files it makes work here.</li>
         <li><b>Apple Mail:</b> select the email, then <b>File → Save As</b>, and choose <b>Raw Message Source</b>.</li>
       </ul>
       <p>Then drag the file onto this form.</p>

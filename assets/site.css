@@ -317,3 +317,7 @@ body,.block.tint,.signup{background-image:var(--pattern);background-size:84px 84
 .share a,.share button{font:inherit;color:var(--link,#1d5fa8);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .article .share{margin-top:28px;padding-top:16px;border-top:1px solid var(--line,#d8e1ea)}
 .protect-box{margin-top:28px}
+
+/* File problems under the upload button: make them impossible to miss */
+#shot-name.err{display:block;margin-top:10px;padding:10px 12px;border-left:4px solid #c62828;background:#fdecea;color:#b71c1c;font-family:inherit;font-size:15px;font-weight:600;letter-spacing:0;text-transform:none;line-height:1.4;border-radius:4px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #shot-name.err{background:#3b1616;color:#ffb4ab;border-left-color:#ff6b5e}}

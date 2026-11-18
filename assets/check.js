@@ -118,6 +118,66 @@
     box.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  function note(t) {
+    var el = $("shot-name"); el.textContent = t || "";
+    el.classList.toggle("err", !!t && !/^(Added|Reading)/.test(t));
+  }
+
+  function isMsg(f) { return /\.msg$/i.test(f.name) || f.type === "application/vnd.ms-outlook"; }
+  function isTxt(f) { return /\.txt$/i.test(f.name) || f.type === "text/plain"; }
+
+  // Outlook .msg files: read them in the browser and turn them into a plain saved email (.eml style)
+  // so the same checks run: real headers, sender, and where the links really go.
+  var msgLib = null;
+  function loadMsgLib() {
+    if (msgLib) return msgLib;
+    msgLib = new Promise(function (ok, fail) {
+      if (window.MsgReader) return ok();
+      var sc = document.createElement("script"); sc.src = "/assets/msgreader.js"; sc.onload = ok; sc.onerror = fail;
+      document.head.appendChild(sc);
+    });
+    return msgLib;
+  }
+  function esc(t) { return String(t || "").replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function msgToEml(buf) {
+    var d = new window.MsgReader(buf).getFileData();
+    if (d.error) throw new Error(d.error);
+    var html = d.bodyHtml || "";
+    if (!html && d.html) { try { html = new TextDecoder("utf-8").decode(d.html); } catch (e) { html = ""; } }
+    var links = [];
+    if (!html && d.compressedRtf && window.decompressRTF) {
+      try {
+        var rtf = new TextDecoder("latin1").decode(new Uint8Array(window.decompressRTF(d.compressedRtf)));
+        var m, re = /HYPERLINK\s+"([^"]+)"/g;
+        while ((m = re.exec(rtf))) if (links.indexOf(m[1]) < 0) links.push(m[1]);
+      } catch (e) {}
+    }
+    if (!html) {
+      html = "<div>" + esc(d.body).replace(/\r?\n/g, "<br>") + "</div>";
+      if (links.length) html += "<p>Links in this email:</p><ul>" + links.slice(0, 60).map(function (u) { return '<li><a href="' + esc(u) + '">' + esc(u) + "</a></li>"; }).join("") + "</ul>";
+    }
+    var atts = (d.attachments || []).map(function (a) { return a.fileName || a.name; }).filter(Boolean);
+    if (atts.length) html += "<p>Attachments in this email (names only): " + esc(atts.join(", ")) + "</p>";
+    var head = "";
+    if (d.headers) {
+      // Keep the original transport headers (Received, Authentication-Results, From, Reply-To...)
+      // but drop the ones describing the original MIME layout, which we rebuild below.
+      head = d.headers.replace(/\r?\n[ \t]+/g, " ").split(/\r?\n/).filter(function (l) {
+        return l && !/^(content-type|content-transfer-encoding|mime-version):/i.test(l);
+      }).join("\r\n") + "\r\n";
+    } else {
+      head = "From: " + (d.senderName || "") + " <" + (d.senderEmail || d.senderSmtpAddress || "") + ">\r\n" +
+        "Subject: " + (d.subject || "") + "\r\n" +
+        (d.messageDeliveryTime || d.clientSubmitTime ? "Date: " + (d.messageDeliveryTime || d.clientSubmitTime) + "\r\n" : "") +
+        "X-Fakes-Note: Outlook .msg file without its original internet headers (it may be a draft or a sent copy)\r\n";
+    }
+    return head + "MIME-Version: 1.0\r\nContent-Type: text/html; charset=utf-8\r\n\r\n" + html;
+  }
+  function readMsgFile(file) {
+    return loadMsgLib().then(function () { return readAs(file, "buffer"); }).then(function (buf) { return msgToEml(buf); });
+  }
+  function isOle(buf) { var b = new Uint8Array(buf, 0, 4); return b[0] === 0xD0 && b[1] === 0xCF && b[2] === 0x11 && b[3] === 0xE0; }
+
   function isPdf(f) { return f.type === "application/pdf" || /\.pdf$/i.test(f.name); }
   function isEmail(f) { return f.type === "message/rfc822" || /\.eml$/i.test(f.name); }
   function isImage(f) { return /^image\//.test(f.type) || /\.(jpe?g|png|gif|webp|heic)$/i.test(f.name); }
@@ -177,40 +237,56 @@
   function takeFiles(list) {
     var files = Array.prototype.slice.call(list || []);
     var cfg = MODES[mode];
-    images = []; pdf = null; email = null; attachment = null; $("shot-name").textContent = ""; $("danger").hidden = true; $("shot-note").hidden = true;
+    images = []; pdf = null; email = null; attachment = null; note(""); $("danger").hidden = true; $("shot-note").hidden = true;
     if (!files.length) return;
     var risky = files.find(function (f) { return dangerKind(f.name); });
     if (risky) { $("shot").value = ""; showDanger(risky.name, dangerKind(risky.name)); return; }
     var att = files.find(function (f) { return isHtml(f) || isOffice(f); });
     if (att) {
-      if (!cfg.attachments) { $("shot-name").textContent = "Email attachments can be checked in the \"message, email or website\" option."; return; }
-      if (att.size > 5 * 1024 * 1024) { $("shot-name").textContent = "That file is too large (limit 5 MB)."; return; }
+      if (!cfg.attachments) { note("Email attachments can be checked in the \"message, email or website\" option."); return; }
+      if (att.size > 5 * 1024 * 1024) { note("That file is too large (limit 5 MB)."); return; }
       var job = isHtml(att)
         ? readAs(att, "text").then(function (txt) { return { kind: "html", name: att.name, text: String(txt).slice(0, 1000000) }; })
         : readOffice(att);
-      return job.then(function (a) { attachment = a; $("shot-name").textContent = "Added: " + att.name; })
-        .catch(function () { $("shot-name").textContent = "That file couldn't be read."; });
+      return job.then(function (a) { attachment = a; note("Added: " + att.name); })
+        .catch(function () { note("That file couldn't be read."); });
+    }
+    var mail = files.find(function (f) { return isMsg(f) || isTxt(f); });
+    if (mail) {
+      if (!cfg.emails) { note("Saved emails can be checked in the \"message, email or website\" option."); return; }
+      if (mail.size > 25 * 1024 * 1024) { note("That file is too large (limit 25 MB)."); return; }
+      note("Reading " + mail.name + "...");
+      return readAs(mail, "buffer").then(function (buf) {
+        if (isOle(buf)) return readMsgFile(mail).then(function (eml) { email = slimEmail(eml); note("Added: " + mail.name); });
+        if (isMsg(mail)) throw new Error("not msg");
+        var txt = new TextDecoder("utf-8").decode(buf);
+        if (/^(received|return-path|from|delivered-to|message-id|x-[\w-]+):/im.test(txt.slice(0, 4000)) && /\n(subject|from):/i.test("\n" + txt.slice(0, 20000))) {
+          email = slimEmail(txt); note("Added: " + mail.name);
+        } else {
+          var box = $("msg"); box.value = (box.value ? box.value + "\n\n" : "") + txt.slice(0, 20000); note("Added the text from " + mail.name + " to the box above.");
+        }
+      }).catch(function () { note("That file couldn't be read. In Outlook, try File > Save As and choose a .msg or .eml file again, or paste the email text into the box."); });
     }
     var doc = files.find(function (f) { return isPdf(f) || isEmail(f); });
     if (doc) {
-      if (isEmail(doc) && !cfg.emails) { $("shot-name").textContent = "Saved emails can be checked in the \"message, email or website\" option."; return; }
-      if (isPdf(doc) && !cfg.docs) { $("shot-name").textContent = "Please add photos for this kind of check."; return; }
+      if (isEmail(doc) && !cfg.emails) { note("Saved emails can be checked in the \"message, email or website\" option."); return; }
+      if (isPdf(doc) && !cfg.docs) { note("Please add photos for this kind of check."); return; }
       var limitMB = isPdf(doc) ? 3 : 25;
-      if (doc.size > limitMB * 1024 * 1024) { $("shot-name").textContent = "That file is too large (limit " + limitMB + " MB)."; return; }
+      if (doc.size > limitMB * 1024 * 1024) { note("That file is too large (limit " + limitMB + " MB)."); return; }
       return readAs(doc, isEmail(doc) ? "text" : "dataurl").then(function (res) {
         if (isEmail(doc)) email = slimEmail(String(res)); else pdf = { data: String(res).split(",")[1] };
-        $("shot-name").textContent = "Added: " + doc.name;
-      }).catch(function () { $("shot-name").textContent = "That file couldn't be read."; });
+        note("Added: " + doc.name);
+      }).catch(function () { note("That file couldn't be read."); });
     }
     var pics = files.filter(isImage);
-    if (!pics.length) { $("shot-name").textContent = "That type of file can't be checked here. Use a photo, screenshot, PDF, saved email (.eml), or a Word, Excel or HTML attachment."; return; }
+    if (!pics.length) { note("That type of file can't be checked here. Use a photo, screenshot, PDF, saved email (.eml or Outlook .msg), or a Word, Excel or HTML attachment."); return; }
     var limit = cfg.multi ? MAX_IMAGES : 1;
-    if (pics.length > limit) { $("shot-name").textContent = "Only the first " + limit + " will be used."; pics = pics.slice(0, limit); }
+    if (pics.length > limit) { note("Only the first " + limit + " will be used."); pics = pics.slice(0, limit); }
     Promise.all(pics.map(shrink)).then(function (list) {
       images = list;
-      $("shot-name").textContent = "Added: " + pics.map(function (f) { return f.name; }).join(", ");
+      note("Added: " + pics.map(function (f) { return f.name; }).join(", "));
       if (mode === "message") { $("shot-note").hidden = false; $("email-help").open = true; }
-    }).catch(function () { $("shot-name").textContent = "A file couldn't be read. Try JPG or PNG photos."; });
+    }).catch(function () { note("A file couldn't be read. Try JPG or PNG photos."); });
   }
 
   function setMode(m) {
@@ -220,11 +296,11 @@
     $("msg").placeholder = cfg.placeholder;
     $("shot-label").textContent = cfg.photos;
     $("shot").multiple = cfg.multi;
-    $("shot").accept = cfg.attachments ? "" : "image/*" + (cfg.docs ? ",.pdf,application/pdf" : "") + (cfg.emails ? ",.eml,message/rfc822" : "");
+    $("shot").accept = cfg.attachments ? "" : "image/*" + (cfg.docs ? ",.pdf,application/pdf" : "") + (cfg.emails ? ",.eml,message/rfc822,.msg,application/vnd.ms-outlook,.txt,text/plain" : "");
     $("email-help").hidden = !cfg.emails;
     $("mode-note").textContent = cfg.note || "";
     $("mode-note").hidden = !cfg.note;
-    images = []; pdf = null; email = null; attachment = null; $("shot").value = ""; $("shot-name").textContent = ""; $("danger").hidden = true; $("shot-note").hidden = true;
+    images = []; pdf = null; email = null; attachment = null; $("shot").value = ""; note(""); $("danger").hidden = true; $("shot-note").hidden = true;
     $("err").textContent = ""; $("result").hidden = true;
     document.querySelectorAll(".mode-tabs input").forEach(function (r) { r.checked = r.value === mode; });
   }

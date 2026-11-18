@@ -1,0 +1,2 @@
+assets/msgreader.js bundles @kenjiuno/msgreader (Apache License 2.0) and @kenjiuno/decompressrtf (MIT),
+plus the buffer polyfill (MIT). https://github.com/HiraokaHyperTools/msgreader
