@@ -1,5 +1,35 @@
 [
   {
+    "id": "2026-11-17-gta-vi-delay-letter",
+    "date": "2026-11-17",
+    "kind": "Fake letter",
+    "verdict": "Fake",
+    "title": "Rockstar letter delaying GTA VI to 2027",
+    "summary": "An Instagram post shared what looked like a Rockstar Games letter saying Grand Theft Auto VI was pushed back a full year to November 2027. Lead Stories found no such announcement from Rockstar or any major news outlet, and the post itself was tagged as ragebait.",
+    "tell": "A delay this big would be on the company's own news page and everywhere in the news, not just one social post.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 17, 2026)",
+        "url": "https://hoax-alert.leadstories.com/2026/11/fact-check-fake-rockstar-games-letter-says-gtavi-release-date-pushed-back-2027.html"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-17-palantir-celebrity-ad",
+    "date": "2026-11-17",
+    "kind": "Edited photo",
+    "verdict": "Fake",
+    "title": "Sabrina Carpenter and co-stars in a Palantir ad",
+    "summary": "A post claimed a photo of Sabrina Carpenter, Margaret Qualley and Madelyn Cline was an ad for the tech company Palantir. Lead Stories found it was a behind-the-scenes still from a Carpenter music video, edited to add Palantir branding, and posted by an account that calls itself satire.",
+    "tell": "Check the posting account's bio: this one says all its posts are satire.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 17, 2026)",
+        "url": "https://hoax-alert.leadstories.com/2026/11/fact-check-fake-palantir-ad-shows-margaret-qualley-madelyn-cline-sabrina-carpenter.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-16-nov-17-blackout-rumor",
     "date": "2026-11-16",
     "kind": "False rumor",
