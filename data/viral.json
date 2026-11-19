@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-11-18-fake-hsi-memo-ios27",
+    "date": "2026-11-18",
+    "kind": "AI image",
+    "verdict": "Fake",
+    "title": "Government memo warning about an iPhone update",
+    "summary": "An image shared online claimed to be a Homeland Security Investigations memo saying an iOS 27 update secretly listens to nearby conversations and sends them to Apple for ads. Lead Stories found the memo was not real, and several AI detectors flagged the image as AI-made.",
+    "tell": "A scary official-looking memo that only shows up as a screenshot, with no agency or Apple announcement behind it, deserves doubt.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 18, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-viral-image-is-not-real-hsi-memo-about-apple-devices-and-ios27-update.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-17-gta-vi-delay-letter",
     "date": "2026-11-17",
     "kind": "Fake letter",

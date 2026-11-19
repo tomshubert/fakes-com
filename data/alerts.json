@@ -1,5 +1,21 @@
 [
   {
+    "id": "2026-11-19-fake-police-website-fairfax",
+    "date": "2026-11-19",
+    "channels": [
+      "Website"
+    ],
+    "title": "Fake police website that asks for payments",
+    "summary": "Fairfax County, Va., police say a copycat website is using their department's look and branding. It has links that claim to let you file a police report online and make payments.",
+    "what_to_do": "Don't use the copycat site, download files from it or enter personal or payment details there; reach your police department through the county's own official website instead.",
+    "sources": [
+      {
+        "name": "DC News Now via Yahoo News, reporting the Fairfax County Police Department warning (Nov 18, 2026)",
+        "url": "https://www.yahoo.com/news/articles/fairfax-co-police-warn-against-212458945.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-18-fake-holiday-shopping-sites-fbi",
     "date": "2026-11-18",
     "channels": [
@@ -24,7 +40,7 @@
       "Holiday shopping"
     ],
     "title": "Fake package delivery texts before the holidays",
-    "summary": "The Wayne County (N.Y.) Sheriff's Office warns that holiday shoppers are getting texts saying a package couldn't be delivered or needs a small payment. The links can lead to copycat sites built to collect card numbers and other personal details. The Los Angeles County Sheriff's Department has warned about the same kind of delivery texts, plus fake flash-sale offers ahead of Cyber Monday.",
+    "summary": "The Wayne County (N.Y.) Sheriff's Office warns that holiday shoppers are getting texts saying a package couldn't be delivered or needs a small payment. The links can lead to copycat sites built to collect card numbers and other personal details. The Los Angeles County Sheriff's Department has warned about the same kind of delivery texts, plus fake flash-sale offers ahead of Cyber Monday, and South Dakota's attorney general has also warned shoppers about fake delivery messages.",
     "what_to_do": "Don't tap the link; check your order in the store's own app or website instead, then delete the text or forward it to 7726 to report it.",
     "sources": [
       {
@@ -34,6 +50,10 @@
       {
         "name": "KTLA, reporting the Los Angeles County Sheriff's Department warning (Nov 16, 2026)",
         "url": "https://ktla.com/news/local-news/cyber-monday-scam-warning-los-angeles/"
+      },
+      {
+        "name": "Dakota News Now, reporting the South Dakota Attorney General's warning (Nov 18, 2026)",
+        "url": "https://www.dakotanewsnow.com/2026/11/18/ag-marty-jackley-warns-shoppers-about-holiday-scams/"
       }
     ]
   },
@@ -162,7 +182,7 @@
       "Phone"
     ],
     "title": "Calls claiming your child was hurt and needs money",
-    "summary": "Norman, Oklahoma, police say callers are telling parents their child was in a crash or an assault and was injured, then asking for money for medical care or bail. Someone may come on the line pretending to be the child, blaming an injury for sounding different, and the caller may say police took the child's phone. They push for fast payment by gift card, payment app or wire transfer.",
+    "summary": "Norman, Oklahoma, police say callers are telling parents their child was in a crash or an assault and was injured, then asking for money for medical care or bail. Someone may come on the line pretending to be the child, blaming an injury for sounding different, and the caller may say police took the child's phone. They push for fast payment by gift card, payment app or wire transfer. The FTC has also warned about the same kind of call aimed at grandparents, and says the voice or even a video of a loved one can be faked.",
     "what_to_do": "Hang up and call your child yourself, then contact your local police. Never pay with gift cards or give personal details to someone who called you.",
     "sources": [
       {
@@ -172,6 +192,10 @@
       {
         "name": "Norman Transcript, reporting the Norman Police Department warning (Nov 12, 2026)",
         "url": "https://www.normantranscript.com/news/norman-police-issue-warning-about-phone-scam-targeting-parents/article_c3be49bd-e138-4c0c-8c09-fef53d010d04.html"
+      },
+      {
+        "name": "FTC: How to spot and avoid grandkid scams (Nov 18, 2026)",
+        "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/grandpa-i-need-your-help-how-spot-and-avoid-grandkid-scams"
       }
     ]
   },
