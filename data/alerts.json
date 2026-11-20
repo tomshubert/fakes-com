@@ -1,5 +1,33 @@
 [
   {
+    "id": "2026-11-19-holiday-search-ad-scams-ftc",
+    "date": "2026-11-19",
+    "channels": [
+      "Search ads",
+      "Holiday shopping"
+    ],
+    "title": "Scam ads at the top of holiday shopping searches",
+    "summary": "The FTC warns that scammers pay for search ads so their links show up at the top of, or right next to, real results while people shop for the holidays. Clicking one can lead you to pay a scammer or give away details like your bank account number, which can be used to steal your identity.",
+    "what_to_do": "Scroll past the paid ads to the regular results, and before buying, search the seller's name with the word \"complaint\" or \"scam\". If you already know a store's web address, type it in yourself, and report search scams to the FTC.",
+    "sources": [
+      {
+        "name": "FTC: How to avoid holiday shopping scams in your search results (Nov 19, 2026)",
+        "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/how-avoid-holiday-shopping-scams-your-search-results"
+      }
+    ],
+    "featured": {
+      "since": "2026-11-20",
+      "format": "website",
+      "agency": "the FTC",
+      "sample": "Sponsored · toyoutlet-deals.example — Holiday Mega Sale: top toys up to 80% off. Free shipping ends tonight. Shop now",
+      "tells": [
+        "It's marked as a sponsored ad, sitting above the regular results",
+        "It's from a seller you haven't checked for complaints or scam reports",
+        "The link leads to a page asking for payment or bank details"
+      ]
+    }
+  },
+  {
     "id": "2026-11-19-fake-police-website-fairfax",
     "date": "2026-11-19",
     "channels": [
@@ -289,7 +317,7 @@
       "Phone"
     ],
     "title": "Callers posing as deputies or police threaten arrest",
-    "summary": "Sheriff's offices and police departments are warning about callers who pretend to be deputies or officers, say you have a warrant or missed jury duty, and threaten arrest unless money is sent, sometimes as Bitcoin or a prepaid \"bond.\" Some use a real officer's name or fake the caller ID. Police in Texas, North Carolina, Connecticut and Pennsylvania have warned about this, and all say officers never demand payment by phone to clear a warrant.",
+    "summary": "Sheriff's offices and police departments are warning about callers who pretend to be deputies or officers, say you have a warrant or missed jury duty, and threaten arrest unless money is sent, sometimes as Bitcoin or a prepaid \"bond.\" Some use a real officer's name or fake the caller ID. Police in Texas, North Carolina, South Carolina, Connecticut and Pennsylvania have warned about this, and all say officers never demand payment by phone to clear a warrant.",
     "what_to_do": "Hang up, don't send money, gift cards or cryptocurrency, and call the department at a number you look up yourself, not one the caller gives you.",
     "sources": [
       {
@@ -311,6 +339,10 @@
       {
         "name": "FOX43 via Yahoo News, reporting the Swatara Township (Pa.) Police Department warning (Nov 17, 2026)",
         "url": "https://www.yahoo.com/news/articles/police-warn-residents-fake-police-195621386.html"
+      },
+      {
+        "name": "WTOC, reporting the Hardeeville (S.C.) Police Department warning (Nov 19, 2026)",
+        "url": "https://www.wtoc.com/2026/11/19/hardeeville-police-warn-increase-phone-scams/"
       }
     ]
   },
@@ -338,7 +370,7 @@
       "Banking"
     ],
     "title": "Fake bank calls telling you to hand cash to a courier",
-    "summary": "Police in Morristown and Egg Harbor Township, New Jersey, warn of callers who pose as your bank, claim your account is at risk, and tell you to withdraw a large amount of cash and give it to a courier or someone waiting in a car. Callers may say bank staff are involved and tell you to keep it secret, and the calls can be disguised to look like they come from the real bank.",
+    "summary": "Police warn of callers who pose as your bank, police or a lawyer, claim there is an urgent problem with your money, and tell you to withdraw cash and hand it to a courier or someone who comes to pick it up, sometimes an unaware rideshare driver. Callers tell you to stay on the line and keep it secret, and the calls can be disguised to look like they come from the real bank. Police in Morristown and Egg Harbor Township, N.J., and Las Vegas have warned about this.",
     "what_to_do": "No real bank or police department will ask you to withdraw cash and hand it to someone, so hang up and call your bank using the number on the back of your card. Never give a caller your passwords, PINs or one-time codes.",
     "sources": [
       {
@@ -348,6 +380,10 @@
       {
         "name": "100.1 WJRZ, reporting the Egg Harbor Township (N.J.) Police Department warning (Nov 14, 2026)",
         "url": "https://wjrz.com/2026/11/17/egg-harbor-police-warn-of-cash-collection-scam-targeting-residents/"
+      },
+      {
+        "name": "8 News Now via Yahoo News, reporting the Las Vegas Metropolitan Police Department warning (Nov 17, 2026)",
+        "url": "https://www.yahoo.com/news/articles/las-vegas-police-warn-devastating-211958354.html"
       }
     ]
   },

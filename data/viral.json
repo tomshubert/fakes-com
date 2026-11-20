@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-11-19-ai-treadmill-gym-window",
+    "date": "2026-11-19",
+    "kind": "AI video",
+    "verdict": "Fake",
+    "title": "Woman on a treadmill falling out a gym window",
+    "summary": "A TikTok video presented as new showed a woman on a malfunctioning treadmill falling out of a gym window, with the gym ordered to pay a large fine. Lead Stories found it was made with AI from one frame of security footage of a real 2024 accident in Indonesia, and the details in the narration don't match the real case.",
+    "tell": "Look at the background: some people in the clip are frozen like equipment, and a treadmill shakes while nothing above it moves.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 19, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-fake-2026-video-based-on-2024-indonesian-incident-where-woman-stepped-fron-treadmill-and-fatally-fell-from-gym-window.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-18-fake-hsi-memo-ios27",
     "date": "2026-11-18",
     "kind": "AI image",
@@ -169,22 +184,5 @@
       }
     ],
     "image": "https://leadstories.com/caption_3500087.jpg"
-  },
-  {
-    "id": "2026-11-02-real-crash-video-called-ai",
-    "date": "2026-11-02",
-    "kind": "Real video called fake",
-    "verdict": "Real",
-    "title": "Florida jet crash video is real, not AI",
-    "summary": "A post claimed dashcam video of the Florida jet crash was \"100%\" AI. PolitiFact found it was real and confirmed by major news outlets.",
-    "tell": "Calling something \"AI\" can be false too. Check whether trusted news outlets confirmed it.",
-    "sources": [
-      {
-        "name": "PolitiFact (Nov 2, 2026)",
-        "url": "https://politifact.com/factchecks/2026/nov/02/tweets/palm-beach-florida-plane-crash-video-ai/"
-      }
-    ],
-    "image": "https://politifact.com/wp-content/uploads/2026/11/AP26306601321530.jpg",
-    "image_credit": "AP via PolitiFact"
   }
 ]
