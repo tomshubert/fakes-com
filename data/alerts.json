@@ -1,5 +1,23 @@
 [
   {
+    "id": "2026-11-20-gift-card-payment-demands-swanzey",
+    "date": "2026-11-20",
+    "channels": [
+      "Phone",
+      "Text",
+      "Email"
+    ],
+    "title": "Anyone demanding payment in gift cards",
+    "summary": "Police in Swanzey, New Hampshire, report more scams that end with a demand to pay in gift cards. The caller, text, email or social media message may say you owe money, have a warrant, won a prize or must pay an emergency fee, and pushes you to act right away. No real government agency, police department, utility, bank or business asks to be paid with gift cards.",
+    "what_to_do": "Never buy gift cards to pay someone who contacted you or share the numbers on the back; hang up and call the organization at a number you know is real. If you already shared the card details, call the gift card company right away and report it.",
+    "sources": [
+      {
+        "name": "Newport Dispatch, reporting the Swanzey (N.H.) Police Department warning (Nov 20, 2026)",
+        "url": "https://www.newportdispatch.com/2026/11/20/police-warn-of-gift-card-scams-in-swanzey/"
+      }
+    ]
+  },
+  {
     "id": "2026-11-19-holiday-search-ad-scams-ftc",
     "date": "2026-11-19",
     "channels": [
@@ -210,7 +228,7 @@
       "Phone"
     ],
     "title": "Calls claiming your child was hurt and needs money",
-    "summary": "Norman, Oklahoma, police say callers are telling parents their child was in a crash or an assault and was injured, then asking for money for medical care or bail. Someone may come on the line pretending to be the child, blaming an injury for sounding different, and the caller may say police took the child's phone. They push for fast payment by gift card, payment app or wire transfer. The FTC has also warned about the same kind of call aimed at grandparents, and says the voice or even a video of a loved one can be faked.",
+    "summary": "Norman, Oklahoma, police say callers are telling parents their child was in a crash or an assault and was injured, then asking for money for medical care or bail. Someone may come on the line pretending to be the child, blaming an injury for sounding different, and the caller may say police took the child's phone. They push for fast payment by gift card, payment app or wire transfer. The FTC has also warned about the same kind of call aimed at grandparents, and says the voice or even a video of a loved one can be faked. The Pima County, Arizona, sheriff's department and the FBI have also warned that scammers use AI to copy a relative's voice.",
     "what_to_do": "Hang up and call your child yourself, then contact your local police. Never pay with gift cards or give personal details to someone who called you.",
     "sources": [
       {
@@ -224,6 +242,10 @@
       {
         "name": "FTC: How to spot and avoid grandkid scams (Nov 18, 2026)",
         "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/grandpa-i-need-your-help-how-spot-and-avoid-grandkid-scams"
+      },
+      {
+        "name": "KOLD, reporting the Pima County (Ariz.) Sheriff's Department and FBI warning (Nov 19, 2026)",
+        "url": "https://www.kold.com/2026/11/19/local-authorities-warn-ai-powered-scams-ahead-holidays/"
       }
     ]
   },
@@ -370,7 +392,7 @@
       "Banking"
     ],
     "title": "Fake bank calls telling you to hand cash to a courier",
-    "summary": "Police warn of callers who pose as your bank, police or a lawyer, claim there is an urgent problem with your money, and tell you to withdraw cash and hand it to a courier or someone who comes to pick it up, sometimes an unaware rideshare driver. Callers tell you to stay on the line and keep it secret, and the calls can be disguised to look like they come from the real bank. Police in Morristown and Egg Harbor Township, N.J., and Las Vegas have warned about this.",
+    "summary": "Police warn of callers who pose as your bank, police or a lawyer, claim there is an urgent problem with your money, and tell you to withdraw cash and hand it to a courier or someone who comes to pick it up, sometimes an unaware rideshare driver. Callers tell you to stay on the line and keep it secret, and the calls can be disguised to look like they come from the real bank. Police in Morristown and Egg Harbor Township, N.J., and police and the FBI in Las Vegas have warned about this.",
     "what_to_do": "No real bank or police department will ask you to withdraw cash and hand it to someone, so hang up and call your bank using the number on the back of your card. Never give a caller your passwords, PINs or one-time codes.",
     "sources": [
       {
@@ -384,6 +406,10 @@
       {
         "name": "8 News Now via Yahoo News, reporting the Las Vegas Metropolitan Police Department warning (Nov 17, 2026)",
         "url": "https://www.yahoo.com/news/articles/las-vegas-police-warn-devastating-211958354.html"
+      },
+      {
+        "name": "96.3 KKLZ, reporting the Las Vegas Metropolitan Police Department and FBI Las Vegas warning (Nov 20, 2026)",
+        "url": "https://963kklz.com/2026/11/20/las-vegas-police-and-fbi-warn-residents-about-high-pressure-scam-tactics"
       }
     ]
   },

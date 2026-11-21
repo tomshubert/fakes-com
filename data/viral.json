@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-11-20-ai-cranston-gta-photos",
+    "date": "2026-11-20",
+    "kind": "AI photo",
+    "verdict": "Fake",
+    "title": "Malcolm in the Middle stars buying GTA in 2013 and 2026",
+    "summary": "Two photos shared on X claimed to show actors Bryan Cranston and Erik Per Sullivan buying Grand Theft Auto in 2013 and again buying GTA VI in 2026. Lead Stories found both pictures were made with AI, and detection tools found Google's AI watermark in them.",
+    "tell": "Check the ages: Sullivan was born in 1991, yet the 2013 picture shows a child and the 2026 one shows a teenager.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 20, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-fake-images-of-bryan-cranston-with-erik-per-sullivan-buying-gta-in-2013-vs-gtavi-2026.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-19-ai-treadmill-gym-window",
     "date": "2026-11-19",
     "kind": "AI video",
@@ -168,21 +183,5 @@
       }
     ],
     "political": true
-  },
-  {
-    "id": "2026-11-02-learjet-ai-photo",
-    "date": "2026-11-02",
-    "kind": "AI-edited photo",
-    "verdict": "Fake",
-    "title": "Sharp photo of the Florida jet crash",
-    "summary": "A crisp photo of the Florida jet crash seemed to show a missing wing. Lead Stories found it was apparently dashcam video \"cleaned up\" with AI.",
-    "tell": "It looked sharper than any real footage, and the real video shows both wings.",
-    "sources": [
-      {
-        "name": "Lead Stories (Nov 2, 2026)",
-        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-florida-learjet-crash-sharp-photo-wing-engine-cowling-tail.html"
-      }
-    ],
-    "image": "https://leadstories.com/caption_3500087.jpg"
   }
 ]
