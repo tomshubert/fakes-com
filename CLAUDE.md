@@ -7,7 +7,7 @@ Static site for fakes.com, owned by Tom Shubert (IT consultant). Published by Cl
 - `data/alerts.json`: scam alerts, newest first after sorting by `date`. Fields: id, date (YYYY-MM-DD), channels (1-3 short labels), title, summary, what_to_do, sources [{name, url}].
 - `data/game.json`: Spot the Fake practice messages.
 - `content/guides/*.html`, `content/pages/*.html`: article bodies with a front-matter comment.
-- `PREVIEW = True` in build.py keeps `noindex` and the preview banner. Only Tom decides when to set it to False.
+- The site is live: `PREVIEW = False` in build.py (no `noindex`, no preview banner). Leave it False; only Tom changes it.
 
 ## Daily alert update (the scheduled task)
 1. Search for scam warnings published in the last 3 days by U.S. government agencies (FTC, FBI/IC3, state attorneys general, CISA, IRS, SSA, USPS) and police departments.
