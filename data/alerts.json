@@ -1,5 +1,38 @@
 [
   {
+    "id": "2026-11-23-spoofed-police-number-password-calls",
+    "date": "2026-11-23",
+    "channels": [
+      "Phone"
+    ],
+    "title": "Calls from a faked police number asking for passwords",
+    "summary": "The Brookville (Ohio) Police Department says scammers are making its real phone number show up on caller ID and asking people for passwords, PINs or login details. The department says neither its officers nor its investigators ever call to ask for that kind of information.",
+    "what_to_do": "If a caller asks for a password, PIN or login, hang up without sharing anything, even if the caller ID looks right. Call the department's non-emergency line yourself to check or report the call.",
+    "sources": [
+      {
+        "name": "WHIO-TV via Yahoo News, reporting the Brookville (Ohio) Police Department warning (Nov 23, 2026)",
+        "url": "https://www.yahoo.com/news/articles/police-department-issues-warning-scammers-134218143.html"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-22-fake-bank-card-pickup-kennewick",
+    "date": "2026-11-22",
+    "channels": [
+      "Phone",
+      "Banking"
+    ],
+    "title": "Fake bank calls that send someone to collect your cards",
+    "summary": "Kennewick (Wash.) police warn of callers who pose as a bank or credit union, say there is fraud on your account and tell you to cut your debit and credit cards in half. A courier then comes to pick up the cards, and people who handed them over saw them used for fraudulent purchases.",
+    "what_to_do": "Hang up and call your bank or credit union at a number you know is real; banks don't send anyone to collect your cards. When you get rid of an old card, destroy it completely, including the chip.",
+    "sources": [
+      {
+        "name": "Tri-City Herald via Yahoo News, reporting the Kennewick (Wash.) Police warning (Nov 22, 2026)",
+        "url": "https://www.yahoo.com/news/articles/tri-cities-police-warn-scammers-130000300.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-20-gift-card-payment-demands-swanzey",
     "date": "2026-11-20",
     "channels": [
@@ -373,6 +406,10 @@
       {
         "name": "WMBF News, reporting the Marlboro County (S.C.) Sheriff's Office warning (Nov 21, 2026)",
         "url": "https://www.wmbfnews.com/2026/11/21/marlboro-deputies-warns-scam-calls/"
+      },
+      {
+        "name": "WHTM abc27 via Yahoo News, reporting the Gettysburg (Pa.) Police warning (Nov 22, 2026)",
+        "url": "https://www.yahoo.com/news/articles/gettysburg-police-issue-scam-alert-145958115.html"
       }
     ]
   },
@@ -383,12 +420,16 @@
       "Phone"
     ],
     "title": "Fake jail calls asking for a fee to free a relative",
-    "summary": "Court officials and the sheriff's office in Boone County, Missouri, say scammers are using public jail rosters to find people in custody, then calling their family and friends while pretending to be jail, police or court staff. The callers say the person can go home on electronic monitoring once an upfront fee for an ankle device is paid, sometimes naming real judges and booking details, and press for quick payment by payment app, cryptocurrency or gift card.",
+    "summary": "Court officials and the sheriff's office in Boone County, Missouri, say scammers are using public jail rosters to find people in custody, then calling their family and friends while pretending to be jail, police or court staff. The callers say the person can go home on electronic monitoring once an upfront fee for an ankle device is paid, sometimes naming real judges and booking details, and press for quick payment by payment app, cryptocurrency or gift card. Police in Richland, Washington, have warned about a similar version that sends official-looking court papers with electronic monitoring prices and asks for payment by Chime barcode.",
     "what_to_do": "Hang up and check on the person by calling the jail or court at a number you look up yourself. Court officials don't call asking for money and don't accept gift cards, payment apps or wire transfers.",
     "sources": [
       {
         "name": "KBIA, reporting warnings from Boone County, Mo., court officials and the Boone County Sheriff's Office (Nov 10, 2026)",
         "url": "https://www.kbia.org/missouri-news/2026-11-10/new-scam-targets-relatives-of-boone-county-detainees-court-officials-say"
+      },
+      {
+        "name": "Tri-City Herald via Yahoo News, reporting the Richland (Wash.) Police warning (Nov 22, 2026)",
+        "url": "https://www.yahoo.com/news/articles/tri-cities-police-warn-scammers-130000300.html"
       }
     ]
   },
