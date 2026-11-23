@@ -1,7 +1,8 @@
 // POST /api/office/check: the "Check with Fakes" Outlook add-in for offices on the Fakes office plan.
 // The add-in sends the whole email (as an .eml file, the same as "forward as attachment") plus the
 // user's Microsoft 365 sign-in token. Only organizations listed in OFFICE_TENANTS are served.
-// Nothing from the email is stored: only a per-user monthly count for billing.
+// Nothing from the email is stored: only a per-user monthly count for billing (and the user's name and
+// work email, so the usage report can say who used it).
 import { runCheck } from "../../../lib/checker.js";
 import { verifyMsIdToken } from "../../../lib/msauth.js";
 
@@ -87,6 +88,9 @@ async function handle({ request, env, waitUntil }) {
   // Counts for billing (per user per month) and the daily safety limit. No email content is kept.
   await bump(env, todayKey, 60 * 60 * 48);
   await bump(env, `office:use:${claims.tid}:${month}:${user}`, 60 * 60 * 24 * 400);
+  const nameKey = `office:name:${claims.tid}:${user}`;
+  if (!(await env.LIMITS.get(nameKey)))
+    await env.LIMITS.put(nameKey, `${claims.name || ""} <${claims.preferred_username || claims.email || ""}>`.trim().slice(0, 200), { expirationTtl: 60 * 60 * 24 * 400 });
 
   const v = out.body.verdict;
   if (v === "likely_scam" || v === "suspicious") {
