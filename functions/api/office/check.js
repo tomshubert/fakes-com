@@ -47,7 +47,7 @@ ${info.flags.length ? "<p>Red flags:</p><ul>" + info.flags.map(f => `<li>${esc(f
       body: JSON.stringify({
         sender: { name: "Fakes.com Office", email: "hello@fakes.com" },
         to: [{ email: env.OFFICE_ALERT_EMAIL }],
-        subject: `${word} at ${info.org}: ${info.subject}`.slice(0, 180),
+        subject: `[Fakes Office] ${word} at ${info.org}: ${info.subject}`.slice(0, 180),
         htmlContent: html,
       }),
     });
