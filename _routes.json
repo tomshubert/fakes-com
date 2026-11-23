@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "include": ["/api/*", "/", "/office", "/office/*", "/CLAUDE.md", "/claude.md", "/README.md", "/build.py", "/_routes.json",
+              "/tools/*", "/lib/*", "/content/*", "/functions/*", "/.github/*"],
+  "exclude": []
+}
