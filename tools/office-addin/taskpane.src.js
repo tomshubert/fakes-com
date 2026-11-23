@@ -21,6 +21,7 @@ function show(state, html) {
 }
 
 let pca = null;
+let lastToken = "";
 async function signIn(clientId) {
   if (!pca) pca = await createNestablePublicClientApplication({ auth: { clientId, authority: "https://login.microsoftonline.com/common" } });
   const req = { scopes: ["User.Read"] };
@@ -34,6 +35,25 @@ function getEml() {
   });
 }
 
+function sendFeedback(d, vote, note) {
+  const subject = (Office.context.mailbox.item && Office.context.mailbox.item.subject) || "";
+  fetch("/api/office/feedback", { method: "POST", headers: { "content-type": "application/json", authorization: "Bearer " + lastToken },
+    body: JSON.stringify({ vote, verdict: d.verdict, note: note || "", subject }) }).catch(() => {});
+}
+
+function wireFeedback(d) {
+  const box = $("fb"); if (!box) return;
+  box.addEventListener("click", ev => {
+    const v = ev.target && ev.target.dataset && ev.target.dataset.v; if (!v) return;
+    if (v === "up") { sendFeedback(d, "up"); box.innerHTML = "<span>Thanks!</span>"; return; }
+    box.innerHTML = '<label for="fbnote">What did we get wrong? (optional)</label><textarea id="fbnote" maxlength="300" rows="2"></textarea><button type="button" id="fbsend">Send</button>';
+    $("fbsend").addEventListener("click", () => {
+      sendFeedback(d, "wrong", $("fbnote").value.trim());
+      box.innerHTML = "<span>Thanks. " + (d.verdict === "no_red_flags_found" ? "Your IT person has been told so they can take a look." : "This helps us improve.") + "</span>";
+    });
+  });
+}
+
 function render(d) {
   const [label, tone, sub] = VERDICTS[d.verdict] || VERDICTS.cant_tell;
   const list = (title, items) => items && items.length ? `<h3>${title}</h3><ul>${items.map(i => `<li>${esc(i)}</li>`).join("")}</ul>` : "";
@@ -44,6 +64,7 @@ function render(d) {
     ${list("Reassuring signs", d.reassuring_signs)}
     ${list("What to do", d.what_to_do)}
     ${d.how_to_verify ? `<h3>How to check for sure</h3><p>${esc(d.how_to_verify)}</p>` : ""}
+    <div class="fb" id="fb"><span>Was this right?</span> <button type="button" data-v="up">Yes</button> <button type="button" data-v="wrong">No, it's wrong</button></div>
     <p class="who">${d.cached ? "Already checked (saved result). " : ""}${(d.verdict === "likely_scam" || d.verdict === "suspicious") && !d.cached ? "Your IT person has been notified. " : ""}${esc(d.org || "")}</p>`);
 }
 
@@ -59,6 +80,7 @@ async function run() {
     const cfg = await (await fetch("/api/office/config", { cache: "no-store" })).json();
     if (!cfg.clientId) { show("status", "The office checker isn't switched on yet. Please ask your IT person."); return; }
     const auth = await signIn(cfg.clientId);
+    lastToken = auth.idToken;
     show("status", '<span class="spin"></span>Checking this email… this takes about 20 seconds.');
     const eml = await getEml();
     const r = await fetch("/api/office/check", {
@@ -69,6 +91,7 @@ async function run() {
     const d = await r.json().catch(() => ({ error: "The checker had a problem. Please try again in a minute." }));
     if (d.error) { show("status", `<p class="err">${esc(d.error)}</p>`); return; }
     render(d);
+    wireFeedback(d);
   } catch (e) {
     console.error(e);
     show("status", `<p class="err">Something went wrong (${esc(e && (e.errorCode || e.code || e.message) || "unknown")}). Close this panel and try again.</p>`);

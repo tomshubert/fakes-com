@@ -1,6 +1,7 @@
 // Daily checker counts for the last 30 days: checks and fact-checks answered, and how often
 // visitors or the whole site ran into a daily limit. Counts only; nothing about who checked what.
-const NAMES = ["checks", "factchecks", "hit:visitor", "hit:site", "hit:claim-visitor", "hit:claim-site"];
+const NAMES = ["checks", "factchecks", "hit:visitor", "hit:site", "hit:claim-visitor", "hit:claim-site",
+  "fb-web-up", "fb-web-down", "fb-web-wrong", "fb-office-up", "fb-office-down", "fb-office-wrong"];
 
 export async function onRequestGet({ env }) {
   if (!env.LIMITS) return Response.json({ error: "not configured" }, { status: 503 });

@@ -341,6 +341,35 @@
     s.className = "stamp" + (lab[1] === "real" ? " real" : lab[1] === "neutral" ? " neutral" : "") + (small ? " small" : "");
     s.textContent = lab[0]; return s;
   }
+  // "Was this helpful?" line under every result. One tap; an optional short note for "This looks wrong".
+  // Sends only the vote, the verdict shown and the note, never the message that was checked.
+  function feedback(r) {
+    var box = document.createElement("div"); box.className = "fb";
+    var q = document.createElement("span"); q.className = "fb-q"; q.textContent = "Was this helpful?"; box.appendChild(q);
+    var verdict = r.mode === "claim" ? r.overall : r.verdict;
+    function send(vote, note) {
+      try {
+        fetch("/api/feedback", { method: "POST", headers: { "content-type": "application/json" },
+          body: JSON.stringify({ vote: vote, verdict: verdict || "", mode: r.mode || mode, note: note || "" }) });
+      } catch (e) {}
+    }
+    function thanks(msg) { box.textContent = ""; var t = document.createElement("span"); t.className = "fb-q"; t.textContent = msg; box.appendChild(t); }
+    [["up", "Yes"], ["down", "No"], ["wrong", "This looks wrong"]].forEach(function (b) {
+      var btn = document.createElement("button"); btn.type = "button"; btn.className = "fb-btn"; btn.textContent = b[1];
+      btn.addEventListener("click", function () {
+        if (b[0] !== "wrong") { send(b[0]); thanks("Thanks for letting us know."); return; }
+        box.textContent = "";
+        var lab = document.createElement("label"); lab.htmlFor = "fb-note"; lab.textContent = "What did we get wrong? (optional, don't include personal details)";
+        var ta = document.createElement("textarea"); ta.id = "fb-note"; ta.maxLength = 300; ta.rows = 2;
+        var go = document.createElement("button"); go.type = "button"; go.className = "fb-btn"; go.textContent = "Send";
+        go.addEventListener("click", function () { send("wrong", ta.value.trim()); thanks("Thanks. We read every one of these and use them to improve the checker."); });
+        box.appendChild(lab); box.appendChild(ta); box.appendChild(go); ta.focus();
+      });
+      box.appendChild(btn);
+    });
+    return box;
+  }
+
   function renderClaim(r) {
     var out = $("result"); out.textContent = ""; out.hidden = false;
     var head = document.createElement("div"); head.className = "verdict-head";
@@ -369,6 +398,7 @@
     var note = document.createElement("p"); note.className = "fine";
     note.textContent = "This is an automated fact-check based on a quick web search, and it can be wrong. Read the sources yourself before sharing or acting on anything.";
     out.appendChild(note);
+    out.appendChild(feedback(r));
     out.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
@@ -402,6 +432,7 @@
       ? "This is an automated check and can be wrong. When in doubt, contact the company or person directly using a phone number or website you find yourself."
       : "This is an automated check and can be wrong. Photos can't prove a product is genuine. Only the brand or a professional authenticator can confirm that.";
     out.appendChild(note);
+    out.appendChild(feedback(r));
     out.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 

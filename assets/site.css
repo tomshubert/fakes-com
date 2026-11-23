@@ -322,3 +322,11 @@ body,.block.tint,.signup{background-image:var(--pattern);background-size:84px 84
 #shot-name.err{display:block;margin-top:10px;padding:10px 12px;border-left:4px solid #c62828;background:#fdecea;color:#b71c1c;font-family:inherit;font-size:15px;font-weight:600;letter-spacing:0;text-transform:none;line-height:1.4;border-radius:4px}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #shot-name.err{background:#3b1616;color:#ffb4ab;border-left-color:#ff6b5e}}
 .aff-tag{display:inline-block;margin-left:8px;padding:1px 7px;border:1px solid var(--line,#c9d4df);border-radius:10px;font-size:12px;color:var(--muted,#5b6878);vertical-align:middle}
+
+/* Checker feedback line */
+.fb{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px;padding-top:12px;border-top:1px solid var(--rule)}
+.fb-q{color:var(--ink-2,inherit);font-size:14px}
+.fb-btn{font:inherit;font-size:14px;padding:4px 12px;border:1px solid var(--rule);border-radius:4px;background:transparent;color:inherit;cursor:pointer}
+.fb-btn:hover{border-color:currentColor}
+.fb label{flex-basis:100%;font-size:14px}
+.fb textarea{flex:1 1 260px;min-width:0;font:inherit;font-size:14px;padding:6px;border:1px solid var(--rule);border-radius:4px;background:transparent;color:inherit}
