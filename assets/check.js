@@ -23,7 +23,7 @@
       placeholder: "Example: Eating two tablespoons of apple cider vinegar a day reverses type 2 diabetes, doctors are hiding this!",
       photos: "Add a screenshot or PDF", multi: false, docs: true,
       empty: "Paste the post or rumor, or add a screenshot first.",
-      note: "One free fact-check per day. Facebook, Instagram and TikTok links can't be opened, so paste the words or add a screenshot."
+      note: "Three free fact-checks per day. Facebook, Instagram and TikTok links can't be opened, so paste the words or add a screenshot."
     },
     item: {
       label: "Describe the item: brand, product, where you bought it and what you paid",

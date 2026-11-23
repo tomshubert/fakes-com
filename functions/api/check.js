@@ -11,7 +11,7 @@ const MAX_IMAGES = 3;
 const MAX_PDF_B64 = 4_500_000;    // ~3.3 MB PDF
 const MAX_EMAIL = 1_000_000;      // characters of a saved .eml file
 const MODES = ["message", "listing", "item", "claim"];
-const CLAIM_PER_VISITOR_PER_DAY = 1;
+const CLAIM_PER_VISITOR_PER_DAY = 3;
 const CLAIM_SITE_PER_DAY = 30;
 const CLAIM_MAX_SEARCHES = 3;
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -43,13 +43,30 @@ async function checkLimits(env, ip, mode) {
   const mineMax = claim ? CLAIM_PER_VISITOR_PER_DAY : PER_VISITOR_PER_DAY;
   const siteKey = `${prefix}site:${day}`, ipKey = `${prefix}ip:${day}:${ip || "unknown"}`;
   const [site, mine] = await Promise.all([env.LIMITS.get(siteKey), env.LIMITS.get(ipKey)]);
-  if (Number(site || 0) >= siteMax) return claim
-    ? "Today's free fact-checks are used up. Please try again tomorrow. Our other checks are still available."
-    : "The checker has reached its limit for today. Please try again tomorrow.";
-  if (Number(mine || 0) >= mineMax) return claim
-    ? "You've used today's free fact-check. Please come back tomorrow. You can still use our other checks."
-    : `You've used today's ${PER_VISITOR_PER_DAY} free checks. Please come back tomorrow.`;
+  if (Number(site || 0) >= siteMax) {
+    await recordStat(env, `hit:${claim ? "claim-site" : "site"}`, day);
+    return claim
+      ? "Today's free fact-checks are used up. Please try again tomorrow. Our other checks are still available."
+      : "The checker has reached its limit for today. Please try again tomorrow.";
+  }
+  if (Number(mine || 0) >= mineMax) {
+    await recordStat(env, `hit:${claim ? "claim-visitor" : "visitor"}`, day);
+    return claim
+      ? `You've used today's ${CLAIM_PER_VISITOR_PER_DAY} free fact-checks. Please come back tomorrow. You can still use our other checks.`
+      : `You've used today's ${PER_VISITOR_PER_DAY} free checks. Please come back tomorrow.`;
+  }
   return null;
+}
+
+// Daily counts kept for 90 days, so we can see how the checker is used and how often
+// anyone runs into a limit. Counts only: no IP addresses or content. Read by /api/stats.
+async function recordStat(env, name, day) {
+  if (!env.LIMITS) return;
+  try {
+    const key = `stats:${name}:${day}`;
+    const n = await env.LIMITS.get(key);
+    await env.LIMITS.put(key, String(Number(n || 0) + 1), { expirationTtl: 60 * 60 * 24 * 90 });
+  } catch (e) { console.error("stats: KV write failed", e && e.message); }
 }
 
 // Count a check against the limits only once it has actually produced an answer,
@@ -63,6 +80,7 @@ async function countCheck(env, ip, mode) {
   try {
     const [site, mine] = await Promise.all([env.LIMITS.get(siteKey), env.LIMITS.get(ipKey)]);
     await Promise.all([env.LIMITS.put(siteKey, String(Number(site || 0) + 1), ttl), env.LIMITS.put(ipKey, String(Number(mine || 0) + 1), ttl)]);
+    await recordStat(env, mode === "claim" ? "factchecks" : "checks", day);
   } catch (e) { console.error("limits: KV write failed", e && e.message); }
 }
 
