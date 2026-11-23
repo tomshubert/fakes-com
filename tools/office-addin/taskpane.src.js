@@ -44,7 +44,7 @@ function render(d) {
     ${list("Reassuring signs", d.reassuring_signs)}
     ${list("What to do", d.what_to_do)}
     ${d.how_to_verify ? `<h3>How to check for sure</h3><p>${esc(d.how_to_verify)}</p>` : ""}
-    <p class="who">${d.verdict === "likely_scam" || d.verdict === "suspicious" ? "Your IT person has been notified. " : ""}${esc(d.org || "")}</p>`);
+    <p class="who">${d.cached ? "Already checked (saved result). " : ""}${(d.verdict === "likely_scam" || d.verdict === "suspicious") && !d.cached ? "Your IT person has been notified. " : ""}${esc(d.org || "")}</p>`);
 }
 
 async function run() {
@@ -75,9 +75,16 @@ async function run() {
   } finally { $("again").disabled = false; }
 }
 
+// When the panel is pinned and the person moves to another email, don't check it automatically:
+// show a button instead, so checks only happen on purpose.
+function ready() {
+  $("again").textContent = "Check this email";
+  show("status", "Click <b>Check this email</b> to check the email that's open now.");
+}
+
 Office.onReady(() => {
-  $("again").addEventListener("click", run);
+  $("again").addEventListener("click", () => { $("again").textContent = "Check again"; run(); });
   if (Office.context.mailbox.addHandlerAsync && Office.EventType.ItemChanged)
-    Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, () => { if (Office.context.mailbox.item) run(); });
+    Office.context.mailbox.addHandlerAsync(Office.EventType.ItemChanged, () => { if (Office.context.mailbox.item) ready(); });
   run();
 });

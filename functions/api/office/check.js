@@ -7,7 +7,7 @@ import { runCheck } from "../../../lib/checker.js";
 import { verifyMsIdToken } from "../../../lib/msauth.js";
 
 const MAX_EML_B64 = 1_400_000;   // about 1 MB of email
-const PER_USER_PER_DAY = 50;     // safety net only
+const PER_USER_PER_DAY = 25;     // safety net only
 
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json", "cache-control": "no-store" } });
@@ -82,6 +82,18 @@ async function handle({ request, env, waitUntil }) {
   if (Number((await env.LIMITS.get(todayKey)) || 0) >= PER_USER_PER_DAY)
     return json({ error: `You've checked ${PER_USER_PER_DAY} emails today, the daily limit. Please try again tomorrow or ask your IT person.` }, 429);
 
+  // Same email checked again (by this person or a coworker): answer from the saved verdict. Free, and not
+  // counted, so clicking around doesn't cost anything. Only the verdict is kept, keyed by a hash of the
+  // email's Message-ID, for 30 days.
+  const msgId = headerOf(raw, "message-id");
+  let cacheKey = "";
+  if (msgId) {
+    const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(claims.tid + "|" + msgId));
+    cacheKey = "office:verdict:" + [...new Uint8Array(h)].slice(0, 16).map(b => b.toString(16).padStart(2, "0")).join("");
+    const hit = await env.LIMITS.get(cacheKey);
+    if (hit) { try { return json({ ...JSON.parse(hit), org, user: claims.name || "", cached: true }); } catch {} }
+  }
+
   const out = await runCheck(env, { mode: "message", text: "", images: [], pdf: "", email: raw, att: null }, OFFICE_NOTE);
   if (out.status !== 200 || out.body.error) return json(out.body, out.status);
 
@@ -92,6 +104,7 @@ async function handle({ request, env, waitUntil }) {
   if (!(await env.LIMITS.get(nameKey)))
     await env.LIMITS.put(nameKey, `${claims.name || ""} <${claims.preferred_username || claims.email || ""}>`.trim().slice(0, 200), { expirationTtl: 60 * 60 * 24 * 400 });
 
+  if (cacheKey) await env.LIMITS.put(cacheKey, JSON.stringify(out.body), { expirationTtl: 60 * 60 * 24 * 30 });
   const v = out.body.verdict;
   if (v === "likely_scam" || v === "suspicious") {
     const p = alertAdmin(env, {
