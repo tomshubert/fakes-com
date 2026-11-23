@@ -62,6 +62,10 @@ Guides live in `content/verify/<brand-product>.html` and are published at /verif
 - Money: Tom puts all Fakes.com earnings back into running the site. Income and costs are tracked in the "Fakes.com Money Ledger" Sheet (https://claude.ai/artifact/JEpW5e2MWpNDYpZvJY8NKg); the Monday inbox check logs commissions, payouts and renewals there. Only fakes.com costs go in it (the PO Box belongs to Tom's IT consulting and is not a Fakes cost). The checker's API key (fakes-com-checker, Console org "Tom's Individual Org") is paid by the $100/month API credits included in Tom's Max plan, linked Nov 22, 2026; a $14.26 prepaid balance is the backup and auto-reload is off. Checker limits (functions/api/check.js): 10 checks and 3 fact-checks per visitor per day, 500 and 30 for the whole site. https://fakes.com/api/stats gives daily counts of checks and limit hits (counts only, from Nov 23, 2026); the Monday inbox check reports them. Only Tom changes the limits.
 - Affiliate links never go in alerts, viral fakes or checker results. The `impact-site-verification` meta tag in build.py proves site ownership to Impact; don't remove it.
 
+## Guide queue
+Topics Tom asked for. The weekly search-guide task takes the first one here (then removes it from this list in the same commit) before choosing its own topic.
+- Consent phishing: a real Microsoft sign-in page asks you to "Accept" an app that wants your mail and files (illicit consent grant). Sources: Microsoft Learn (consent phishing, user consent settings, admin consent workflow), CISA/FBI if available. Audience: small offices and their staff.
+
 ## Off limits
 - Client names, Tom's rates or billing details, and Tom's personal email addresses never appear on the site.
 - Never sell, promote or link to counterfeit goods.
