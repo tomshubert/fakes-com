@@ -62,6 +62,13 @@ Guides live in `content/verify/<brand-product>.html` and are published at /verif
 - Money: Tom puts all Fakes.com earnings back into running the site. Income and costs are tracked in the "Fakes.com Money Ledger" Sheet (https://claude.ai/artifact/JEpW5e2MWpNDYpZvJY8NKg); the Monday inbox check logs commissions, payouts and renewals there. Only fakes.com costs go in it (the PO Box belongs to Tom's IT consulting and is not a Fakes cost). The checker's API key (fakes-com-checker, Console org "Tom's Individual Org") is paid by the $100/month API credits included in Tom's Max plan, linked Nov 22, 2026; a $14.26 prepaid balance is the backup and auto-reload is off. Checker limits (functions/api/check.js): 10 checks and 3 fact-checks per visitor per day, 500 and 30 for the whole site. https://fakes.com/api/stats gives daily counts of checks and limit hits (counts only, from Nov 23, 2026); the Monday inbox check reports them. Only Tom changes the limits.
 - Affiliate links never go in alerts, viral fakes or checker results. The `impact-site-verification` meta tag in build.py proves site ownership to Impact; don't remove it.
 
+## Office plan (pilot)
+- Outlook add-in "Check with Fakes" for offices: office/addin/ (manifest.xml, task pane; source in tools/office-addin/), API functions/api/office/ (check, config, usage), shared checker lib/checker.js, Microsoft token check lib/msauth.js. Served at office.fakes.com (functions/_middleware.js maps / to /office/).
+- Microsoft Entra app "Fakes.com Check" in the Fakes.com tenant (fafe5285-5a1b-465e-9090-3be6a6e45243), client ID cba71fe9-c223-42f6-acc9-d9355b862dbe. Only organizations listed in the Cloudflare setting OFFICE_TENANTS (tenant ID -> client name) are served; client names live only there, never in the repo or on the site.
+- Usage: per user per month counts in KV (office:use:*), user names in office:name:*; no email content is stored. Tom's usage page: office.fakes.com/office/admin (Fakes.com admin sign-in). The Monday report reads /api/office/usage with the report key.
+- Scam alerts go to OFFICE_ALERT_EMAIL (subject starts "[Fakes Office]").
+- _routes.json + functions/_middleware.js keep private repo files (CLAUDE.md, build.py, tools/, lib/, content/, functions/) from being served. Keep new private folders on that list.
+
 ## Guide queue
 Topics Tom asked for. The weekly search-guide task takes the first one here (then removes it from this list in the same commit) before choosing its own topic.
 - Consent phishing: a real Microsoft sign-in page asks you to "Accept" an app that wants your mail and files (illicit consent grant). Sources: Microsoft Learn (consent phishing, user consent settings, admin consent workflow), CISA/FBI if available. Audience: small offices and their staff.
