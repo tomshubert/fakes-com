@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fakes.com Check</title>
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<style>
+:root{--paper:#f4f8fc;--card:#fff;--ink:#0f1d30;--ink2:#4a5c72;--rule:#c2d4e8;--blue:#1f63a8;--bad:#b8381c;--badsoft:#f8e4dd;--good:#1d6a57;--goodsoft:#dcefe7;--warn:#8a5a00;--warnsoft:#fbefd2}
+@media (prefers-color-scheme: dark){:root{--paper:#0b1521;--card:#101c2b;--ink:#e6eef7;--ink2:#9fb1c6;--rule:#26394f;--blue:#7db4ea;--bad:#ef7d5e;--badsoft:#3a1f17;--good:#62c2a1;--goodsoft:#13302a;--warn:#e8b04a;--warnsoft:#33270f;color-scheme:dark}}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,sans-serif}
+header{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:2px solid var(--ink)}
+header img{width:22px;height:22px}
+header b{font-size:15px;letter-spacing:.02em}
+main{padding:14px 16px 24px}
+#status{color:var(--ink2)}
+.err{color:var(--bad)}
+.spin{display:inline-block;width:14px;height:14px;margin-right:8px;vertical-align:-2px;border:2px solid var(--rule);border-top-color:var(--blue);border-radius:50%;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.spin{animation:none}}
+.verdict{border-radius:6px;padding:12px 14px;margin-bottom:10px}
+.verdict .label{font-weight:700;font-size:18px}
+.verdict .sub{font-size:13px}
+.bad{background:var(--badsoft);color:var(--bad)}
+.warn{background:var(--warnsoft);color:var(--warn)}
+.good{background:var(--goodsoft);color:var(--good)}
+.headline{font-weight:600;margin:6px 0 10px}
+h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin:14px 0 4px}
+ul{margin:0;padding-left:18px}
+li{margin:3px 0}
+.who{font-size:12px;color:var(--ink2);margin-top:16px}
+button{margin-top:16px;font:inherit;padding:7px 14px;border-radius:4px;border:1px solid var(--rule);background:var(--card);color:var(--ink);cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+footer{font-size:12px;color:var(--ink2);padding:0 16px 16px}
+</style>
+</head>
+<body>
+<header><img src="icon-64.png" alt=""><b>FAKES.COM CHECK</b></header>
+<main>
+  <div id="status"><span class="spin"></span>Starting…</div>
+  <div id="result" hidden></div>
+  <button id="again" type="button">Check again</button>
+</main>
+<footer>The email is checked and then discarded. Fakes.com keeps only a count for billing.</footer>
+<script src="taskpane.js"></script>
+</body>
+</html>
