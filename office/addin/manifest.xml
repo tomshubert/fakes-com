@@ -28,7 +28,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://office.fakes.com/office/addin/taskpane.html"/>
+        <SourceLocation DefaultValue="https://office.fakes.com/office/addin/taskpane"/>
         <RequestedHeight>450</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -80,7 +80,7 @@
           <bt:Image id="icon80" DefaultValue="https://office.fakes.com/office/addin/icon-80.png"/>
         </bt:Images>
         <bt:Urls>
-          <bt:Url id="taskpaneUrl" DefaultValue="https://office.fakes.com/office/addin/taskpane.html"/>
+          <bt:Url id="taskpaneUrl" DefaultValue="https://office.fakes.com/office/addin/taskpane"/>
         </bt:Urls>
         <bt:ShortStrings>
           <bt:String id="groupLabel" DefaultValue="Fakes.com"/>
