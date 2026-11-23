@@ -65,6 +65,7 @@ Guides live in `content/verify/<brand-product>.html` and are published at /verif
 ## Guide queue
 Topics Tom asked for. The weekly search-guide task takes the first one here (then removes it from this list in the same commit) before choosing its own topic.
 - Consent phishing: a real Microsoft sign-in page asks you to "Accept" an app that wants your mail and files (illicit consent grant). Sources: Microsoft Learn (consent phishing, user consent settings, admin consent workflow), CISA/FBI if available. Audience: small offices and their staff.
+- For owners and admins: "Is your office's Microsoft 365 set up to block scam apps?" User consent settings (allow only verified publishers and low-impact permissions, or no user consent), the admin consent request workflow, and reviewing Enterprise applications for unknown apps with mail or file access. Sources: Microsoft Learn. Plain steps, no jargon without explanation. Link to the consent phishing guide.
 
 ## Off limits
 - Client names, Tom's rates or billing details, and Tom's personal email addresses never appear on the site.
