@@ -1,5 +1,35 @@
 [
   {
+    "id": "2026-11-23-ai-gordons-bay-waves",
+    "date": "2026-11-23",
+    "kind": "AI video",
+    "verdict": "Fake",
+    "title": "Huge waves flooding Gordon's Bay, South Africa",
+    "summary": "A video shared on Threads claimed to show powerful waves surging over the beachfront at Gordon's Bay, South Africa. Lead Stories found it was made with AI, and an earlier TikTok copy carried an AI-generated label.",
+    "tell": "Look closely: cars sit on top of houses, no people are around, and the flooded buildings show no damage.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 23, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-fake-video-shows-gordons-bay-being-flooded-by-powerful-waves-ai.html"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-23-ai-sea-worm-cruise-ship",
+    "date": "2026-11-23",
+    "kind": "AI video",
+    "verdict": "Fake",
+    "title": "Giant sea worm rising behind a cruise ship",
+    "summary": "A video on X claimed to show an enormous worm-like creature rising from the ocean behind a cruise ship. Lead Stories found AI detection tools rated it very likely AI-made, and no news outlet reported any such sighting.",
+    "tell": "The creature looks like the sandworm from the movie Dune, and a news search turns up no reports of it.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 23, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-fake-video-showing-giant-sea-worm-attacking-cruise-ship-ai-generated.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-20-ai-cranston-gta-photos",
     "date": "2026-11-20",
     "kind": "AI photo",
@@ -150,38 +180,5 @@
       }
     ],
     "image": "https://leadstories.com/caption_3500179.jpg"
-  },
-  {
-    "id": "2026-11-06-landmarks-lit-blue",
-    "date": "2026-11-06",
-    "kind": "AI photo",
-    "verdict": "Fake",
-    "title": "Colosseum and Eiffel Tower lit blue for the midterms",
-    "summary": "Photos claimed the Colosseum and Eiffel Tower were lit blue for Democratic midterm wins. Lead Stories found they were made with AI.",
-    "tell": "Neither landmark's own website or social media showed any such lighting.",
-    "sources": [
-      {
-        "name": "Lead Stories (Nov 6, 2026)",
-        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-images-of-colosseum-and-eiffel-tower-turned-blue-for-2026-midterms-are-not-real-photos.html"
-      }
-    ],
-    "political": true,
-    "image": "https://leadstories.com/caption_3500141.jpg"
-  },
-  {
-    "id": "2026-11-05-old-voter-registration-video",
-    "date": "2026-11-05",
-    "kind": "Old video, new claim",
-    "verdict": "Misleading",
-    "title": "Pennsylvania voter registration \"scheme\" video",
-    "summary": "A post said a video proved 2026 voter registration fraud in Pennsylvania. Lead Stories found it was a 2024 press conference about the previous election.",
-    "tell": "Check when a video was first posted. Old clips with new captions are a common trick.",
-    "sources": [
-      {
-        "name": "Lead Stories (Nov 5, 2026)",
-        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-video-does-not-prove-2026-massive-voter-registration-fraud-scheme-in-pennsylvania.html"
-      }
-    ],
-    "political": true
   }
 ]

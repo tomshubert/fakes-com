@@ -1,5 +1,38 @@
 [
   {
+    "id": "2026-11-24-fake-fdic-ftc-move-money",
+    "date": "2026-11-24",
+    "channels": [
+      "Phone",
+      "Text"
+    ],
+    "title": "Fake FDIC or FTC calls telling you to move money",
+    "summary": "The Bossier Sheriff's Office in Louisiana says scammers are calling and texting while pretending to be from the FDIC or the FTC. They try to get people to transfer money, move it to another bank account, or share financial details. Neither agency contacts people to tell them to move or withdraw money to keep it safe.",
+    "what_to_do": "Stop responding and don't share account numbers, passwords or codes; check by calling your bank or the agency at a number from its official website, not one in the message.",
+    "sources": [
+      {
+        "name": "Shreveport-Bossier Journal, reporting the Bossier Sheriff's Office (La.) warning (Nov 24, 2026)",
+        "url": "https://shreveportbossierjournal.com/2026/11/24/bossier-sheriffs-office-warns-residents-of-scammers-impersonating-federal-agencies/"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-23-fake-dmv-ticket-texts-appleton",
+    "date": "2026-11-23",
+    "channels": [
+      "Text"
+    ],
+    "title": "Fake DMV texts about unpaid traffic tickets",
+    "summary": "The Better Business Bureau and Appleton (Wis.) police say more people are getting fake DMV texts claiming they owe money for a traffic ticket. The messages threaten a suspended license or arrest unless you pay right away, often in cryptocurrency or gift cards. Police say government agencies never ask to be paid that way.",
+    "what_to_do": "Don't reply or tap the link; if you think you might owe something, check with the agency through its official website or a phone number you look up yourself.",
+    "sources": [
+      {
+        "name": "WFRV via Yahoo News, reporting the Appleton (Wis.) Police Department and Better Business Bureau warning (Nov 23, 2026)",
+        "url": "https://yahoo.com/news/articles/unpaid-traffic-ticket-wisconsin-police-220926857.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-23-spoofed-police-number-password-calls",
     "date": "2026-11-23",
     "channels": [
@@ -372,7 +405,7 @@
       "Phone"
     ],
     "title": "Callers posing as deputies or police threaten arrest",
-    "summary": "Sheriff's offices and police departments are warning about callers who pretend to be deputies or officers, say you have a warrant or missed jury duty, and threaten arrest unless money is sent, sometimes as Bitcoin or a prepaid \"bond.\" Some use a real officer's name or fake the caller ID. Police in Texas, North Carolina, South Carolina, Connecticut, Pennsylvania and New Jersey have warned about this, and all say officers never demand payment by phone to clear a warrant.",
+    "summary": "Sheriff's offices and police departments are warning about callers who pretend to be deputies or officers, say you have a warrant or missed jury duty, and threaten arrest unless money is sent, sometimes as Bitcoin or a prepaid \"bond.\" Some use a real officer's name or fake the caller ID. Police in Texas, North Carolina, South Carolina, Connecticut, Pennsylvania, New Jersey and Missouri have warned about this, and all say officers never demand payment by phone to clear a warrant.",
     "what_to_do": "Hang up, don't send money, gift cards or cryptocurrency, and call the department at a number you look up yourself, not one the caller gives you.",
     "sources": [
       {
@@ -410,6 +443,14 @@
       {
         "name": "WHTM abc27 via Yahoo News, reporting the Gettysburg (Pa.) Police warning (Nov 22, 2026)",
         "url": "https://www.yahoo.com/news/articles/gettysburg-police-issue-scam-alert-145958115.html"
+      },
+      {
+        "name": "St. Joseph News-Press via Yahoo News, reporting the Buchanan County (Mo.) Sheriff's Office warning (Nov 20, 2026)",
+        "url": "https://www.yahoo.com/news/articles/buchanan-county-sheriff-warns-phone-045900809.html"
+      },
+      {
+        "name": "KWES via Yahoo News, reporting the Jeff Davis County Sheriff's Office warning (Nov 21, 2026)",
+        "url": "https://www.yahoo.com/news/articles/jeff-davis-county-sheriffs-office-220428277.html"
       }
     ]
   },
