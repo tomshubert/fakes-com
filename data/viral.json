@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-11-24-iowa-lead-fallout-snow-map",
+    "date": "2026-11-24",
+    "kind": "Mislabeled map",
+    "verdict": "Fake",
+    "title": "Map of lead fallout from the Iowa Army plant blast",
+    "summary": "A map shared on X claimed to show where lead dust would fall after the Army's planned detonation at the Iowa Army Ammunition Plant. Lead Stories found it was a snowfall forecast from a college weather-model site and matched neither the Army's maps nor one AP published.",
+    "tell": "The map's own title says it shows snowfall, and NAM is a NOAA weather model, not a military one.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 24, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-map-does-not-show-projected-lead-fallout-from-iowa-army-ammunition-plant-explosion-snowfall-accumulation-prediction.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-23-ai-gordons-bay-waves",
     "date": "2026-11-23",
     "kind": "AI video",
@@ -164,21 +179,5 @@
         "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-nvidia-ceo-jensen-huang-did-not-say-intelligent-people-never-waste-their-time-focusing-women.html"
       }
     ]
-  },
-  {
-    "id": "2026-11-12-veterans-day-ai-video",
-    "date": "2026-11-12",
-    "kind": "AI video",
-    "verdict": "Fake",
-    "title": "Saluting veteran at a Veterans Day parade",
-    "summary": "A video of a scarred veteran being saluted at a parade was shared as real. Lead Stories found it was made with AI.",
-    "tell": "Drumsticks vanish, medals melt into the uniform and the flag's stripes change width.",
-    "sources": [
-      {
-        "name": "Lead Stories (Nov 12, 2026)",
-        "url": "https://hoax-alert.leadstories.com/2026/11/fact-check-video-of-saluting-scarred-veteran-is-not-real-footage-of-veterans-day-parade.html"
-      }
-    ],
-    "image": "https://leadstories.com/caption_3500179.jpg"
   }
 ]

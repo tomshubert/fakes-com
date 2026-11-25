@@ -1,5 +1,43 @@
 [
   {
+    "id": "2026-11-25-counterfeit-stamps-usps",
+    "date": "2026-11-25",
+    "channels": [
+      "Social media",
+      "Online",
+      "Mail"
+    ],
+    "title": "Cheap stamps sold online are often fake",
+    "summary": "The Postal Service is warning holiday mailers about counterfeit stamps sold in bulk on social media and shopping sites, often at 20 to 50 percent off. The Postal Inspection Service says USPS never sells stamps below face value, and mail with fake postage can be treated as abandoned and never delivered.",
+    "what_to_do": "Buy stamps only from the Post Office, the USPS website or an approved postal provider, and skip any seller offering deep discounts. You can report fake stamp sellers to the Postal Inspection Service.",
+    "sources": [
+      {
+        "name": "U.S. Postal Inspection Service: Counterfeit Postage",
+        "url": "https://www.uspis.gov/news/scam-article/counterfeit-postage"
+      },
+      {
+        "name": "Newsweek, reporting the U.S. Postal Service holiday scam warning (Nov 25, 2026)",
+        "url": "https://www.newsweek.com/usps-warns-scam-red-flags-holiday-season-12766212"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-24-spoofed-city-medicare-calls-okc",
+    "date": "2026-11-24",
+    "channels": [
+      "Phone"
+    ],
+    "title": "Calls from a faked city number about Medicare",
+    "summary": "Oklahoma City police say scammers are faking City of Oklahoma City phone numbers on caller ID and claiming to call from the city to sign people up for Medicare. They try to get Social Security and Medicare numbers, bank details and verification codes.",
+    "what_to_do": "Don't share personal details or codes or agree to Medicare changes on an unexpected call, even if caller ID looks official; hang up and call the city or 1-800-MEDICARE yourself.",
+    "sources": [
+      {
+        "name": "KOKH Fox 25, reporting the Oklahoma City Police Department warning (Nov 24, 2026)",
+        "url": "https://okcfox.com/news/local/new-phone-scam-spoofs-city-of-okc-numbers-to-steal-personal-details-police-say"
+      }
+    ]
+  },
+  {
     "id": "2026-11-24-fake-fdic-ftc-move-money",
     "date": "2026-11-24",
     "channels": [
@@ -23,12 +61,16 @@
       "Text"
     ],
     "title": "Fake DMV texts about unpaid traffic tickets",
-    "summary": "The Better Business Bureau and Appleton (Wis.) police say more people are getting fake DMV texts claiming they owe money for a traffic ticket. The messages threaten a suspended license or arrest unless you pay right away, often in cryptocurrency or gift cards. Police say government agencies never ask to be paid that way.",
+    "summary": "The Better Business Bureau and Appleton (Wis.) police say more people are getting fake DMV texts claiming they owe money for a traffic ticket. The messages threaten a suspended license or arrest unless you pay right away, often in cryptocurrency or gift cards. Police say government agencies never ask to be paid that way. Police in Plum, Pennsylvania, say residents are getting similar texts about a citation and fine that threaten late fees and a suspended license.",
     "what_to_do": "Don't reply or tap the link; if you think you might owe something, check with the agency through its official website or a phone number you look up yourself.",
     "sources": [
       {
         "name": "WFRV via Yahoo News, reporting the Appleton (Wis.) Police Department and Better Business Bureau warning (Nov 23, 2026)",
         "url": "https://yahoo.com/news/articles/unpaid-traffic-ticket-wisconsin-police-220926857.html"
+      },
+      {
+        "name": "WPXI, reporting the Plum (Pa.) Police Department warning (Nov 24, 2026)",
+        "url": "https://www.wpxi.com/news/local/plum-police-warn-residents-ongoing-text-scam/2ETFCHYBD5BSTKWGVVZ4TSVK3I/"
       }
     ]
   },
@@ -461,7 +503,7 @@
       "Phone"
     ],
     "title": "Fake jail calls asking for a fee to free a relative",
-    "summary": "Court officials and the sheriff's office in Boone County, Missouri, say scammers are using public jail rosters to find people in custody, then calling their family and friends while pretending to be jail, police or court staff. The callers say the person can go home on electronic monitoring once an upfront fee for an ankle device is paid, sometimes naming real judges and booking details, and press for quick payment by payment app, cryptocurrency or gift card. Police in Richland, Washington, have warned about a similar version that sends official-looking court papers with electronic monitoring prices and asks for payment by Chime barcode.",
+    "summary": "Court officials and the sheriff's office in Boone County, Missouri, say scammers are using public jail rosters to find people in custody, then calling their family and friends while pretending to be jail, police or court staff. The callers say the person can go home on electronic monitoring once an upfront fee for an ankle device is paid, sometimes naming real judges and booking details, and press for quick payment by payment app, cryptocurrency or gift card. Police in Richland, Washington, have warned about a similar version that sends official-looking court papers with electronic monitoring prices and asks for payment by Chime barcode. In Cassia County, Idaho, the sheriff's office says callers pose as probation officers and offer a discount for paying right away.",
     "what_to_do": "Hang up and check on the person by calling the jail or court at a number you look up yourself. Court officials don't call asking for money and don't accept gift cards, payment apps or wire transfers.",
     "sources": [
       {
@@ -471,6 +513,10 @@
       {
         "name": "Tri-City Herald via Yahoo News, reporting the Richland (Wash.) Police warning (Nov 22, 2026)",
         "url": "https://www.yahoo.com/news/articles/tri-cities-police-warn-scammers-130000300.html"
+      },
+      {
+        "name": "KTVB via Yahoo News, reporting the Cassia County (Idaho) Sheriff's Office warning (Nov 24, 2026)",
+        "url": "https://www.yahoo.com/news/articles/cassia-county-sheriffs-office-warns-231921408.html"
       }
     ]
   },
