@@ -1,0 +1,64 @@
+<!--
+title: A Real Microsoft Page Asks You to "Accept" an App? How to Spot Consent Phishing
+description: Consent phishing uses a genuine Microsoft sign-in page to get you to give a scam app access to your work email and files. Here's how to spot it and what to do.
+label: Business Scams
+updated: 2026-11-26
+-->
+<p>You click a link in an email, and a genuine Microsoft sign-in page opens. Nothing looks off. Then a box appears: an app "would like to" read your mail, see your files and keep that access. There's a big <b>Accept</b> button. If you click it, you may have just handed a stranger the keys to your work mailbox, without ever typing your password into a fake site.</p>
+<p>Microsoft calls this <b>consent phishing</b>. When the app gets access this way, Microsoft's security documentation calls it an <b>illicit consent grant</b>. Because the sign-in page is real, the usual advice about checking the web address doesn't help.</p>
+
+<div class="callout warn">
+  <h3>Why this one is different</h3>
+  <p>Microsoft says the usual fixes, such as resetting the password or turning on multi-factor authentication, don't work against an app you've already approved, because the app sits outside your organization and keeps its own access. The fix is to remove the app.</p>
+</div>
+
+<h2>How the scam works</h2>
+<ol>
+  <li><b>The criminal registers an app</b> with Microsoft, the same way legitimate software makers do. They can call it whatever they like, so the name proves nothing.</li>
+  <li><b>They send you a link,</b> usually in a phishing email, or plant it on a website you trust.</li>
+  <li><b>Microsoft shows you a permission request.</b> Because the request comes through Microsoft's real sign-in system, people tend to trust it and accept.</li>
+  <li><b>The app gets access</b> to whatever you approved: your email, contacts or documents. The criminal doesn't need your password or an account in your company to use it.</li>
+</ol>
+<p>For another scam aimed at office email, see our <a href="/guides/business-email-compromise">"email from the boss" guide</a>.</p>
+
+<h2>Warning signs on the permission screen</h2>
+<ul>
+  <li><b>You weren't expecting it.</b> You clicked a link in an email, not something you went looking for.</li>
+  <li><b>The permissions don't fit the app.</b> For example, an app that claims to open one document has no reason to read and send your mail or open all your files. Microsoft says to check whether what's requested matches what the app is for.</li>
+  <li><b>No verified publisher.</b> Microsoft says not to treat an app's name or web address as proof it's legitimate. Look at who published it and prefer apps marked as from a verified publisher. Even then, read the permissions.</li>
+  <li><b>Spelling or grammar mistakes</b> in the email or on the consent screen.</li>
+</ul>
+<p>When in doubt, don't click Accept. Close the window and ask whoever handles IT for your office. If the prompt looks suspicious, Microsoft's consent screen has a <b>Report it here</b> link for reporting it.</p>
+
+<div class="callout ok">
+  <h3>Tom's advice</h3>
+  <p>Treat "Accept" like handing over a key. If you didn't go looking for the app yourself, the answer is no until someone in your office confirms it. And if you own or run the office, ask your IT person to stop staff from approving unknown apps on their own. It's a setting, and it takes minutes.</p>
+</div>
+
+<h2>What to do if you clicked Accept</h2>
+<ol>
+  <li><b>Tell your IT person or office manager right away.</b> They can check what the app can reach and remove it for you.</li>
+  <li><b>Check your own apps.</b> In a work or school Microsoft account, go to the My Apps portal at myapplications.microsoft.com. Hover over the app, select the three dots, then <b>Manage your application</b>. Permissions you approved yourself are at the top, and <b>Revoke Permissions</b> removes them. Microsoft notes that this may stop the app from working, which is what you want for a scam app.</li>
+  <li><b>Don't stop at a password change.</b> As noted above, it doesn't cut off an app you already approved.</li>
+</ol>
+
+<h2>For owners and whoever runs IT</h2>
+<p>Microsoft's own guidance for admins comes down to a few steps:</p>
+<ul>
+  <li><b>Limit what staff can approve.</b> By default, users can approve many apps on their own. Microsoft recommends allowing user consent only for apps from verified publishers, and its setting "Allow user consent for apps from verified publishers, for selected permissions" also limits it to low-impact permissions. You can also turn user consent off entirely.</li>
+  <li><b>Turn on the admin consent workflow,</b> so staff who are blocked can send a request to a reviewer instead of finding a workaround. They get an email when it's approved or denied.</li>
+  <li><b>Review apps regularly.</b> In the Microsoft Entra admin center, each user's <b>Applications</b> list shows apps with access, and you can remove one from there. The audit log records each "Consent to application" event.</li>
+  <li><b>Remember older approvals stay.</b> Changing the consent setting only affects future approvals. Apps already granted access keep it until you remove them.</li>
+</ul>
+<p>Got an email with a link that brought you here? Paste it into the <a href="/check">Is it fake? checker</a> before you click anything else.</p>
+
+<div class="sources">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/protect-against-consent-phishing">Microsoft Learn: Protect against consent phishing</a> (updated Oct. 2026)</li>
+    <li><a href="https://learn.microsoft.com/en-us/defender-office-365/detect-and-remediate-illicit-consent-grants">Microsoft Learn: Detect and remediate illicit consent grants</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-user-consent">Microsoft Learn: Configure how users consent to applications</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-admin-consent-workflow">Microsoft Learn: Configure the admin consent workflow</a></li>
+    <li><a href="https://support.microsoft.com/en-us/account-billing/edit-or-revoke-application-permissions-in-the-my-apps-portal-169be2b4-ee26-4338-aea8-d19bb2f329ee">Microsoft Support: Edit or revoke application permissions in the My Apps portal</a></li>
+  </ul>
+</div>
