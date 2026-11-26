@@ -1,5 +1,35 @@
 [
   {
+    "id": "2026-11-25-ozark-cave-missing-jet",
+    "date": "2026-11-25",
+    "kind": "False rumor",
+    "verdict": "Fake",
+    "title": "Jet missing for 13 years found in an Ozark cave",
+    "summary": "A post made to look like a Branson, Missouri, TV news report claimed a jet that vanished in 2013 with 212 people aboard was found inside an Ozark Mountains cave. Lead Stories found the story started on a Facebook satire page, and Google's SynthID detector flagged the image as made with AI.",
+    "tell": "The \"news station\" is a page whose own bio says it is satire, and no real outlet reported the find.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 25, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-fake-story-about-ozark-cave-discovery-of-plane-that-vanished-13-years-ago-carrying-212-people.html"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-25-ai-harry-meghan-shove",
+    "date": "2026-11-25",
+    "kind": "AI video",
+    "verdict": "Fake",
+    "title": "Prince Harry shoving Meghan outside Buckingham Palace",
+    "summary": "A viral video claimed to show Prince Harry shoving Meghan Markle while holding their daughter outside Buckingham Palace. Lead Stories found signs of AI throughout and no reports of any such incident from established news outlets.",
+    "tell": "Watch the hands and car door: they warp and melt into each other, and the child seems to float with nothing holding her.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 25, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-fake-video-shows-harry-shoving-meghan-markle-while-holding-lilibet-is-ai-generated-no-reports-of-public-conflict.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-24-iowa-lead-fallout-snow-map",
     "date": "2026-11-24",
     "kind": "Mislabeled map",
@@ -147,36 +177,6 @@
       {
         "name": "Lead Stories (Nov 16, 2026)",
         "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-king-charles-did-not-make-urgent-announcement-about-his-son.html"
-      }
-    ]
-  },
-  {
-    "id": "2026-11-14-airport-ground-stop-ai-video",
-    "date": "2026-11-14",
-    "kind": "AI video",
-    "verdict": "Fake",
-    "title": "Travelers sleeping in a U.S. airport during the ground stop",
-    "summary": "A viral clip was shared as showing crowds sleeping in an American airport during the nationwide FAA ground stop on Nov. 13. Lead Stories found the video was most likely made with AI and is not real footage.",
-    "tell": "Look for odd details: piles of bedroom pillows, two identical women in matching pink hoodies, bodies blending together, and soda-brand posters announcing cancellations.",
-    "sources": [
-      {
-        "name": "Lead Stories (Nov 14, 2026)",
-        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-viral-clip-does-not-show-real-footage-of-american-airport-during-ground-stop.html"
-      }
-    ]
-  },
-  {
-    "id": "2026-11-12-jensen-huang-fake-quote",
-    "date": "2026-11-12",
-    "kind": "False rumor",
-    "verdict": "Fake",
-    "title": "Jensen Huang quote about \"focusing on women\"",
-    "summary": "A meme quoted Nvidia CEO Jensen Huang saying smart people don't waste time focusing on women. Lead Stories found no evidence he ever said it and no news coverage of the remark.",
-    "tell": "The quote names no source, date or event, and no news outlet reported it.",
-    "sources": [
-      {
-        "name": "Lead Stories (Nov 12, 2026)",
-        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-nvidia-ceo-jensen-huang-did-not-say-intelligent-people-never-waste-their-time-focusing-women.html"
       }
     ]
   }

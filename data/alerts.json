@@ -1,5 +1,22 @@
 [
   {
+    "id": "2026-11-26-holiday-gift-card-emails-ny-ag",
+    "date": "2026-11-26",
+    "channels": [
+      "Email",
+      "Online"
+    ],
+    "title": "\"Free gift card\" holiday emails and surprise e-cards",
+    "summary": "New York Attorney General Letitia James says holiday emails promising exclusive deals or free gift cards are often phishing. Her office also warns about unexpected holiday e-cards or invitations, and about bargain websites that pile on delivery, processing or subscription fees.",
+    "what_to_do": "Don't click links or open attachments in an unexpected holiday email or e-card until you've confirmed who sent it. Before paying on an unfamiliar site, check for a working phone number and a real street address, and review every fee.",
+    "sources": [
+      {
+        "name": "New York Attorney General: Tips to avoid holiday shopping scams (Nov 24, 2026)",
+        "url": "https://ag.ny.gov/press-release/2026/attorney-general-james-issues-tips-new-yorkers-avoid-holiday-shopping-scams"
+      }
+    ]
+  },
+  {
     "id": "2026-11-25-counterfeit-stamps-usps",
     "date": "2026-11-25",
     "channels": [
@@ -19,7 +36,18 @@
         "name": "Newsweek, reporting the U.S. Postal Service holiday scam warning (Nov 25, 2026)",
         "url": "https://www.newsweek.com/usps-warns-scam-red-flags-holiday-season-12766212"
       }
-    ]
+    ],
+    "featured": {
+      "since": "2026-11-26",
+      "format": "social media ad",
+      "agency": "the U.S. Postal Service",
+      "sample": "Sponsored · Holiday mailing sale! 100 Forever stamps for half price. Bulk rolls, limited stock, ships today. Order at holidaystamps.example",
+      "tells": [
+        "Stamps offered well below face value, which USPS never does",
+        "Sold in bulk through a social media or shopping-site ad",
+        "Not sold by the Post Office, the USPS website or an approved postal provider"
+      ]
+    }
   },
   {
     "id": "2026-11-24-spoofed-city-medicare-calls-okc",
@@ -291,12 +319,16 @@
       "Phone"
     ],
     "title": "Calls claiming your card bought a gun",
-    "summary": "Quincy, Illinois, police say callers pretending to be a credit card company's fraud team claim your card was used to buy a firearm in another city. The charge never happened, and some people called don't even have a card from that company. The goal is to get personal details or card numbers, and in one case the caller had the person download Signal to talk to a fake FBI agent.",
+    "summary": "Quincy, Illinois, police say callers pretending to be a credit card company's fraud team claim your card was used to buy a firearm in another city. The charge never happened, and some people called don't even have a card from that company. The goal is to get personal details or card numbers, and in one case the caller had the person download Signal to talk to a fake FBI agent. The FBI's Boston office has warned about a version where a fake bank caller hands you to a fake FBI agent, the caller ID shows the FBI's real number, and you are pushed onto an encrypted messaging app.",
     "what_to_do": "Hang up and call the number on the back of your card to check for any fraud alert. Don't give personal information to someone who called you, and know that the FBI won't contact you through Signal.",
     "sources": [
       {
         "name": "Quincy Herald-Whig, reporting the Quincy (Ill.) Police Department warning (Nov 13, 2026)",
         "url": "https://whig.com/2026/11/13/quincy-police-warn-of-phone-scam-claiming-credit-card-was-used-to-buy-a-firearm/"
+      },
+      {
+        "name": "NBC 10 WJAR, reporting the FBI Boston Division warning (Nov 25, 2026)",
+        "url": "https://turnto10.com/financial/money-matters/money-matters-fbi-boston-warns-of-scam-calls-that-mimic-its-phone-number-november-25-2026"
       }
     ]
   },
@@ -503,7 +535,7 @@
       "Phone"
     ],
     "title": "Fake jail calls asking for a fee to free a relative",
-    "summary": "Court officials and the sheriff's office in Boone County, Missouri, say scammers are using public jail rosters to find people in custody, then calling their family and friends while pretending to be jail, police or court staff. The callers say the person can go home on electronic monitoring once an upfront fee for an ankle device is paid, sometimes naming real judges and booking details, and press for quick payment by payment app, cryptocurrency or gift card. Police in Richland, Washington, have warned about a similar version that sends official-looking court papers with electronic monitoring prices and asks for payment by Chime barcode. In Cassia County, Idaho, the sheriff's office says callers pose as probation officers and offer a discount for paying right away.",
+    "summary": "Court officials and the sheriff's office in Boone County, Missouri, say scammers are using public jail rosters to find people in custody, then calling their family and friends while pretending to be jail, police or court staff. The callers say the person can go home on electronic monitoring once an upfront fee for an ankle device is paid, sometimes naming real judges and booking details, and press for quick payment by payment app, cryptocurrency or gift card. Police in Richland, Washington, have warned about a similar version that sends official-looking court papers with electronic monitoring prices and asks for payment by Chime barcode. In Cassia County, Idaho, the sheriff's office says callers pose as probation officers and offer a discount for paying right away. Police in Perry, Georgia, say callers tell families of jail inmates that the jail is overcrowded and offer an ankle-monitor release for payment by Cash App or Chime.",
     "what_to_do": "Hang up and check on the person by calling the jail or court at a number you look up yourself. Court officials don't call asking for money and don't accept gift cards, payment apps or wire transfers.",
     "sources": [
       {
@@ -517,6 +549,10 @@
       {
         "name": "KTVB via Yahoo News, reporting the Cassia County (Idaho) Sheriff's Office warning (Nov 24, 2026)",
         "url": "https://www.yahoo.com/news/articles/cassia-county-sheriffs-office-warns-231921408.html"
+      },
+      {
+        "name": "13WMAZ via Yahoo News, reporting the Perry (Ga.) Police Department warning (Nov 25, 2026)",
+        "url": "https://www.yahoo.com/news/articles/perry-police-warn-scam-targeting-194825992.html"
       }
     ]
   },
