@@ -1,5 +1,20 @@
 [
   {
+    "id": "2026-11-26-ai-russell-brand-jail-video",
+    "date": "2026-11-26",
+    "kind": "AI video",
+    "verdict": "Fake",
+    "title": "Russell Brand being attacked in a British prison",
+    "summary": "A video shared on X claimed to show comedian Russell Brand being beaten by another inmate in a British prison, and said TMZ had published it. Lead Stories traced the clip to a fight video posted months earlier with a different caption, with Brand's face added using AI, and found no such video on TMZ.",
+    "tell": "The same footage was online in July under an unrelated title, and the outlet it credits never ran it.",
+    "sources": [
+      {
+        "name": "Lead Stories (Nov 26, 2026)",
+        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-video-of-russell-brand-assaulted-in-jail-is-fake.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-25-ozark-cave-missing-jet",
     "date": "2026-11-25",
     "kind": "False rumor",
@@ -164,20 +179,5 @@
       }
     ],
     "political": true
-  },
-  {
-    "id": "2026-11-16-king-charles-urgent-address",
-    "date": "2026-11-16",
-    "kind": "False rumor",
-    "verdict": "Fake",
-    "title": "King Charles's \"urgent address\" about his son",
-    "summary": "A website story claimed King Charles III gave a tearful emergency address about a tragedy involving his son, with a photo of him crying. Lead Stories found no such speech on the royal family's site or in the news, and detection tools flagged the photo as AI-made.",
-    "tell": "Read past the headline: the story's own text admits there's no verified evidence the address happened.",
-    "sources": [
-      {
-        "name": "Lead Stories (Nov 16, 2026)",
-        "url": "https://leadstories.com/hoax-alert/2026/11/fact-check-king-charles-did-not-make-urgent-announcement-about-his-son.html"
-      }
-    ]
   }
 ]

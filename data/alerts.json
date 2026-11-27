@@ -1,5 +1,38 @@
 [
   {
+    "id": "2026-11-27-small-business-impostors-ftc",
+    "date": "2026-11-27",
+    "channels": [
+      "Website",
+      "Search ad"
+    ],
+    "title": "Fake websites posing as local small businesses",
+    "summary": "Ahead of Small Business Saturday, the FTC warns that scammers pretend to be small businesses to take people's money. It describes copycat websites of local car dealerships, impostors posing as farm equipment sellers, and paid search ads that look like a real shop's but list the scammer's contact details.",
+    "what_to_do": "Scroll past the sponsored results to find a business's real website and phone number, and search its name with words like \"scam\" or \"complaint\" before you buy. Don't pay by wire transfer, gift card, cryptocurrency or a payment app.",
+    "sources": [
+      {
+        "name": "FTC: Buy from small businesses, not scammers, this Saturday (Nov 25, 2026)",
+        "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/buy-small-businesses-not-scammers-saturday"
+      }
+    ]
+  },
+  {
+    "id": "2026-11-27-fake-jail-release-calls-perry",
+    "date": "2026-11-27",
+    "channels": [
+      "Phone call"
+    ],
+    "title": "Calls offering early jail release for a fee",
+    "summary": "Police in Perry, Georgia, say scammers are calling families of people held at the county jail. The callers claim the jail is overcrowded and offer an early release on an ankle monitor if the family pays through Cash App, Chime or a similar service. The detention center does not make these calls or take payment this way.",
+    "what_to_do": "Hang up and call the jail or the district attorney's office yourself, using a number you look up. Never send money through a payment app to someone who calls about a relative's release.",
+    "sources": [
+      {
+        "name": "13WMAZ via Yahoo News, reporting the Perry (Ga.) Police Department warning (Nov 25, 2026)",
+        "url": "https://www.yahoo.com/news/articles/perry-police-warn-scam-targeting-194825992.html"
+      }
+    ]
+  },
+  {
     "id": "2026-11-26-holiday-gift-card-emails-ny-ag",
     "date": "2026-11-26",
     "channels": [
